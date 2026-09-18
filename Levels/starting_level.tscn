@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b3bl1gug2iyah" path="res://Assets/Walls.png" id="3_hss4j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_djvyk"]
-size = Vector2(320, 33)
+size = Vector2(244, 33)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_euswq"]
 size = Vector2(16, 51)
@@ -16,19 +16,19 @@ script = ExtResource("1_pqw28")
 start_marker = NodePath("Marker2D")
 
 [node name="Marker2D" type="Marker2D" parent="." unique_id=620127984]
-position = Vector2(-133, -57)
+position = Vector2(-101, -48)
 
 [node name="Floor" type="Node2D" parent="." unique_id=799185082]
 
 [node name="Sprite2D" type="Sprite2D" parent="Floor" unique_id=455922720]
+position = Vector2(-75, 0)
 texture = ExtResource("1_3cb5r")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Floor" unique_id=1804012781]
 script = ExtResource("3_dy3ns")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/StaticBody2D" unique_id=2142956983]
-visible = false
-position = Vector2(0, 73.5)
+position = Vector2(-37, 74)
 shape = SubResource("RectangleShape2D_djvyk")
 
 [node name="Walls" type="Node2D" parent="." unique_id=2065476380]

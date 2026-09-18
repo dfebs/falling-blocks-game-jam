@@ -7,8 +7,10 @@
 radius = 8.0
 height = 32.0
 
-[node name="Character" type="CharacterBody2D" unique_id=1569744773]
+[node name="Character" type="CharacterBody2D" unique_id=1569744773 node_paths=PackedStringArray("ray_cast_2d")]
+scale = Vector2(-1, 1)
 script = ExtResource("1_nwtvh")
+ray_cast_2d = NodePath("RayCast2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=837473621]
 texture = ExtResource("2_nwtvh")
@@ -16,3 +18,8 @@ texture = ExtResource("2_nwtvh")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1161947520]
 visible = false
 shape = SubResource("CapsuleShape2D_djvyk")
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=862157123]
+position = Vector2(16, 16)
+target_position = Vector2(0, 8)
+hit_from_inside = true
