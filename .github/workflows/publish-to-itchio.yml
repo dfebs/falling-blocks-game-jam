@@ -12,6 +12,7 @@ jobs:
     - id: step1
       run: |
         echo "test=$(curl -H 'Authorization: Bearer ${{ secrets.GH_CREDENTIALS }}' --location 'https://github.com/dfebs/falling-blocks-game-jam/releases/latest' | jq -r .name)" >> $GITHUB_OUTPUT
+        echo "test=$(curl -H 'Authorization: Bearer ${{ secrets.GH_CREDENTIALS }}' --location 'https://github.com/dfebs/falling-blocks-game-jam/releases/latest' | jq -r .name)"
   release_html:
     runs-on: ubuntu-latest
     needs: setup_job
