@@ -49,3 +49,11 @@ position = Vector2(152, 32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D2" unique_id=885039367]
 shape = SubResource("RectangleShape2D_euswq")
+
+[node name="Curve" type="Node2D" parent="." unique_id=894057245]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Curve" unique_id=1308296191]
+position = Vector2(-113, -32)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Curve/StaticBody2D" unique_id=287967480]
+polygon = PackedVector2Array(0, 0, 5, 17, 68, 70, 10, 48, -8, 24, -8, 7, -2, 0)

@@ -14,7 +14,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y += gravity * delta
 	
 	velocity.x = direction * MAX_SPEED
-	if is_on_floor() and not ray_cast_2d.is_colliding():
+	if is_on_floor() and not ray_cast_2d.is_colliding() and is_on_flat_ground():
 		velocity.y = JUMP_VELOCITY
 	
 	move_and_slide()
@@ -27,3 +27,7 @@ func _physics_process(delta: float) -> void:
 		if !(collider is Floor) and abs(collision.get_normal().x) > 0.7:
 			direction *= -1
 			scale *= Vector2(-1, 1)
+
+func is_on_flat_ground() -> bool:
+	var normal = get_floor_normal()
+	return abs(normal.x) < 0.05
