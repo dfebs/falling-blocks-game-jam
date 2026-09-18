@@ -24,6 +24,7 @@ finish = NodePath("Finish")
 position = Vector2(-37, -81)
 
 [node name="Floor" type="Node2D" parent="." unique_id=799185082]
+position = Vector2(-59, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Floor" unique_id=455922720]
 position = Vector2(25, 0)

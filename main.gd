@@ -59,3 +59,7 @@ static func dir_contents(path):
 		print("An error occurred when trying to access the path.")
 
 	return scene_loads
+
+
+func _on_button_pressed():
+	get_tree().reload_current_scene()
