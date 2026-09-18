@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://b5i88winme155" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="Texture2D" uid="uid://b73vlmvxou68b" path="res://Placeholder.png" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://wwp334i5k4wk" path="res://Levels/starting_level.tscn" id="3_h2yge"]
 
 [node name="Node2D" type="Node2D" unique_id=1118787975 node_paths=PackedStringArray("sprite_2d", "start_button")]
 script = ExtResource("1_0xm2m")
@@ -21,5 +20,3 @@ offset_top = -90.0
 offset_right = 80.0
 offset_bottom = -59.0
 text = "Start Game"
-
-[node name="StartingLevel" parent="." unique_id=1036830080 instance=ExtResource("3_h2yge")]
