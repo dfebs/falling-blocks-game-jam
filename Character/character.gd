@@ -1,12 +1,15 @@
 extends CharacterBody2D
+class_name DeliveryMan
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var MAX_SPEED = 50
 @export var direction = -1
 @export var ray_cast_2d: RayCast2D
 @export var JUMP_VELOCITY = -500
+var freeze = false
 
 func _physics_process(delta: float) -> void:
+	if freeze: return
 	if is_on_floor():
 		if velocity.y >= 0:
 			velocity.y = 0

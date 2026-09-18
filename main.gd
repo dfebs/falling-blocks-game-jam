@@ -3,8 +3,13 @@ class_name MainScript
 
 @export var sprite_2d: Sprite2D
 @export var start_button: Button
+@export var victory_ui: Node2D
 
 static var _scenes_dict
+
+var level_index = -1
+
+var curr_level: BaseLevel
 
 func _ready():
 	if !start_button:
@@ -19,8 +24,19 @@ func start_game():
 	start_button.visible = false
 	
 	_scenes_dict = dir_contents('res://Levels/')
-	var new_level = _scenes_dict[0].instantiate()
-	add_child(new_level)
+	next_level()
+
+func next_level():
+	level_index += 1
+	if level_index < len(_scenes_dict):
+		if curr_level:
+			curr_level.queue_free()
+		curr_level = _scenes_dict[level_index].instantiate()
+		curr_level.level_complete_signal.connect(next_level)
+		call_deferred("add_child", curr_level)
+	else:
+		victory_ui.visible = true
+		
 
 static func dir_contents(path):
 	var scene_loads = []
