@@ -1,31 +1,29 @@
 extends CharacterBody2D
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var MAX_SPEED = 2
-@export var direction = 1
+var MAX_SPEED = 50
+@export var direction = -1
 @export var ray_cast_2d: RayCast2D
-@export var JUMP_VELOCITY = 200
-
-var bounce_cd = 1
-var _cd_timer = 0
+@export var JUMP_VELOCITY = -500
 
 func _physics_process(delta: float) -> void:
-	_cd_timer += delta
-	if not is_on_floor():
-		velocity.y += gravity * delta
+	if is_on_floor():
+		if velocity.y >= 0:
+			velocity.y = 0
 	else:
-		velocity.x = direction * MAX_SPEED
-		move_toward(velocity.x, 0, MAX_SPEED)
+		velocity.y += gravity * delta
 	
-	var collision = move_and_collide(velocity)
-	if collision:
-		var collider = collision.get_collider()
-		if !(collider is Floor):
-			#print("Collided with: ", collider.name)
-			direction *= -1
-		else:
-			move_and_slide()
-	
+	velocity.x = direction * MAX_SPEED
 	if is_on_floor() and not ray_cast_2d.is_colliding():
 		velocity.y = JUMP_VELOCITY
-		move_and_slide()
+	
+	move_and_slide()
+	
+	if is_on_floor() and get_slide_collision_count() > 0:
+		var collision = get_last_slide_collision()
+		var collider = collision.get_collider()
+		
+		# Confirm we are actually hitting a wall side-on, not the floor beneath us
+		if !(collider is Floor) and abs(collision.get_normal().x) > 0.7:
+			direction *= -1
+			scale *= Vector2(-1, 1)

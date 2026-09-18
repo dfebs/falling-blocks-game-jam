@@ -16,7 +16,7 @@ script = ExtResource("1_pqw28")
 start_marker = NodePath("Marker2D")
 
 [node name="Marker2D" type="Marker2D" parent="." unique_id=620127984]
-position = Vector2(-133, -57)
+position = Vector2(-101, -48)
 
 [node name="Floor" type="Node2D" parent="." unique_id=799185082]
 
