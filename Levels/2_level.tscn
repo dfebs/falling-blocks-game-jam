@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://0mh4a40tlr34"]
+
+[ext_resource type="Script" uid="uid://bfxj6cdmt0iv2" path="res://Levels/starting_level.gd" id="1_wh3uu"]
+[ext_resource type="Texture2D" uid="uid://dn0l2bc00dmti" path="res://Assets/Ground.png" id="2_7sige"]
+[ext_resource type="Script" uid="uid://bljswni65fiea" path="res://Levels/floor.gd" id="3_0dif4"]
+[ext_resource type="Texture2D" uid="uid://b3bl1gug2iyah" path="res://Assets/Walls.png" id="4_oqdsy"]
+[ext_resource type="Texture2D" uid="uid://xsgtxl8hsnrg" path="res://Assets/Wall.png" id="5_w3qpl"]
+[ext_resource type="PackedScene" uid="uid://dqdnvob5eohes" path="res://Levels/Components/finish.tscn" id="6_ynuoq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_djvyk"]
+size = Vector2(244, 33)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_euswq"]
+size = Vector2(16, 51)
+
+[node name="StartingLevel" type="Node2D" unique_id=1036830080 node_paths=PackedStringArray("start_marker", "finish")]
+script = ExtResource("1_wh3uu")
+start_marker = NodePath("Marker2D")
+finish = NodePath("Finish")
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=620127984]
+position = Vector2(-37, -81)
+
+[node name="Floor" type="Node2D" parent="." unique_id=799185082]
+
+[node name="Sprite2D" type="Sprite2D" parent="Floor" unique_id=455922720]
+position = Vector2(25, 0)
+scale = Vector2(0.76250005, 1)
+texture = ExtResource("2_7sige")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Floor" unique_id=1804012781]
+script = ExtResource("3_0dif4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/StaticBody2D" unique_id=2142956983]
+position = Vector2(25, 74)
+shape = SubResource("RectangleShape2D_djvyk")
+
+[node name="Walls" type="Node2D" parent="." unique_id=2065476380]
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls" unique_id=1077123488]
+visible = false
+texture = ExtResource("4_oqdsy")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Walls" unique_id=527611245]
+position = Vector2(-89, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D" unique_id=2122384271]
+shape = SubResource("RectangleShape2D_euswq")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls/StaticBody2D" unique_id=273624556]
+position = Vector2(0, -0.5)
+scale = Vector2(1, 0.796875)
+texture = ExtResource("5_w3qpl")
+metadata/_edit_lock_ = true
+
+[node name="Finish" parent="." unique_id=1237677327 instance=ExtResource("6_ynuoq")]
+position = Vector2(140, 33)
