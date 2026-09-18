@@ -1,7 +1,6 @@
 extends Node2D
 class_name MainScript
 
-
 @export var sprite_2d: Sprite2D
 @export var start_button: Button
 

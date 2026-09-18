@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://b5i88winme155" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="Texture2D" uid="uid://b73vlmvxou68b" path="res://Placeholder.png" id="1_ig7tw"]
 
-[node name="Node2D" type="Node2D" unique_id=1118787975 node_paths=PackedStringArray("sprite_2d", "start_button")]
+[node name="World" type="Node2D" unique_id=1118787975 node_paths=PackedStringArray("sprite_2d", "start_button")]
 script = ExtResource("1_0xm2m")
 sprite_2d = NodePath("Sprite2D")
 start_button = NodePath("StartButton")
