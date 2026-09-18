@@ -1,11 +1,22 @@
 [gd_scene format=3 uid="uid://usqh2hm4jkj4"]
 
+[ext_resource type="Script" uid="uid://b5i88winme155" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="Texture2D" uid="uid://b73vlmvxou68b" path="res://Placeholder.png" id="1_ig7tw"]
 
-[node name="Node2D" type="Node2D" unique_id=1118787975]
+[node name="World" type="Node2D" unique_id=1118787975 node_paths=PackedStringArray("sprite_2d", "start_button")]
+script = ExtResource("1_0xm2m")
+sprite_2d = NodePath("Sprite2D")
+start_button = NodePath("StartButton")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=867989446]
 texture = ExtResource("1_ig7tw")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=319082835]
 texture_filter = 1
+
+[node name="StartButton" type="Button" parent="." unique_id=696845041]
+offset_left = -16.0
+offset_top = -90.0
+offset_right = 80.0
+offset_bottom = -59.0
+text = "Start Game"
