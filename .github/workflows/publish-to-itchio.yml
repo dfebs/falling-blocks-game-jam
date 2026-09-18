@@ -28,7 +28,7 @@ jobs:
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
           CHANNEL: html
-          ITCH_GAME: Ascension
-          ITCH_USER: KieferSivitz
+          ITCH_GAME: falling-blocks-jam
+          ITCH_USER: dfebs
           PACKAGE: Web.zip
           VERSION: ${{ steps.download-html.outputs.version }}
