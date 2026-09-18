@@ -19,7 +19,6 @@ func start_game():
 	start_button.visible = false
 	
 	_scenes_dict = dir_contents('res://Levels/')
-	print(_scenes_dict)
 	var new_level = _scenes_dict[0].instantiate()
 	add_child(new_level)
 
@@ -35,7 +34,7 @@ static func dir_contents(path):
 				if file_name.get_extension() == "tscn":
 					var full_path = path.path_join(file_name)
 					scene_loads.append(load(full_path))
-				elif (".tres" in file_name && file_name.get_extension() == "remap"):
+				elif (".tscn" in file_name && file_name.get_extension() == "remap"):
 					file_name = file_name.replace(".remap", "")
 					var full_path = path.path_join(file_name)
 					scene_loads.append(load(full_path))
