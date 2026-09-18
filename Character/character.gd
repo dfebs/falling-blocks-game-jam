@@ -3,6 +3,8 @@ extends CharacterBody2D
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var MAX_SPEED = 2
 @export var direction = 1
+@export var ray_cast_2d: RayCast2D
+@export var JUMP_VELOCITY = 200
 
 var bounce_cd = 1
 var _cd_timer = 0
@@ -23,3 +25,7 @@ func _physics_process(delta: float) -> void:
 			direction *= -1
 		else:
 			move_and_slide()
+	
+	if is_on_floor() and not ray_cast_2d.is_colliding():
+		velocity.y = JUMP_VELOCITY
+		move_and_slide()
