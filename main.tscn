@@ -31,3 +31,13 @@ offset_top = -12.0
 offset_right = 39.0
 offset_bottom = 11.0
 text = "YOU WIN!"
+
+[node name="Button" type="Button" parent="Victory UI" unique_id=1945126094]
+offset_left = -33.0
+offset_top = 23.0
+offset_right = 32.0
+offset_bottom = 54.0
+text = "Restart
+"
+
+[connection signal="pressed" from="Victory UI/Button" to="." method="_on_button_pressed"]
