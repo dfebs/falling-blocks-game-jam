@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://o7f501dp7rbj"]
 
-[ext_resource type="Texture2D" uid="uid://bvi2l6d6s7yf2" path="res://Character/Character_Placeholder.png" id="1_k3002"]
 [ext_resource type="Script" uid="uid://brvm30xhuw6s" path="res://Character/character.gd" id="1_nwtvh"]
+[ext_resource type="Texture2D" uid="uid://dvvun4ig17eo0" path="res://Character/character.png" id="2_nwtvh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_djvyk"]
 radius = 8.0
@@ -11,7 +11,7 @@ height = 32.0
 script = ExtResource("1_nwtvh")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=837473621]
-texture = ExtResource("1_k3002")
+texture = ExtResource("2_nwtvh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1161947520]
 visible = false
