@@ -20,7 +20,7 @@ var dragging = false
 
 static var _scenes_dict
 
-var level_index = 1
+var level_index = -1
 
 var reload_held_counter = 0
 
