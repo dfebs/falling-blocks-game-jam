@@ -3,15 +3,16 @@
 [ext_resource type="Script" uid="uid://b5i88winme155" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="Texture2D" uid="uid://b73vlmvxou68b" path="res://Placeholder.png" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://bkbuo1va3qn36" path="res://UI/settings_menu.tscn" id="3_1bvp3"]
-[ext_resource type="AudioStream" uid="uid://bcu4uandyyxh5" path="res://Assets/Audio/thud.wav" id="4_1bvp3"]
+[ext_resource type="AudioStream" uid="uid://c4erlvl2qbt7i" path="res://Assets/Audio/menu_music.wav" id="4_1bvp3"]
 
-[node name="World" type="Node2D" unique_id=1118787975 node_paths=PackedStringArray("sprite_2d", "start_button", "victory_ui", "ui")]
+[node name="World" type="Node2D" unique_id=1118787975 node_paths=PackedStringArray("sprite_2d", "start_button", "victory_ui", "ui", "audio_player")]
 process_mode = 3
 script = ExtResource("1_0xm2m")
 sprite_2d = NodePath("Sprite2D")
 start_button = NodePath("StartButton")
 victory_ui = NodePath("Victory UI")
 ui = NodePath("UI")
+audio_player = NodePath("MusicAudioStreamPlayer")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=867989446]
 texture = ExtResource("1_ig7tw")
@@ -63,6 +64,10 @@ offset_right = 17.0
 offset_bottom = 61.0
 
 [node name="MusicAudioStreamPlayer" type="AudioStreamPlayer2D" parent="." unique_id=2018866623]
+process_mode = 3
 stream = ExtResource("4_1bvp3")
+autoplay = true
+bus = &"Music Bus"
 
 [connection signal="pressed" from="Victory UI/Button" to="." method="_on_button_pressed"]
+[connection signal="finished" from="MusicAudioStreamPlayer" to="." method="_on_music_audio_stream_player_finished"]

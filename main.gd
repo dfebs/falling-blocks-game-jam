@@ -5,8 +5,12 @@ class_name MainScript
 @export var start_button: Button
 @export var victory_ui: Node2D
 @export var ui: Control
+@export var audio_player: AudioStreamPlayer2D
+var main_track = preload("res://Assets/Audio/main_track.wav")
+var menu_track = preload("res://Assets/Audio/menu_music.wav")
 
 var paused = false
+var started = true
 
 static var _scenes_dict
 
@@ -21,6 +25,7 @@ func _ready():
 	
 	
 func start_game():
+	started = true
 	if sprite_2d:
 		sprite_2d.visible = false
 	start_button.disabled = true
@@ -71,3 +76,11 @@ func _unhandled_key_input(event):
 
 func _on_button_pressed():
 	get_tree().reload_current_scene()
+
+func _on_music_audio_stream_player_finished():
+	if started:
+		audio_player.stream = main_track
+		audio_player.play()
+	else:
+		audio_player.stream = menu_track
+		audio_player.play()
