@@ -5,35 +5,40 @@
 [ext_resource type="AudioStream" uid="uid://bcu4uandyyxh5" path="res://Assets/Audio/thud.wav" id="3_jkkns"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_djvyk"]
-radius = 8.0
-height = 32.0
+radius = 7.0
 
-[node name="Character" type="CharacterBody2D" unique_id=1569744773 node_paths=PackedStringArray("ray_cast_2d", "audio_player", "remote_transform_2d")]
+[node name="Character" type="CharacterBody2D" unique_id=1569744773 node_paths=PackedStringArray("ray_cast_2d", "audio_player", "remote_transform_2d", "jump_detector", "wall_detector")]
 process_mode = 1
 scale = Vector2(-1, 1)
 script = ExtResource("1_nwtvh")
 ray_cast_2d = NodePath("VoidDetector")
 audio_player = NodePath("FXAudioStreamPlayer")
 remote_transform_2d = NodePath("RemoteTransform2D")
+jump_detector = NodePath("JumpDetector")
+wall_detector = NodePath("WallDetector")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=837473621]
 texture = ExtResource("2_nwtvh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1161947520]
 visible = false
+position = Vector2(0, 1)
 shape = SubResource("CapsuleShape2D_djvyk")
 
 [node name="VoidDetector" type="RayCast2D" parent="." unique_id=862157123]
+visible = false
 position = Vector2(16, 16)
 target_position = Vector2(0, 8)
 hit_from_inside = true
 
 [node name="JumpDetector" type="RayCast2D" parent="." unique_id=528775243]
+visible = false
 position = Vector2(13, 10)
 target_position = Vector2(7, 0)
 hit_from_inside = true
 
 [node name="WallDetector" type="RayCast2D" parent="." unique_id=1870303075]
+visible = false
 position = Vector2(13, -6)
 target_position = Vector2(7, 0)
 hit_from_inside = true

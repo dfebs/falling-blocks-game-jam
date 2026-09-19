@@ -72,4 +72,4 @@ script = ExtResource("5_7sige")
 metadata/_edit_lock_ = true
 
 [node name="Finish" parent="." unique_id=1237677327 instance=ExtResource("6_ynuoq")]
-position = Vector2(140, 33)
+position = Vector2(105, 30)
