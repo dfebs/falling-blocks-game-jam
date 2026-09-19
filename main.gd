@@ -10,7 +10,7 @@ var main_track = preload("res://Assets/Audio/main_track.wav")
 var menu_track = preload("res://Assets/Audio/menu_music.wav")
 
 var paused = false
-var started = true
+var started = false
 
 static var _scenes_dict
 
