@@ -4,6 +4,9 @@ class_name MainScript
 @export var sprite_2d: Sprite2D
 @export var start_button: Button
 @export var victory_ui: Node2D
+@export var ui: Control
+
+var paused = false
 
 static var _scenes_dict
 
@@ -60,6 +63,11 @@ static func dir_contents(path):
 
 	return scene_loads
 
+func _unhandled_key_input(event):
+	if event.is_action_pressed("Escape"):
+		paused = !paused
+		ui.visible = paused
+		get_tree().paused = paused
 
 func _on_button_pressed():
 	get_tree().reload_current_scene()

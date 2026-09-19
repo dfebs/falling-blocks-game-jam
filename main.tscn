@@ -2,12 +2,16 @@
 
 [ext_resource type="Script" uid="uid://b5i88winme155" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="Texture2D" uid="uid://b73vlmvxou68b" path="res://Placeholder.png" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://bkbuo1va3qn36" path="res://UI/settings_menu.tscn" id="3_1bvp3"]
+[ext_resource type="AudioStream" uid="uid://bcu4uandyyxh5" path="res://Assets/Audio/thud.wav" id="4_1bvp3"]
 
-[node name="World" type="Node2D" unique_id=1118787975 node_paths=PackedStringArray("sprite_2d", "start_button", "victory_ui")]
+[node name="World" type="Node2D" unique_id=1118787975 node_paths=PackedStringArray("sprite_2d", "start_button", "victory_ui", "ui")]
+process_mode = 3
 script = ExtResource("1_0xm2m")
 sprite_2d = NodePath("Sprite2D")
 start_button = NodePath("StartButton")
 victory_ui = NodePath("Victory UI")
+ui = NodePath("UI")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=867989446]
 texture = ExtResource("1_ig7tw")
@@ -39,5 +43,26 @@ offset_right = 32.0
 offset_bottom = 54.0
 text = "Restart
 "
+
+[node name="UI" type="Control" parent="." unique_id=1043251833]
+process_mode = 3
+visible = false
+z_index = 1
+layout_mode = 3
+anchors_preset = 0
+offset_left = 18.0
+offset_top = -54.0
+offset_right = 58.0
+offset_bottom = -14.0
+
+[node name="Settings" parent="UI" unique_id=1707542350 instance=ExtResource("3_1bvp3")]
+layout_mode = 0
+offset_left = -23.0
+offset_top = 21.0
+offset_right = 17.0
+offset_bottom = 61.0
+
+[node name="MusicAudioStreamPlayer" type="AudioStreamPlayer2D" parent="." unique_id=2018866623]
+stream = ExtResource("4_1bvp3")
 
 [connection signal="pressed" from="Victory UI/Button" to="." method="_on_button_pressed"]

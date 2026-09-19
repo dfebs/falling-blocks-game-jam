@@ -9,10 +9,11 @@ radius = 8.0
 height = 32.0
 
 [node name="Character" type="CharacterBody2D" unique_id=1569744773 node_paths=PackedStringArray("ray_cast_2d", "audio_player")]
+process_mode = 1
 scale = Vector2(-1, 1)
 script = ExtResource("1_nwtvh")
 ray_cast_2d = NodePath("RayCast2D")
-audio_player = NodePath("AudioStreamPlayer2D")
+audio_player = NodePath("FXAudioStreamPlayer")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=837473621]
 texture = ExtResource("2_nwtvh")
@@ -26,5 +27,6 @@ position = Vector2(16, 16)
 target_position = Vector2(0, 8)
 hit_from_inside = true
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=2020496126]
+[node name="FXAudioStreamPlayer" type="AudioStreamPlayer2D" parent="." unique_id=2020496126]
 stream = ExtResource("3_jkkns")
+bus = &"FX Bus"
