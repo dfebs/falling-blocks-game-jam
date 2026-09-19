@@ -14,13 +14,12 @@ size = Vector2(244, 33)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_euswq"]
 size = Vector2(16, 51)
 
-[node name="Level 2" type="Node2D" unique_id=1036830080 node_paths=PackedStringArray("start_marker", "finish")]
+[node name="Level 2" type="Node2D" unique_id=1036830080 node_paths=PackedStringArray("finish")]
 process_mode = 1
 script = ExtResource("1_0mpr0")
-start_marker = NodePath("Marker2D")
 finish = NodePath("Finish")
 
-[node name="Marker2D" type="Marker2D" parent="." unique_id=620127984]
+[node name="Start" type="Marker2D" parent="." unique_id=620127984]
 position = Vector2(-37, -81)
 
 [node name="Floor" type="Node2D" parent="." unique_id=799185082]

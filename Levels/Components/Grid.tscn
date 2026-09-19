@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://cv00bfupxjhnk"]
+
+[ext_resource type="Texture2D" uid="uid://cys4cmdeqdoal" path="res://Assets/blocks/sand_blocks.png" id="1_ci8vy"]
+[ext_resource type="Texture2D" uid="uid://c7pf0mrtd2iaa" path="res://Assets/blocks/stone_blocks.png" id="2_4gob1"]
+[ext_resource type="Script" uid="uid://bhi5j552asjns" path="res://Levels/Components/grid.gd" id="2_m322r"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m322r"]
+texture = ExtResource("1_ci8vy")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:0/0/custom_data_0 = "sand"
+0:0/0/custom_data_1 = "solid"
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0/custom_data_0 = "sand"
+1:0/0/custom_data_1 = "solid"
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:0/0/custom_data_0 = "sand"
+2:0/0/custom_data_1 = "solid"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t0vg6"]
+texture = ExtResource("2_4gob1")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:0/0/custom_data_0 = "stone"
+0:0/0/custom_data_1 = "solid"
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0/custom_data_0 = "stone"
+1:0/0/custom_data_1 = "solid"
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:0/0/custom_data_0 = "stone"
+2:0/0/custom_data_1 = "solid"
+
+[sub_resource type="TileSet" id="TileSet_crqmy"]
+physics_layer_0/collision_layer = 1
+custom_data_layer_0/name = "type"
+custom_data_layer_0/type = 4
+custom_data_layer_1/name = "form"
+custom_data_layer_1/type = 4
+sources/0 = SubResource("TileSetAtlasSource_m322r")
+sources/1 = SubResource("TileSetAtlasSource_t0vg6")
+
+[node name="Grid" type="TileMapLayer" unique_id=1100096991]
+tile_set = SubResource("TileSet_crqmy")
+script = ExtResource("2_m322r")
+
+[node name="Ticker" type="Timer" parent="." unique_id=421647720]
+wait_time = 0.1
+autostart = true
