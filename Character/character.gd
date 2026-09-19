@@ -12,6 +12,7 @@ var sound_two = preload("res://Assets/Audio/spring.wav")
 var sound_three = preload("res://Assets/Audio/thud.wav")
 
 var freeze = false
+signal died
 
 func _physics_process(delta: float) -> void:
 	if freeze: return
@@ -47,3 +48,4 @@ func is_on_flat_ground() -> bool:
 func die():
 	audio_player.stream = sound_one
 	audio_player.play()
+	died.emit()
