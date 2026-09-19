@@ -10,12 +10,12 @@
 size = Vector2(244, 33)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bmed6"]
-load_path = "res://.godot/imported/Walls.png-699d60903ddbdaa56e19eeb607b9d136.ctex"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_euswq"]
 size = Vector2(16, 51)
 
 [node name="StartingLevel" type="Node2D" unique_id=1036830080 node_paths=PackedStringArray("start_marker", "finish")]
+process_mode = 1
 script = ExtResource("1_wh3uu")
 start_marker = NodePath("Marker2D")
 finish = NodePath("Finish")
