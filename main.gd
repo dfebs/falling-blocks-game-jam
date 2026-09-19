@@ -44,9 +44,11 @@ func start_game():
 	next_level()
 	
 func reload_current_level():
+	if !curr_level: return
 	curr_level.queue_free()
 	curr_level = _scenes_dict[level_index].instantiate()
 	curr_level.level_complete_signal.connect(next_level)
+	curr_level.level_failed_signal.connect(reload_current_level)
 	call_deferred("add_child", curr_level)
 
 func next_level():
@@ -56,6 +58,7 @@ func next_level():
 			curr_level.queue_free()
 		curr_level = _scenes_dict[level_index].instantiate()
 		curr_level.level_complete_signal.connect(next_level)
+		curr_level.level_failed_signal.connect(reload_current_level)
 		call_deferred("add_child", curr_level)
 	else:
 		victory_ui.visible = true
@@ -87,6 +90,8 @@ func _unhandled_key_input(event):
 		paused = !paused
 		ui.visible = paused
 		get_tree().paused = paused
+	if event.is_action_pressed("Mute"):
+		audio_player.stream_paused = !audio_player.stream_paused
 
 func _on_button_pressed():
 	get_tree().reload_current_scene()

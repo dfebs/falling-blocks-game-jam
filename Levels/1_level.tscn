@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://wwp334i5k4wk"]
 
-[ext_resource type="Script" uid="uid://bfxj6cdmt0iv2" path="res://Levels/1_level.gd" id="1_c4ffh"]
+[ext_resource type="Script" uid="uid://c0uhkrt1c1g14" path="res://Levels/base_level.gd" id="1_yppfu"]
 [ext_resource type="Texture2D" uid="uid://dn0l2bc00dmti" path="res://Assets/Ground.png" id="2_f6r1e"]
 [ext_resource type="Script" uid="uid://bljswni65fiea" path="res://Levels/Components/floor.gd" id="3_j3s7h"]
 [ext_resource type="Texture2D" uid="uid://bohauybkd5wwg" path="res://Assets/Ramp.png" id="6_671f0"]
@@ -9,9 +9,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_djvyk"]
 size = Vector2(244, 33)
 
-[node name="StartingLevel" type="Node2D" unique_id=1036830080 node_paths=PackedStringArray("start_marker", "finish")]
+[node name="Level 1" type="Node2D" unique_id=1036830080 node_paths=PackedStringArray("start_marker", "finish")]
 process_mode = 1
-script = ExtResource("1_c4ffh")
+script = ExtResource("1_yppfu")
 start_marker = NodePath("Marker2D")
 finish = NodePath("Finish")
 
