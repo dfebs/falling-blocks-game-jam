@@ -5,7 +5,7 @@ var bus_index: int
 
 func _ready(): 
 	bus_index = AudioServer.get_bus_index(bus_name)
-	value = 0.5
+	value = 0.1
 	
 func _on_value_changed(new_value: float):
 	AudioServer.set_bus_volume_db(
