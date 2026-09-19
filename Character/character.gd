@@ -10,6 +10,7 @@ var MAX_SPEED = 50
 var sound_one = preload("res://Assets/Audio/fail.wav")
 var sound_two = preload("res://Assets/Audio/spring.wav")
 var sound_three = preload("res://Assets/Audio/thud.wav")
+@export var remote_transform_2d: RemoteTransform2D
 
 var freeze = false
 signal died

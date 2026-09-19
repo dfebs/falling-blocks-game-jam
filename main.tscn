@@ -5,14 +5,18 @@
 [ext_resource type="PackedScene" uid="uid://bkbuo1va3qn36" path="res://UI/settings_menu.tscn" id="3_1bvp3"]
 [ext_resource type="AudioStream" uid="uid://c4erlvl2qbt7i" path="res://Assets/Audio/menu_music.wav" id="4_1bvp3"]
 
-[node name="World" type="Node2D" unique_id=1118787975 node_paths=PackedStringArray("sprite_2d", "start_button", "victory_ui", "ui", "audio_player")]
+[node name="World" type="Node2D" unique_id=1118787975 node_paths=PackedStringArray("sprite_2d", "start_button", "victory_ui", "ui", "settings", "camera_toggle", "audio_player", "camera_2d")]
 process_mode = 3
+position = Vector2(160, 90)
 script = ExtResource("1_0xm2m")
 sprite_2d = NodePath("Sprite2D")
 start_button = NodePath("StartButton")
 victory_ui = NodePath("Victory UI")
-ui = NodePath("UI")
+ui = NodePath("CanvasLayer/UI")
+settings = NodePath("CanvasLayer/UI/Settings")
+camera_toggle = NodePath("CanvasLayer/UI/CameraToggle")
 audio_player = NodePath("MusicAudioStreamPlayer")
+camera_2d = NodePath("Camera2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=867989446]
 texture = ExtResource("1_ig7tw")
@@ -26,6 +30,7 @@ offset_top = -90.0
 offset_right = 80.0
 offset_bottom = -59.0
 text = "Start Game"
+metadata/_edit_use_anchors_ = true
 
 [node name="Victory UI" type="Node2D" parent="." unique_id=548841052]
 visible = false
@@ -45,29 +50,45 @@ offset_bottom = 54.0
 text = "Restart
 "
 
-[node name="UI" type="Control" parent="." unique_id=1043251833]
-process_mode = 3
-visible = false
-z_index = 1
-layout_mode = 3
-anchors_preset = 0
-offset_left = 18.0
-offset_top = -54.0
-offset_right = 58.0
-offset_bottom = -14.0
-
-[node name="Settings" parent="UI" unique_id=1707542350 instance=ExtResource("3_1bvp3")]
-layout_mode = 0
-offset_left = -23.0
-offset_top = 21.0
-offset_right = 17.0
-offset_bottom = 61.0
-
 [node name="MusicAudioStreamPlayer" type="AudioStreamPlayer2D" parent="." unique_id=2018866623]
 process_mode = 3
 stream = ExtResource("4_1bvp3")
 autoplay = true
 bus = &"Music Bus"
 
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=458952364]
+
+[node name="UI" type="Control" parent="CanvasLayer" unique_id=1043251833]
+process_mode = 3
+z_index = 1
+layout_mode = 3
+anchors_preset = 0
+offset_left = 178.0
+offset_top = 36.0
+offset_right = 218.0
+offset_bottom = 76.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Settings" parent="CanvasLayer/UI" unique_id=1707542350 instance=ExtResource("3_1bvp3")]
+visible = false
+layout_mode = 0
+offset_left = -23.0
+offset_top = 21.0
+offset_right = 17.0
+offset_bottom = 61.0
+metadata/_edit_use_anchors_ = true
+
+[node name="CameraToggle" type="Button" parent="CanvasLayer/UI" unique_id=1681488251]
+visible = false
+layout_mode = 0
+offset_left = -170.0
+offset_top = 94.0
+offset_right = -153.0
+offset_bottom = 116.0
+theme_override_font_sizes/font_size = 10
+text = "C"
+metadata/_edit_use_anchors_ = true
+
 [connection signal="pressed" from="Victory UI/Button" to="." method="_on_button_pressed"]
 [connection signal="finished" from="MusicAudioStreamPlayer" to="." method="_on_music_audio_stream_player_finished"]
+[connection signal="pressed" from="CanvasLayer/UI/CameraToggle" to="." method="_on_camera_toggle_pressed"]

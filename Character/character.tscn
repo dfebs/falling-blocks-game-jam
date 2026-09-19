@@ -8,12 +8,13 @@
 radius = 8.0
 height = 32.0
 
-[node name="Character" type="CharacterBody2D" unique_id=1569744773 node_paths=PackedStringArray("ray_cast_2d", "audio_player")]
+[node name="Character" type="CharacterBody2D" unique_id=1569744773 node_paths=PackedStringArray("ray_cast_2d", "audio_player", "remote_transform_2d")]
 process_mode = 1
 scale = Vector2(-1, 1)
 script = ExtResource("1_nwtvh")
 ray_cast_2d = NodePath("VoidDetector")
 audio_player = NodePath("FXAudioStreamPlayer")
+remote_transform_2d = NodePath("RemoteTransform2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=837473621]
 texture = ExtResource("2_nwtvh")
@@ -42,3 +43,5 @@ stream = ExtResource("3_jkkns")
 bus = &"FX Bus"
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="." unique_id=397123214]
+update_rotation = false
+update_scale = false
