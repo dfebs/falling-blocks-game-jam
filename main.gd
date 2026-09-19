@@ -16,14 +16,23 @@ static var _scenes_dict
 
 var level_index = -1
 
+var reload_held_counter = 0
+
 var curr_level: BaseLevel
 
 func _ready():
 	if !start_button:
 		push_error("Start button missing")
 	start_button.pressed.connect(start_game)
-	
-	
+
+func _process(delta):
+	if Input.is_action_pressed("Reload"):
+		reload_held_counter += delta
+		if reload_held_counter > 1:
+			reload_current_level()
+	else:
+		reload_held_counter = 0
+
 func start_game():
 	started = true
 	if sprite_2d:
@@ -33,6 +42,12 @@ func start_game():
 	
 	_scenes_dict = dir_contents('res://Levels/')
 	next_level()
+	
+func reload_current_level():
+	curr_level.queue_free()
+	curr_level = _scenes_dict[level_index].instantiate()
+	curr_level.level_complete_signal.connect(next_level)
+	call_deferred("add_child", curr_level)
 
 func next_level():
 	level_index += 1
@@ -44,7 +59,6 @@ func next_level():
 		call_deferred("add_child", curr_level)
 	else:
 		victory_ui.visible = true
-		
 
 static func dir_contents(path):
 	var scene_loads = []
