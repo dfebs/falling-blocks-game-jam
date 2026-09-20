@@ -18,7 +18,6 @@ func _ready():
 
 func level_complete(body):
 	if body is DeliveryMan:
-		print("done")
 		body.freeze = true
 		level_complete_signal.emit()
 

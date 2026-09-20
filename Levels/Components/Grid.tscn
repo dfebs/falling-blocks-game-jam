@@ -48,5 +48,9 @@ tile_set = SubResource("TileSet_crqmy")
 script = ExtResource("2_m322r")
 
 [node name="Ticker" type="Timer" parent="." unique_id=421647720]
-wait_time = 0.1
+wait_time = 0.05
 autostart = true
+
+[node name="AddBlockCooldown" type="Timer" parent="." unique_id=2031386925]
+wait_time = 0.1
+one_shot = true
