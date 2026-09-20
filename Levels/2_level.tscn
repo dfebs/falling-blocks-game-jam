@@ -1,36 +1,8 @@
-[gd_scene format=3 uid="uid://0mh4a40tlr34"]
+[gd_scene format=4 uid="uid://0mh4a40tlr34"]
 
 [ext_resource type="Script" uid="uid://c0uhkrt1c1g14" path="res://Levels/base_level.gd" id="1_0mpr0"]
-[ext_resource type="Texture2D" uid="uid://dn0l2bc00dmti" path="res://Assets/Ground.png" id="2_7sige"]
-[ext_resource type="Script" uid="uid://bljswni65fiea" path="res://Levels/Components/floor.gd" id="3_0mpr0"]
-[ext_resource type="Shader" uid="uid://dotryoqeuss4x" path="res://Assets/FX/burn.gdshader" id="4_wh3uu"]
-[ext_resource type="Script" uid="uid://ciqsfgxeu02en" path="res://Assets/FX/burnable_sprite.gd" id="5_7sige"]
-[ext_resource type="Texture2D" uid="uid://xsgtxl8hsnrg" path="res://Assets/Wall.png" id="5_w3qpl"]
 [ext_resource type="PackedScene" uid="uid://dqdnvob5eohes" path="res://Levels/Components/finish.tscn" id="6_ynuoq"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_djvyk"]
-size = Vector2(244, 33)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_euswq"]
-size = Vector2(16, 51)
-
-[sub_resource type="Gradient" id="Gradient_oqdsy"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_0dif4"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7sige"]
-width = 16
-height = 64
-noise = SubResource("FastNoiseLite_0dif4")
-color_ramp = SubResource("Gradient_oqdsy")
-invert = true
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wh3uu"]
-shader = ExtResource("4_wh3uu")
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_7sige")
-shader_parameter/progress = 1.0
-shader_parameter/burn_size = 0.046000002185
-shader_parameter/burn_color = Color(1, 0.4, 0.1, 1)
+[ext_resource type="PackedScene" uid="uid://cv00bfupxjhnk" path="res://Levels/Components/Grid.tscn" id="8_0dif4"]
 
 [node name="Level 2" type="Node2D" unique_id=1036830080]
 process_mode = 1
@@ -39,37 +11,9 @@ script = ExtResource("1_0mpr0")
 [node name="Start" type="Marker2D" parent="." unique_id=620127984]
 position = Vector2(-37, -81)
 
-[node name="Floor" type="Node2D" parent="." unique_id=799185082]
-position = Vector2(-59, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="Floor" unique_id=455922720]
-position = Vector2(25, 0)
-scale = Vector2(0.76250005, 1)
-texture = ExtResource("2_7sige")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Floor" unique_id=1804012781]
-script = ExtResource("3_0mpr0")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/StaticBody2D" unique_id=2142956983]
-position = Vector2(25, 74)
-shape = SubResource("RectangleShape2D_djvyk")
-
-[node name="Walls" type="Node2D" parent="." unique_id=2065476380]
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Walls" unique_id=527611245]
-position = Vector2(-89, 32)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D" unique_id=2122384271]
-shape = SubResource("RectangleShape2D_euswq")
-metadata/_edit_lock_ = true
-
-[node name="Sprite2D" type="Sprite2D" parent="Walls/StaticBody2D" unique_id=273624556]
-material = SubResource("ShaderMaterial_wh3uu")
-position = Vector2(0, -0.5)
-scale = Vector2(1, 0.796875)
-texture = ExtResource("5_w3qpl")
-script = ExtResource("5_7sige")
-metadata/_edit_lock_ = true
-
 [node name="Finish" parent="." unique_id=1237677327 instance=ExtResource("6_ynuoq")]
-position = Vector2(105, 30)
+position = Vector2(104, 32)
+
+[node name="Grid" parent="." unique_id=1100096991 instance=ExtResource("8_0dif4")]
+tile_map_data = PackedByteArray("AAAAAAQAAQABAAAAAAD3/wQAAQABAAAAAAD3/wMAAQABAAAAAAD3/wIAAQABAAAAAAAAAAUAAQABAAAAAAAAAAYAAQABAAAAAAD//wYAAQABAAAAAAD+/wYAAQABAAAAAAD9/wYAAQABAAAAAAD8/wYAAQABAAAAAAD7/wYAAQABAAAAAAD6/wYAAQABAAAAAAD5/wYAAQABAAAAAAD4/wYAAQABAAAAAAD3/wYAAQABAAAAAAD3/wUAAQABAAAAAAA=")
+actions = ["Block 2"]

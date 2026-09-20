@@ -48,9 +48,13 @@ var selected_block = "sand"
 @export var blocks: Array[Texture] = []
 @export var blocks_ui: Control
 @export var block_type_ui: PackedScene
-var actions = ["Block 1", "Block 2"]
+@export var actions: Array[String] = ["Block 1", "Block 2", "Block 3", "Block 4", "Block 5", "Block 6"]
 
 func _ready() -> void:
+	if len(actions) > 0:
+		selected_block = inventory[actions[0]]
+	else:
+		selected_block = ""
 	$Ticker.timeout.connect(_on_tick)
 	update_block_preview_sprite()
 	for child in blocks_ui.get_children():
@@ -64,6 +68,8 @@ func _ready() -> void:
 		ui_thing.texture.atlas = new_tex
 		ui_thing.text = "{0} - {1}".format([block_name.capitalize(), str(BLOCKS[block_name]["id"] + 1)])
 		ui_thing.position += Vector2(24, 24 + BLOCKS[block_name]["id"] * 24)
+	update_block_preview_sprite()
+	update_block_preview_position()
 
 func _process(_delta: float) -> void:
 	for action in actions:
