@@ -5,11 +5,15 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var MAX_SPEED = 50
 @export var direction = -1
 @export var ray_cast_2d: RayCast2D
-@export var JUMP_VELOCITY = -500
+@export var JUMP_VELOCITY = -250
 @export var audio_player: AudioStreamPlayer2D
 var sound_one = preload("res://Assets/Audio/fail.wav")
 var sound_two = preload("res://Assets/Audio/spring.wav")
 var sound_three = preload("res://Assets/Audio/thud.wav")
+@export var remote_transform_2d: RemoteTransform2D
+@export var jump_detector: RayCast2D
+@export var wall_detector: RayCast2D
+
 
 var freeze = false
 signal died
@@ -24,9 +28,9 @@ func _physics_process(delta: float) -> void:
 	
 	velocity.x = direction * MAX_SPEED
 	if is_on_floor() and not ray_cast_2d.is_colliding() and is_on_flat_ground():
-		audio_player.stream = sound_two
-		audio_player.play()
-		velocity.y = JUMP_VELOCITY
+		jump()
+	elif is_on_floor() and jump_detector.is_colliding() and not wall_detector.is_colliding():
+		jump()
 	
 	move_and_slide()
 	
@@ -40,6 +44,11 @@ func _physics_process(delta: float) -> void:
 			scale *= Vector2(-1, 1)
 			audio_player.stream = sound_three
 			audio_player.play()
+
+func jump():
+		audio_player.stream = sound_two
+		audio_player.play()
+		velocity.y = JUMP_VELOCITY
 
 func is_on_flat_ground() -> bool:
 	var normal = get_floor_normal()

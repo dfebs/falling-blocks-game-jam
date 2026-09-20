@@ -24,3 +24,9 @@ func level_complete(body):
 
 func level_failed():
 	level_failed_signal.emit()
+
+func connect_camera(camera: Node2D):
+	_character.remote_transform_2d.remote_path = camera.get_path()
+
+func disconnect_camera():
+	_character.remote_transform_2d.remote_path = ""

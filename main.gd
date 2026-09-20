@@ -5,12 +5,18 @@ class_name MainScript
 @export var start_button: Button
 @export var victory_ui: Node2D
 @export var ui: Control
+@export var settings: Control
+@export var camera_toggle: Button
+
 @export var audio_player: AudioStreamPlayer2D
 var main_track = preload("res://Assets/Audio/main_track.wav")
 var menu_track = preload("res://Assets/Audio/menu_music.wav")
+@export var camera_2d: Camera2D
 
 var paused = false
 var started = false
+var dragging = false
+@export var free_cam = false
 
 static var _scenes_dict
 
@@ -39,27 +45,20 @@ func start_game():
 		sprite_2d.visible = false
 	start_button.disabled = true
 	start_button.visible = false
+	camera_toggle.visible = true
+	camera_2d.zoom = Vector2(0.5, 0.5)
 	
 	_scenes_dict = dir_contents('res://Levels/')
 	next_level()
 	
 func reload_current_level():
 	if !curr_level: return
-	curr_level.queue_free()
-	curr_level = _scenes_dict[level_index].instantiate()
-	curr_level.level_complete_signal.connect(next_level)
-	curr_level.level_failed_signal.connect(reload_current_level)
-	call_deferred("add_child", curr_level)
+	spawn_level()
 
 func next_level():
 	level_index += 1
 	if level_index < len(_scenes_dict):
-		if curr_level:
-			curr_level.queue_free()
-		curr_level = _scenes_dict[level_index].instantiate()
-		curr_level.level_complete_signal.connect(next_level)
-		curr_level.level_failed_signal.connect(reload_current_level)
-		call_deferred("add_child", curr_level)
+		spawn_level()
 	else:
 		victory_ui.visible = true
 
@@ -85,13 +84,50 @@ static func dir_contents(path):
 
 	return scene_loads
 
+func spawn_level():
+	if curr_level:
+		curr_level.queue_free()
+	curr_level = _scenes_dict[level_index].instantiate()
+	curr_level.level_complete_signal.connect(next_level)
+	curr_level.level_failed_signal.connect(reload_current_level)
+	call_deferred("add_child", curr_level)
+	if !free_cam:
+		curr_level.call_deferred("connect_camera", camera_2d)
+
 func _unhandled_key_input(event):
 	if event.is_action_pressed("Escape"):
 		paused = !paused
-		ui.visible = paused
+		settings.visible = paused
 		get_tree().paused = paused
 	if event.is_action_pressed("Mute"):
 		audio_player.stream_paused = !audio_player.stream_paused
+	if event.is_action_pressed("Toggle Camera"):
+		_on_camera_toggle_pressed()
+
+func _unhandled_input(event):
+	if event is InputEventMouseButton:
+		if event.is_pressed():
+			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+				var zoom_pos:Vector2 = get_global_mouse_position()
+				var zoom_scale:float = (event.factor if event.factor else 1.0) / 10
+				zoom_at(zoom_pos, zoom_scale)
+
+			if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+				var zoom_pos:Vector2 = get_global_mouse_position()
+				var zoom_scale:float = (event.factor if event.factor else 1.0) / 10
+				zoom_at(zoom_pos, -zoom_scale)
+
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_MIDDLE:
+		dragging = event.pressed
+	elif event is InputEventMouseMotion and dragging:
+		camera_2d.position -= event.relative / camera_2d.zoom
+
+func zoom_at(pos, scale):
+	if camera_2d.zoom.x + scale <= 0.01:
+		scale = 0.01
+	if camera_2d.zoom.x + scale >= 4:
+		scale = 4
+	camera_2d.zoom += Vector2(scale, scale)
 
 func _on_button_pressed():
 	get_tree().reload_current_scene()
@@ -103,3 +139,10 @@ func _on_music_audio_stream_player_finished():
 	else:
 		audio_player.stream = menu_track
 		audio_player.play()
+
+func _on_camera_toggle_pressed():
+	free_cam = !free_cam
+	if free_cam:
+		curr_level.disconnect_camera()
+	else:
+		curr_level.call_deferred("connect_camera", camera_2d)
