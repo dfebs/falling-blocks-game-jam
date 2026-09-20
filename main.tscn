@@ -43,11 +43,16 @@ metadata/_edit_use_anchors_ = true
 
 [node name="CameraToggle" type="Button" parent="CanvasLayer/UI" unique_id=1681488251]
 visible = false
-layout_mode = 0
-offset_left = -170.0
-offset_top = 94.0
-offset_right = -153.0
-offset_bottom = 116.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 3.558
+anchor_top = 3.6050003
+anchor_right = 3.558
+anchor_bottom = 3.6050003
+offset_left = -26.320007
+offset_top = -50.200012
+offset_right = -9.320007
+offset_bottom = -28.200012
 theme_override_font_sizes/font_size = 10
 text = "C"
 metadata/_edit_use_anchors_ = true
