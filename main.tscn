@@ -11,52 +11,15 @@ position = Vector2(160, 90)
 script = ExtResource("1_0xm2m")
 sprite_2d = NodePath("Sprite2D")
 start_button = NodePath("StartButton")
-victory_ui = NodePath("Victory UI")
+victory_ui = NodePath("CanvasLayer/Victory UI")
 ui = NodePath("CanvasLayer/UI")
 settings = NodePath("CanvasLayer/UI/Settings")
 camera_toggle = NodePath("CanvasLayer/UI/CameraToggle")
 audio_player = NodePath("MusicAudioStreamPlayer")
 camera_2d = NodePath("Camera2D")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=867989446]
-texture = ExtResource("1_ig7tw")
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=319082835]
-texture_filter = 1
-
-[node name="StartButton" type="Button" parent="." unique_id=696845041]
-offset_left = -16.0
-offset_top = -90.0
-offset_right = 80.0
-offset_bottom = -59.0
-text = "Start Game"
-metadata/_edit_use_anchors_ = true
-
-[node name="Victory UI" type="Node2D" parent="." unique_id=548841052]
-visible = false
-
-[node name="Label" type="Label" parent="Victory UI" unique_id=456663510]
-offset_left = -37.0
-offset_top = -12.0
-offset_right = 39.0
-offset_bottom = 11.0
-text = "YOU WIN!"
-
-[node name="Button" type="Button" parent="Victory UI" unique_id=1945126094]
-offset_left = -33.0
-offset_top = 23.0
-offset_right = 32.0
-offset_bottom = 54.0
-text = "Restart
-"
-
-[node name="MusicAudioStreamPlayer" type="AudioStreamPlayer2D" parent="." unique_id=2018866623]
-process_mode = 3
-stream = ExtResource("4_1bvp3")
-autoplay = true
-bus = &"Music Bus"
-
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=458952364]
+layer = 2
 
 [node name="UI" type="Control" parent="CanvasLayer" unique_id=1043251833]
 process_mode = 3
@@ -89,6 +52,52 @@ theme_override_font_sizes/font_size = 10
 text = "C"
 metadata/_edit_use_anchors_ = true
 
-[connection signal="pressed" from="Victory UI/Button" to="." method="_on_button_pressed"]
-[connection signal="finished" from="MusicAudioStreamPlayer" to="." method="_on_music_audio_stream_player_finished"]
+[node name="Victory UI" type="Control" parent="CanvasLayer" unique_id=1774138752]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 160.0
+offset_top = 90.0
+offset_right = 160.0
+offset_bottom = 90.0
+
+[node name="Label" type="Label" parent="CanvasLayer/Victory UI" unique_id=456663510]
+layout_mode = 0
+offset_left = -37.0
+offset_top = -12.0
+offset_right = 39.0
+offset_bottom = 11.0
+text = "YOU WIN!"
+
+[node name="Button" type="Button" parent="CanvasLayer/Victory UI" unique_id=1945126094]
+layout_mode = 0
+offset_left = -33.0
+offset_top = 23.0
+offset_right = 32.0
+offset_bottom = 54.0
+text = "Restart
+"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=867989446]
+texture = ExtResource("1_ig7tw")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=319082835]
+texture_filter = 1
+
+[node name="StartButton" type="Button" parent="." unique_id=696845041]
+offset_left = -16.0
+offset_top = -90.0
+offset_right = 80.0
+offset_bottom = -59.0
+text = "Start Game"
+metadata/_edit_use_anchors_ = true
+
+[node name="MusicAudioStreamPlayer" type="AudioStreamPlayer2D" parent="." unique_id=2018866623]
+process_mode = 3
+stream = ExtResource("4_1bvp3")
+autoplay = true
+bus = &"Music Bus"
+
 [connection signal="pressed" from="CanvasLayer/UI/CameraToggle" to="." method="_on_camera_toggle_pressed"]
+[connection signal="pressed" from="CanvasLayer/Victory UI/Button" to="." method="_on_button_pressed"]
+[connection signal="finished" from="MusicAudioStreamPlayer" to="." method="_on_music_audio_stream_player_finished"]

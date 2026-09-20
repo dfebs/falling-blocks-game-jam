@@ -3,6 +3,11 @@
 [ext_resource type="Texture2D" uid="uid://cys4cmdeqdoal" path="res://Assets/blocks/sand_blocks.png" id="1_ci8vy"]
 [ext_resource type="Texture2D" uid="uid://c7pf0mrtd2iaa" path="res://Assets/blocks/stone_blocks.png" id="2_4gob1"]
 [ext_resource type="Script" uid="uid://bhi5j552asjns" path="res://Levels/Components/grid.gd" id="2_m322r"]
+[ext_resource type="Texture2D" uid="uid://b32fib7dcujyh" path="res://Assets/blocks/dirt_blocks.png" id="4_t0vg6"]
+[ext_resource type="Texture2D" uid="uid://c45pb3iurrww7" path="res://Assets/blocks/grass_plant_blocks.png" id="5_r2gwc"]
+[ext_resource type="Texture2D" uid="uid://buarhqjmwxqa" path="res://Assets/blocks/boost_blocks.png" id="6_pmvm1"]
+[ext_resource type="Texture2D" uid="uid://dqt6lx0fp3p2w" path="res://Assets/blocks/water.png" id="7_yc7iv"]
+[ext_resource type="PackedScene" uid="uid://dirgyrb5f7n7d" path="res://UI/block_type_ui.tscn" id="8_pmvm1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m322r"]
 texture = ExtResource("1_ci8vy")
@@ -43,9 +48,25 @@ custom_data_layer_1/type = 4
 sources/0 = SubResource("TileSetAtlasSource_m322r")
 sources/1 = SubResource("TileSetAtlasSource_t0vg6")
 
-[node name="Grid" type="TileMapLayer" unique_id=1100096991]
+[sub_resource type="AtlasTexture" id="AtlasTexture_djvyk"]
+atlas = ExtResource("4_t0vg6")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_doaom"]
+load_path = "res://.godot/imported/dirt_blocks.png-f1170a0df512cf5c4adc49d68b6518d9.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pmvm1"]
+atlas = SubResource("CompressedTexture2D_doaom")
+region = Rect2(0, 0, 16, 16)
+
+[node name="Grid" type="TileMapLayer" unique_id=1100096991 node_paths=PackedStringArray("sprite_2d", "blocks_ui")]
+z_index = -1
 tile_set = SubResource("TileSet_crqmy")
 script = ExtResource("2_m322r")
+sprite_2d = NodePath("Control/Sprite2D")
+blocks = Array[Texture]([ExtResource("1_ci8vy"), ExtResource("2_4gob1"), ExtResource("4_t0vg6"), ExtResource("5_r2gwc"), ExtResource("6_pmvm1"), ExtResource("7_yc7iv")])
+blocks_ui = NodePath("CanvasLayer/BlocksUI")
+block_type_ui = ExtResource("8_pmvm1")
 
 [node name="Ticker" type="Timer" parent="." unique_id=421647720]
 wait_time = 0.05
@@ -54,3 +75,30 @@ autostart = true
 [node name="AddBlockCooldown" type="Timer" parent="." unique_id=2031386925]
 wait_time = 0.1
 one_shot = true
+
+[node name="Control" type="Control" parent="." unique_id=578562234]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="Control" unique_id=2102814533]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Control" unique_id=732323430]
+texture = SubResource("AtlasTexture_djvyk")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1154164501]
+
+[node name="BlocksUI" type="Control" parent="CanvasLayer" unique_id=1941005144]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 89.0
+offset_bottom = 180.0
+
+[node name="BlockTypeUI" parent="CanvasLayer/BlocksUI" unique_id=2092292477 instance=ExtResource("8_pmvm1")]
+position = Vector2(18, 18)
+texture = SubResource("AtlasTexture_pmvm1")

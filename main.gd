@@ -3,7 +3,7 @@ class_name MainScript
 
 @export var sprite_2d: Sprite2D
 @export var start_button: Button
-@export var victory_ui: Node2D
+@export var victory_ui: Control
 @export var ui: Control
 @export var settings: Control
 @export var camera_toggle: Button
@@ -16,11 +16,11 @@ var menu_track = preload("res://Assets/Audio/menu_music.wav")
 var paused = false
 var started = false
 var dragging = false
-@export var free_cam = false
+@export var free_cam = true
 
 static var _scenes_dict
 
-var level_index = -1
+var level_index = 1
 
 var reload_held_counter = 0
 
@@ -36,6 +36,8 @@ func _process(delta):
 		reload_held_counter += delta
 		if reload_held_counter > 1:
 			reload_current_level()
+	elif Input.is_action_just_released("Reload"):
+			reload_held_counter = 0
 	else:
 		reload_held_counter = 0
 
@@ -56,8 +58,8 @@ func reload_current_level():
 	spawn_level()
 
 func next_level():
-	level_index += 1
-	if level_index < len(_scenes_dict):
+	if level_index + 1 < len(_scenes_dict):
+		level_index += 1
 		spawn_level()
 	else:
 		victory_ui.visible = true

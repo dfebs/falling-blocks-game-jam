@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://dirgyrb5f7n7d"]
+
+[ext_resource type="Script" uid="uid://wlincec31dw3" path="res://UI/block_type_ui.gd" id="2_oj3y6"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_doaom"]
+load_path = "res://.godot/imported/grass_plant_blocks.png-319d7c72a02dbad50dd84c3697defd2e.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_djvyk"]
+atlas = SubResource("CompressedTexture2D_doaom")
+region = Rect2(0, 0, 16, 16)
+
+[node name="BlockTypeUI" type="Sprite2D" unique_id=2092292477]
+texture = SubResource("AtlasTexture_djvyk")
+script = ExtResource("2_oj3y6")
+
+[node name="Label" type="Label" parent="." unique_id=1634439582]
+offset_left = 12.0
+offset_top = -12.0
+offset_right = 52.0
+offset_bottom = 11.0
+text = "Sand"
