@@ -65,6 +65,8 @@ func _physics_process(delta: float) -> void:
 			var body_tile = detect_tile_bottom_half(collider)
 			if head_tile and body_tile:
 				die()
+			elif body_tile:
+				check_new_tile_effects(body_tile)
 				
 	if queue_jump and not new_fx:
 		jump()
@@ -98,6 +100,9 @@ func check_new_tile_effects(tile_type) -> bool:
 			mega_jump()
 		"boost":
 			speed_modifier += MAX_SPEED
+			_boost_timer = boost_dur
+		"water":
+			speed_modifier = -(MAX_SPEED / 2)
 			_boost_timer = boost_dur
 		_:
 			has_fx = false
