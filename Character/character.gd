@@ -95,10 +95,10 @@ func detect_tile_at_location(pos, tilemap) -> String:
 func check_new_tile_effects(tile_type) -> bool:
 	var has_fx = true
 	match(tile_type):
-		"sand":
+		"boost":
 			jump_bonus = JUMP_VELOCITY
 			mega_jump()
-		"boost":
+		"boost2":
 			speed_modifier += MAX_SPEED
 			_boost_timer = boost_dur
 		"water":

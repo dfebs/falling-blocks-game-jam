@@ -84,6 +84,8 @@ static func dir_contents(path):
 	else:
 		print("An error occurred when trying to access the path.")
 
+	scene_loads.sort_custom(func(a, b): return a.resource_path < b.resource_path)
+	print(scene_loads)
 	return scene_loads
 
 func spawn_level():

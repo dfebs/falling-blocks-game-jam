@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dirgyrb5f7n7d" path="res://UI/block_type_ui.tscn" id="8_pmvm1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m322r"]
+resource_name = "Sand"
 texture = ExtResource("1_ci8vy")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -25,6 +26,7 @@ texture = ExtResource("1_ci8vy")
 2:0/0/custom_data_1 = "solid"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t0vg6"]
+resource_name = "Stone"
 texture = ExtResource("2_4gob1")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -118,6 +120,7 @@ sprite_2d = NodePath("Control/Sprite2D")
 blocks = Array[Texture]([ExtResource("1_ci8vy"), ExtResource("2_4gob1"), ExtResource("4_t0vg6"), ExtResource("5_r2gwc"), ExtResource("6_pmvm1"), ExtResource("7_yc7iv")])
 blocks_ui = NodePath("CanvasLayer/BlocksUI")
 block_type_ui = ExtResource("8_pmvm1")
+actions = Array[String](["Block 1", "Block 2", "Block 3", "Block 4"])
 
 [node name="Ticker" type="Timer" parent="." unique_id=421647720]
 wait_time = 0.05
