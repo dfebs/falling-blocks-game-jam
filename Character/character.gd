@@ -3,9 +3,13 @@ class_name DeliveryMan
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var MAX_SPEED = 50
+var speed_modifier = 0
+var _boost_timer = 0
+var boost_dur = 1
 @export var direction = -1
 @export var ray_cast_2d: RayCast2D
 @export var JUMP_VELOCITY = -250
+var jump_bonus = 0
 @export var audio_player: AudioStreamPlayer2D
 var sound_one = preload("res://Assets/Audio/fail.wav")
 var sound_two = preload("res://Assets/Audio/spring.wav")
@@ -21,17 +25,23 @@ signal died
 
 func _physics_process(delta: float) -> void:
 	if freeze: return
+	var queue_jump = false
+	var new_fx = false
 	if is_on_floor():
 		if velocity.y >= 0:
 			velocity.y = 0
 	else:
 		velocity.y += gravity * delta
 	
-	velocity.x = direction * MAX_SPEED
+	velocity.x = direction * (MAX_SPEED + speed_modifier)
+	if _boost_timer > 0:
+		_boost_timer -= delta
+	else:
+		speed_modifier = 0
 	if is_on_floor() and not ray_cast_2d.is_colliding() and is_on_flat_ground():
-		jump()
+		queue_jump = true
 	elif is_on_floor() and jump_detector.is_colliding() and not wall_detector.is_colliding():
-		jump()
+		queue_jump = true
 	
 	move_and_slide()
 	
@@ -49,12 +59,15 @@ func _physics_process(delta: float) -> void:
 		if collider is TileMapLayer:
 			var new_tile = detect_tile_below_player(collider)
 			if most_recent_tile != new_tile:
-				check_new_tile_effects(new_tile)
+				new_fx = check_new_tile_effects(new_tile)
 			most_recent_tile = new_tile
 			var head_tile = detect_tile_player_head(collider)
 			var body_tile = detect_tile_bottom_half(collider)
 			if head_tile and body_tile:
 				die()
+				
+	if queue_jump and not new_fx:
+		jump()
 
 
 func detect_tile_player_head(tilemap) -> String:
@@ -73,18 +86,34 @@ func detect_tile_at_location(pos, tilemap) -> String:
 	var tile = tilemap.local_to_map(pos)
 	var tile_data = tilemap.get_cell_tile_data(tile)
 	if tile_data:
-		var type = tile_data.get_custom_data("type")
-		return type
+		return tile_data.get_custom_data("type")
 	else:
 		return ""
 
-func check_new_tile_effects(tile_type):
-	print(tile_type)
+func check_new_tile_effects(tile_type) -> bool:
+	var has_fx = true
+	match(tile_type):
+		"sand":
+			jump_bonus = JUMP_VELOCITY
+			mega_jump()
+		"boost":
+			speed_modifier += MAX_SPEED
+			_boost_timer = boost_dur
+		_:
+			has_fx = false
+			print(tile_type)
+	return has_fx
 
 func jump():
-		audio_player.stream = sound_two
-		audio_player.play()
-		velocity.y = JUMP_VELOCITY
+	audio_player.stream = sound_two
+	audio_player.play()
+	velocity.y = JUMP_VELOCITY + jump_bonus
+	jump_bonus = 0
+	
+func mega_jump():
+	audio_player.stream = sound_two
+	audio_player.play()
+	velocity.y = JUMP_VELOCITY + jump_bonus
 
 func is_on_flat_ground() -> bool:
 	var normal = get_floor_normal()
