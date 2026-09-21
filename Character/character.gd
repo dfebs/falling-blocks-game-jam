@@ -58,8 +58,7 @@ func _physics_process(delta: float) -> void:
 			
 		if collider is TileMapLayer:
 			var new_tile = detect_tile_below_player(collider)
-			if most_recent_tile != new_tile:
-				new_fx = check_new_tile_effects(new_tile)
+			check_new_tile_effects(new_tile)
 			most_recent_tile = new_tile
 			var head_tile = detect_tile_player_head(collider)
 			var body_tile = detect_tile_bottom_half(collider)
@@ -106,7 +105,6 @@ func check_new_tile_effects(tile_type) -> bool:
 			_boost_timer = boost_dur
 		_:
 			has_fx = false
-			print(tile_type)
 	return has_fx
 
 func jump():
