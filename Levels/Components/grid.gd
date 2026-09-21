@@ -98,7 +98,11 @@ func _on_tick():
 		var form = tile_data.get_custom_data("form")
 
 		if (type == "sand" || type == "dirt"):
-			_process_cell(cell)
+			_process_grainy_cell(cell)
+		if (type == "water"):
+			_process_liquid_cell(cell)
+		if (type == "grass" || type == "boost"):
+			_process_pure_solid_cell(cell)
 
 func _get_neighbors_below(cell):
 	# All downward directions in relation to the current cell
@@ -111,15 +115,59 @@ func _get_neighbors_below(cell):
 		neighbors.append(cell + direction)
 	return neighbors
 
-func _process_cell(cell):
+func _get_neighbor_below(cell):
+	return cell + Vector2i.DOWN
+
+func _get_neighbors_beside(cell):
+	var directions = [
+		Vector2i.LEFT, Vector2i.RIGHT
+	]
+
+	var neighbors = []
+	for direction in directions:
+		neighbors.append(cell + direction)
+	return neighbors
+
+
+func _process_grainy_cell(cell):
+	_attempt_downward_movement(cell)
+
+func _process_pure_solid_cell(cell):
+	_attempt_straight_down_movement(cell)
+
+func _process_liquid_cell(cell):
+	if _attempt_downward_movement(cell):
+		return
+	_attempt_sideways_movement(cell)
+
+func _attempt_straight_down_movement(cell):
+	var neighbor = _get_neighbor_below(cell)
+	if _attempt_cell_move_to(cell, neighbor):
+		return true
+	return false
+
+func _attempt_downward_movement(cell):
 	for neighbor in _get_neighbors_below(cell):
-		if get_cell_source_id(neighbor) == -1:
-			set_cell(neighbor, get_cell_source_id(cell), get_cell_atlas_coords(cell))
-			erase_cell(cell)
-			break
+		if _attempt_cell_move_to(cell, neighbor):
+			return true
+	return false
+
+func _attempt_sideways_movement(cell):
+	var neighbors = _get_neighbors_beside(cell)
+	neighbors.shuffle()
+	for neighbor in neighbors:
+		if _attempt_cell_move_to(cell, neighbor):
+			return true
+	return false
+
+func _attempt_cell_move_to(cell, location):
+	if get_cell_source_id(location) == -1:
+		set_cell(location, get_cell_source_id(cell), get_cell_atlas_coords(cell))
+		erase_cell(cell)
+		return true
+	return false
 
 func _place_new_block(pos):
-	# var local_pos = get_global_transform_with_canvas().affine_inverse() * pos
 	var local_pos = to_local(pos)
 	var map_pos = local_to_map(local_pos)
 
