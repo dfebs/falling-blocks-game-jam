@@ -14,6 +14,7 @@ var sound_three = preload("res://Assets/Audio/thud.wav")
 @export var jump_detector: RayCast2D
 @export var wall_detector: RayCast2D
 
+var most_recent_tile: String = ""
 
 var freeze = false
 signal died
@@ -39,11 +40,46 @@ func _physics_process(delta: float) -> void:
 		var collider = collision.get_collider()
 		
 		# Confirm we are actually hitting a wall side-on, not the floor beneath us
-		if !(collider is Floor) and abs(collision.get_normal().x) > 0.7:
+		if abs(collision.get_normal().x) > 0.7:
 			direction *= -1
 			scale *= Vector2(-1, 1)
 			audio_player.stream = sound_three
 			audio_player.play()
+			
+		if collider is TileMapLayer:
+			var new_tile = detect_tile_below_player(collider)
+			if most_recent_tile != new_tile:
+				check_new_tile_effects(new_tile)
+			most_recent_tile = new_tile
+			var head_tile = detect_tile_player_head(collider)
+			var body_tile = detect_tile_bottom_half(collider)
+			if head_tile and body_tile:
+				die()
+
+
+func detect_tile_player_head(tilemap) -> String:
+	var local = tilemap.to_local(global_position - Vector2(0, 12))
+	return detect_tile_at_location(local, tilemap)
+
+func detect_tile_bottom_half(tilemap) -> String:
+	var local = tilemap.to_local(global_position - Vector2(0, -8))
+	return detect_tile_at_location(local, tilemap)
+
+func detect_tile_below_player(tilemap) -> String:
+	var local = tilemap.to_local(global_position - Vector2(0, -24))
+	return detect_tile_at_location(local, tilemap)
+
+func detect_tile_at_location(pos, tilemap) -> String:
+	var tile = tilemap.local_to_map(pos)
+	var tile_data = tilemap.get_cell_tile_data(tile)
+	if tile_data:
+		var type = tile_data.get_custom_data("type")
+		return type
+	else:
+		return ""
+
+func check_new_tile_effects(tile_type):
+	print(tile_type)
 
 func jump():
 		audio_player.stream = sound_two

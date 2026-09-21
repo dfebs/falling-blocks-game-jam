@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dirgyrb5f7n7d" path="res://UI/block_type_ui.tscn" id="8_pmvm1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m322r"]
+resource_name = "Sand"
 texture = ExtResource("1_ci8vy")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -25,6 +26,7 @@ texture = ExtResource("1_ci8vy")
 2:0/0/custom_data_1 = "solid"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t0vg6"]
+resource_name = "Stone"
 texture = ExtResource("2_4gob1")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
