@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dirgyrb5f7n7d" path="res://UI/block_type_ui.tscn" id="8_pmvm1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m322r"]
+resource_name = "Sand"
 texture = ExtResource("1_ci8vy")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -25,6 +26,7 @@ texture = ExtResource("1_ci8vy")
 2:0/0/custom_data_1 = "solid"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t0vg6"]
+resource_name = "Stone"
 texture = ExtResource("2_4gob1")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -39,6 +41,53 @@ texture = ExtResource("2_4gob1")
 2:0/0/custom_data_0 = "stone"
 2:0/0/custom_data_1 = "solid"
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pmvm1"]
+texture = ExtResource("4_t0vg6")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:0/0/custom_data_0 = "dirt"
+0:0/0/custom_data_1 = "solid"
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0/custom_data_0 = "dirt"
+1:0/0/custom_data_1 = "solid"
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:0/0/custom_data_0 = "dirt"
+2:0/0/custom_data_1 = "solid"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yc7iv"]
+texture = ExtResource("5_r2gwc")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:0/0/custom_data_0 = "grass"
+0:0/0/custom_data_1 = "solid"
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0/custom_data_0 = "grass"
+1:0/0/custom_data_1 = "solid"
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:0/0/custom_data_0 = "grass"
+2:0/0/custom_data_1 = "solid"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g20dq"]
+texture = ExtResource("6_pmvm1")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:0/0/custom_data_0 = "boost"
+0:0/0/custom_data_1 = "solid"
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0/custom_data_0 = "boost"
+1:0/0/custom_data_1 = "solid"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4h0g7"]
+texture = ExtResource("7_yc7iv")
+0:0/0 = 0
+0:0/0/custom_data_0 = "water"
+0:0/0/custom_data_1 = "liquid"
+
 [sub_resource type="TileSet" id="TileSet_crqmy"]
 physics_layer_0/collision_layer = 1
 custom_data_layer_0/name = "type"
@@ -47,6 +96,10 @@ custom_data_layer_1/name = "form"
 custom_data_layer_1/type = 4
 sources/0 = SubResource("TileSetAtlasSource_m322r")
 sources/1 = SubResource("TileSetAtlasSource_t0vg6")
+sources/2 = SubResource("TileSetAtlasSource_pmvm1")
+sources/3 = SubResource("TileSetAtlasSource_yc7iv")
+sources/4 = SubResource("TileSetAtlasSource_g20dq")
+sources/5 = SubResource("TileSetAtlasSource_4h0g7")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_djvyk"]
 atlas = ExtResource("4_t0vg6")
@@ -67,9 +120,13 @@ sprite_2d = NodePath("Control/Sprite2D")
 blocks = Array[Texture]([ExtResource("1_ci8vy"), ExtResource("2_4gob1"), ExtResource("4_t0vg6"), ExtResource("5_r2gwc"), ExtResource("6_pmvm1"), ExtResource("7_yc7iv")])
 blocks_ui = NodePath("CanvasLayer/BlocksUI")
 block_type_ui = ExtResource("8_pmvm1")
+actions = Array[String](["Block 1", "Block 2", "Block 3", "Block 4"])
 
 [node name="Ticker" type="Timer" parent="." unique_id=421647720]
 wait_time = 0.05
+autostart = true
+
+[node name="NourishmentTicker" type="Timer" parent="." unique_id=284572512]
 autostart = true
 
 [node name="AddBlockCooldown" type="Timer" parent="." unique_id=2031386925]
