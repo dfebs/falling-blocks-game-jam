@@ -148,3 +148,8 @@ func _on_camera_toggle_pressed():
 		curr_level.disconnect_camera()
 	else:
 		curr_level.call_deferred("connect_camera", camera_2d)
+
+
+func _on_settings_button_pressed():
+	if !settings.visible:
+		settings.visible = true

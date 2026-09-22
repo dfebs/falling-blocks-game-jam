@@ -7,10 +7,9 @@
 
 [node name="World" type="Node2D" unique_id=1118787975 node_paths=PackedStringArray("sprite_2d", "start_button", "victory_ui", "ui", "settings", "camera_toggle", "audio_player", "camera_2d")]
 process_mode = 3
-position = Vector2(160, 90)
 script = ExtResource("1_0xm2m")
 sprite_2d = NodePath("Sprite2D")
-start_button = NodePath("StartButton")
+start_button = NodePath("CanvasLayer/UI/StartMenu/VBoxContainer/StartButton")
 victory_ui = NodePath("CanvasLayer/Victory UI")
 ui = NodePath("CanvasLayer/UI")
 settings = NodePath("CanvasLayer/UI/Settings")
@@ -26,11 +25,30 @@ process_mode = 3
 z_index = 1
 layout_mode = 3
 anchors_preset = 0
-offset_left = 178.0
-offset_top = 36.0
-offset_right = 218.0
-offset_bottom = 76.0
+offset_right = 40.0
+offset_bottom = 40.0
 metadata/_edit_use_anchors_ = true
+
+[node name="StartMenu" type="Control" parent="CanvasLayer/UI" unique_id=1401015781]
+layout_mode = 1
+offset_top = -32.0
+offset_right = 40.0
+offset_bottom = 8.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/StartMenu" unique_id=1607253009]
+layout_mode = 0
+offset_left = -48.0
+offset_top = -2.0
+offset_right = 48.0
+offset_bottom = 64.0
+
+[node name="StartButton" type="Button" parent="CanvasLayer/UI/StartMenu/VBoxContainer" unique_id=696845041]
+layout_mode = 2
+text = "Start Game"
+
+[node name="SettingsButton" type="Button" parent="CanvasLayer/UI/StartMenu/VBoxContainer" unique_id=402429950]
+layout_mode = 2
+text = "Settings"
 
 [node name="Settings" parent="CanvasLayer/UI" unique_id=1707542350 instance=ExtResource("3_1bvp3")]
 visible = false
@@ -89,20 +107,13 @@ texture = ExtResource("1_ig7tw")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=319082835]
 texture_filter = 1
 
-[node name="StartButton" type="Button" parent="." unique_id=696845041]
-offset_left = -16.0
-offset_top = -90.0
-offset_right = 80.0
-offset_bottom = -59.0
-text = "Start Game"
-metadata/_edit_use_anchors_ = true
-
 [node name="MusicAudioStreamPlayer" type="AudioStreamPlayer2D" parent="." unique_id=2018866623]
 process_mode = 3
 stream = ExtResource("4_1bvp3")
 autoplay = true
 bus = &"Music Bus"
 
+[connection signal="pressed" from="CanvasLayer/UI/StartMenu/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/CameraToggle" to="." method="_on_camera_toggle_pressed"]
 [connection signal="pressed" from="CanvasLayer/Victory UI/Button" to="." method="_on_button_pressed"]
 [connection signal="finished" from="MusicAudioStreamPlayer" to="." method="_on_music_audio_stream_player_finished"]
