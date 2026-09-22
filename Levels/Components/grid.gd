@@ -42,6 +42,7 @@ var inventory = {
 }
 
 var selected_block = "sand"
+var nourished_cells: Array[Vector2i] = []
 
 @onready var block_preview = $Control
 @export var sprite_2d: Sprite2D
@@ -56,6 +57,7 @@ func _ready() -> void:
 	else:
 		selected_block = ""
 	$Ticker.timeout.connect(_on_tick)
+	$NourishmentTicker.timeout.connect(_on_nourishment_tick)
 	update_block_preview_sprite()
 	for child in blocks_ui.get_children():
 		child.queue_free()
@@ -97,15 +99,24 @@ func _on_tick():
 		var type = tile_data.get_custom_data("type")
 
 		match type:
-			"sand", "dirt":
+			"sand":
 				_process_grainy_cell(cell)
 			"water":
 				_process_liquid_cell(cell)
+			"dirt":
+				_nourish_neighbors(cell, ["grass"])
+				_process_grainy_cell(cell)
 			"grass":
+				_nourish_neighbors(cell, ["grass"])
 				_assimilate_neighbors(cell, ["water"])
 				_process_pure_solid_cell(cell)
 			"boost":
 				_process_pure_solid_cell(cell)
+
+func _on_nourishment_tick():
+	for cell in get_used_cells().filter(func(cell): return !nourished_cells.has(cell) && _get_cell_type(cell) == "grass"):
+		set_cell(cell, -1)
+	nourished_cells = []
 
 func _get_neighbors_below(cell):
 	# All downward directions in relation to the current cell
@@ -135,10 +146,27 @@ func _get_all_neighbors(cell):
 		neighbors.append(cell + direction)
 	return neighbors
 
+func _get_cell_type(cell):
+	var cell_tile_data = get_cell_tile_data(cell)
+	return cell_tile_data.get_custom_data("type")
+
+func _nourish_neighbors(cell, types):
+	var neighbors = _get_all_neighbors(cell)
+	var cell_type = _get_cell_type(cell)
+
+	for neighbor in neighbors:
+		if get_cell_source_id(neighbor) == -1:
+			continue
+	
+		var neighbor_tile_data = get_cell_tile_data(neighbor)
+		var neighbor_type = neighbor_tile_data.get_custom_data("type")
+		
+		if types.has(neighbor_type) && (cell_type == "dirt" || nourished_cells.has(cell)):
+			nourished_cells.append(neighbor)
+
 func _assimilate_neighbors(cell, types):
 	var neighbors = _get_all_neighbors(cell)
-	var cell_tile_data = get_cell_tile_data(cell)
-	var cell_type = cell_tile_data.get_custom_data("type")
+	var cell_type = _get_cell_type(cell)
 
 	for neighbor in neighbors:
 		if get_cell_source_id(neighbor) == -1:
