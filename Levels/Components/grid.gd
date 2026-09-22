@@ -15,7 +15,7 @@ const BLOCKS = {
 		"id": 2,
 		"variations": 3
 	},
-#
+
 	"grass": {
 		"id": 3,
 		"variations": 3
@@ -88,21 +88,24 @@ func update_block_preview_position():
 	block_preview.global_position = local_pos
 
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and $AddBlockCooldown.is_stopped():
-		_place_new_block(get_global_mouse_position())
+		_place_selected_block(get_global_mouse_position())
 		$AddBlockCooldown.start()
 
 func _on_tick():
 	for cell in get_used_cells():
 		var tile_data = get_cell_tile_data(cell)
 		var type = tile_data.get_custom_data("type")
-		var form = tile_data.get_custom_data("form")
 
-		if (type == "sand" || type == "dirt"):
-			_process_grainy_cell(cell)
-		if (type == "water"):
-			_process_liquid_cell(cell)
-		if (type == "grass" || type == "boost"):
-			_process_pure_solid_cell(cell)
+		match type:
+			"sand", "dirt":
+				_process_grainy_cell(cell)
+			"water":
+				_process_liquid_cell(cell)
+			"grass":
+				_assimilate_neighbors(cell, ["water"])
+				_process_pure_solid_cell(cell)
+			"boost":
+				_process_pure_solid_cell(cell)
 
 func _get_neighbors_below(cell):
 	# All downward directions in relation to the current cell
@@ -114,6 +117,38 @@ func _get_neighbors_below(cell):
 	for direction in directions:
 		neighbors.append(cell + direction)
 	return neighbors
+
+func _get_all_neighbors(cell):
+	var directions = [
+		Vector2i.DOWN,
+		Vector2i.UP,
+		Vector2i.LEFT,
+		Vector2i.RIGHT,
+		Vector2i(-1, 1),
+		Vector2i(-1, -1),
+		Vector2i(1, 1),
+		Vector2i(1, -1),
+	]
+
+	var neighbors = []
+	for direction in directions:
+		neighbors.append(cell + direction)
+	return neighbors
+
+func _assimilate_neighbors(cell, types):
+	var neighbors = _get_all_neighbors(cell)
+	var cell_tile_data = get_cell_tile_data(cell)
+	var cell_type = cell_tile_data.get_custom_data("type")
+
+	for neighbor in neighbors:
+		if get_cell_source_id(neighbor) == -1:
+			continue
+	
+		var neighbor_tile_data = get_cell_tile_data(neighbor)
+		var neighbor_type = neighbor_tile_data.get_custom_data("type")
+		
+		if types.has(neighbor_type):
+			_set_block(neighbor, cell_type)
 
 func _get_neighbor_below(cell):
 	return cell + Vector2i.DOWN
@@ -127,7 +162,6 @@ func _get_neighbors_beside(cell):
 	for direction in directions:
 		neighbors.append(cell + direction)
 	return neighbors
-
 
 func _process_grainy_cell(cell):
 	_attempt_downward_movement(cell)
@@ -167,12 +201,18 @@ func _attempt_cell_move_to(cell, location):
 		return true
 	return false
 
-func _place_new_block(pos):
+func _place_selected_block(pos):
 	var local_pos = to_local(pos)
 	var map_pos = local_to_map(local_pos)
 
-	var block_to_place = BLOCKS[selected_block]
-	var atlas_coords = Vector2i(randi() % block_to_place.variations, 0)
+	var block_to_set = BLOCKS[selected_block]
+	var atlas_coords = Vector2i(randi() % block_to_set.variations, 0)
 	
 	if get_cell_source_id(map_pos) == -1:
-		set_cell(map_pos, block_to_place.id, atlas_coords)
+		set_cell(map_pos, block_to_set.id, atlas_coords)
+
+func _set_block(pos, block_type):
+	var block_to_set = BLOCKS[block_type]
+	var atlas_coords = Vector2i(randi() % block_to_set.variations, 0)
+	
+	set_cell(pos, block_to_set.id, atlas_coords)
