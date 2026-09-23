@@ -13,6 +13,7 @@ class_name MainScript
 var main_track = preload("res://Assets/Audio/main_track.wav")
 var menu_track = preload("res://Assets/Audio/menu_music.wav")
 @export var camera_2d: Camera2D
+@export var cpu_particles_2d: CPUParticles2D
 
 var paused = false
 var started = false
@@ -49,6 +50,7 @@ func _start_pressed():
 	start_game()
 
 func start_game():
+	cpu_particles_2d.emitting = true
 	started = true
 	if sprite_2d:
 		sprite_2d.visible = false
