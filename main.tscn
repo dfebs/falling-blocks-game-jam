@@ -7,8 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://dkjc85biap40r" path="res://Assets/UI/title_screen.png" id="4_5vw27"]
 [ext_resource type="FontFile" uid="uid://dg8nlrak8afhj" path="res://Assets/Fonts/PixelifySans/static/PixelifySans-Bold.ttf" id="4_272bh"]
 [ext_resource type="Texture2D" uid="uid://cswe8dynwsqp7" path="res://Assets/UI/CameraIcon.png" id="6_272bh"]
+[ext_resource type="Texture2D" uid="uid://bv8cuqymdbvh1" path="res://Assets/cloud_shadow_1.png" id="8_5vw27"]
 
-[node name="World" type="Node2D" unique_id=1118787975 node_paths=PackedStringArray("sprite_2d", "start_button", "victory_ui", "start_menu", "settings", "camera_toggle", "v_box_container", "audio_player", "camera_2d")]
+[node name="World" type="Node2D" unique_id=1118787975 node_paths=PackedStringArray("sprite_2d", "start_button", "victory_ui", "start_menu", "settings", "camera_toggle", "v_box_container", "audio_player", "camera_2d", "cpu_particles_2d")]
 process_mode = 3
 script = ExtResource("1_0xm2m")
 sprite_2d = NodePath("CanvasLayer/UI/StartMenu/Sprite2D")
@@ -20,6 +21,19 @@ camera_toggle = NodePath("CanvasLayer/UI/CameraToggle")
 v_box_container = NodePath("CanvasLayer/UI/StartMenu/VBoxContainer")
 audio_player = NodePath("MusicAudioStreamPlayer")
 camera_2d = NodePath("Camera2D")
+cpu_particles_2d = NodePath("CPUParticles2D")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1930056566]
+z_index = -2
+position = Vector2(-181, 9)
+texture = ExtResource("8_5vw27")
+lifetime = 5.0
+emission_shape = 3
+emission_rect_extents = Vector2(80, 180)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 150.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=458952364]
 layer = 2
