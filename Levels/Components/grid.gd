@@ -80,6 +80,12 @@ func _process(_delta: float) -> void:
 			update_block_preview_sprite()
 	update_block_preview_position()
 
+func _unhandled_input(event):
+	# Moved this here so it doesn't trigger when clicking on UI buttons
+	if event.is_action_pressed("MouseLeft") and $AddBlockCooldown.is_stopped():
+		_place_selected_block(get_global_mouse_position())
+		$AddBlockCooldown.start()
+
 func update_block_preview_sprite():
 	if sprite_2d.texture is AtlasTexture:
 		sprite_2d.texture.atlas = blocks[BLOCKS[selected_block]["id"]]
@@ -88,10 +94,6 @@ func update_block_preview_position():
 	if !block_preview: return
 	var local_pos = get_global_mouse_position()
 	block_preview.global_position = local_pos
-
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and $AddBlockCooldown.is_stopped():
-		_place_selected_block(get_global_mouse_position())
-		$AddBlockCooldown.start()
 
 func _on_tick():
 	for cell in get_used_cells():

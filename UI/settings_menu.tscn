@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dl25a00u3g7eo" path="res://audio_slider.gd" id="1_77no7"]
 [ext_resource type="Script" uid="uid://dgsor7am2blci" path="res://UI/settings_menu.gd" id="1_jkv84"]
+[ext_resource type="Theme" uid="uid://b1kiyvvc6l6jp" path="res://UI/ui_theme.tres" id="3_0adsa"]
 
 [sub_resource type="Gradient" id="Gradient_77no7"]
 offsets = PackedFloat32Array(1)
@@ -38,9 +39,10 @@ bus_name = "FX Bus"
 [node name="Label" type="Label" parent="FX Bus" unique_id=411974404]
 layout_mode = 0
 offset_left = -118.0
-offset_top = -6.0
+offset_top = -4.0
 offset_right = -36.0
-offset_bottom = 17.0
+offset_bottom = 19.0
+theme = ExtResource("3_0adsa")
 text = "FX Volume"
 
 [node name="Music Bus" type="HSlider" parent="." unique_id=1931392802]
@@ -58,19 +60,24 @@ bus_name = "Music Bus"
 [node name="Label" type="Label" parent="Music Bus" unique_id=1090778594]
 layout_mode = 0
 offset_left = -118.0
-offset_top = -6.0
+offset_top = -3.0
 offset_right = -9.0
-offset_bottom = 17.0
+offset_bottom = 20.0
+theme = ExtResource("3_0adsa")
 text = "Music Volume"
 
 [node name="CloseButton" type="Button" parent="." unique_id=1831910408]
 layout_mode = 0
-offset_left = 115.0
-offset_top = -11.0
-offset_right = 133.0
-offset_bottom = 8.0
-theme_override_font_sizes/font_size = 7
+offset_left = 113.0
+offset_top = -19.0
+offset_right = 135.0
+offset_bottom = 18.0
+theme = ExtResource("3_0adsa")
+theme_type_variation = &"FlatButton"
+theme_override_font_sizes/font_size = 23
 text = "X"
+text_overrun_behavior = 1
+clip_text = true
 
 [connection signal="value_changed" from="FX Bus" to="FX Bus" method="_on_value_changed"]
 [connection signal="value_changed" from="Music Bus" to="Music Bus" method="_on_value_changed"]

@@ -4,7 +4,7 @@ class_name MainScript
 @export var sprite_2d: Sprite2D
 @export var start_button: Button
 @export var victory_ui: Control
-@export var ui: Control
+@export var start_menu: Control
 @export var settings: Control
 @export var camera_toggle: Button
 
@@ -30,6 +30,7 @@ func _ready():
 	if !start_button:
 		push_error("Start button missing")
 	start_button.pressed.connect(start_game)
+	settings.close_button_pressed.connect(toggle_pause)
 
 func _process(delta):
 	if Input.is_action_pressed("Reload"):
@@ -47,6 +48,7 @@ func start_game():
 		sprite_2d.visible = false
 	start_button.disabled = true
 	start_button.visible = false
+	start_menu.visible = false
 	camera_toggle.visible = true
 	camera_2d.zoom = Vector2(0.5, 0.5)
 	
@@ -99,13 +101,16 @@ func spawn_level():
 
 func _unhandled_key_input(event):
 	if event.is_action_pressed("Escape"):
-		paused = !paused
-		settings.visible = paused
-		get_tree().paused = paused
+		toggle_pause()
 	if event.is_action_pressed("Mute"):
 		audio_player.stream_paused = !audio_player.stream_paused
 	if event.is_action_pressed("Toggle Camera"):
 		_on_camera_toggle_pressed()
+
+func toggle_pause():
+	paused = !paused
+	settings.visible = paused
+	get_tree().paused = paused
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
@@ -133,7 +138,20 @@ func zoom_at(pos, scale):
 	camera_2d.zoom += Vector2(scale, scale)
 
 func _on_button_pressed():
-	get_tree().reload_current_scene()
+	if curr_level:
+		curr_level.queue_free()
+	started = false
+	level_index = -1
+	if sprite_2d:
+		sprite_2d.visible = true
+	start_button.disabled = false
+	start_button.visible = true
+	start_menu.visible = true
+	camera_toggle.visible = false
+	camera_2d.zoom = Vector2(0.5, 0.5)
+	camera_2d.position = Vector2(0, 0)
+	victory_ui.visible = false
+	
 
 func _on_music_audio_stream_player_finished():
 	if started:
@@ -149,7 +167,6 @@ func _on_camera_toggle_pressed():
 		curr_level.disconnect_camera()
 	else:
 		curr_level.call_deferred("connect_camera", camera_2d)
-
 
 func _on_settings_button_pressed():
 	if !settings.visible:

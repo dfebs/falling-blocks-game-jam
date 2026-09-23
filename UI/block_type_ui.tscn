@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dirgyrb5f7n7d"]
 
 [ext_resource type="Script" uid="uid://wlincec31dw3" path="res://UI/block_type_ui.gd" id="2_oj3y6"]
+[ext_resource type="Theme" uid="uid://b1kiyvvc6l6jp" path="res://UI/ui_theme.tres" id="2_vpfqq"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_doaom"]
 load_path = "res://.godot/imported/grass_plant_blocks.png-319d7c72a02dbad50dd84c3697defd2e.ctex"
@@ -15,7 +16,9 @@ script = ExtResource("2_oj3y6")
 
 [node name="Label" type="Label" parent="." unique_id=1634439582]
 offset_left = 12.0
-offset_top = -12.0
-offset_right = 52.0
-offset_bottom = 11.0
+offset_top = -6.0
+offset_right = 34.0
+offset_bottom = 5.0
+theme = ExtResource("2_vpfqq")
+theme_override_font_sizes/font_size = 8
 text = "Sand"
