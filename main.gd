@@ -7,11 +7,13 @@ class_name MainScript
 @export var start_menu: Control
 @export var settings: Control
 @export var camera_toggle: Button
+@export var v_box_container: VBoxContainer
 
 @export var audio_player: AudioStreamPlayer2D
 var main_track = preload("res://Assets/Audio/main_track.wav")
 var menu_track = preload("res://Assets/Audio/menu_music.wav")
 @export var camera_2d: Camera2D
+@export var cpu_particles_2d: CPUParticles2D
 
 var paused = false
 var started = false
@@ -48,6 +50,7 @@ func _start_pressed():
 	start_game()
 
 func start_game():
+	cpu_particles_2d.emitting = true
 	started = true
 	if sprite_2d:
 		sprite_2d.visible = false
@@ -117,11 +120,14 @@ func toggle_settings_menu():
 	settings.visible = !settings.visible
 	paused = settings.visible
 	get_tree().paused = paused
+	v_box_container.visible = true
 
 func toggle_pause():
 	paused = !paused
 	settings.visible = paused
 	get_tree().paused = paused
+	if !started:
+		v_box_container.visible = !settings.visible
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
@@ -183,3 +189,4 @@ func _on_camera_toggle_pressed():
 func _on_settings_button_pressed():
 	if !settings.visible:
 		settings.visible = true
+		v_box_container.visible = false

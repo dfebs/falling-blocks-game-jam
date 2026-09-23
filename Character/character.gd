@@ -50,7 +50,7 @@ func _physics_process(delta: float) -> void:
 		var collider = collision.get_collider()
 		
 		# Confirm we are actually hitting a wall side-on, not the floor beneath us
-		if abs(collision.get_normal().x) > 0.7:
+		if !queue_jump and abs(collision.get_normal().x) > 0.7:
 			direction *= -1
 			scale *= Vector2(-1, 1)
 			audio_player.stream = sound_three
