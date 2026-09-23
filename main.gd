@@ -29,8 +29,8 @@ var curr_level: BaseLevel
 func _ready():
 	if !start_button:
 		push_error("Start button missing")
-	start_button.pressed.connect(start_game)
-	settings.close_button_pressed.connect(toggle_pause)
+	start_button.pressed.connect(_start_pressed)
+	settings.close_button_pressed.connect(toggle_settings_menu)
 
 func _process(delta):
 	if Input.is_action_pressed("Reload"):
@@ -42,6 +42,11 @@ func _process(delta):
 	else:
 		reload_held_counter = 0
 
+func _start_pressed():
+	if settings.visible:
+		return
+	start_game()
+
 func start_game():
 	started = true
 	if sprite_2d:
@@ -50,6 +55,7 @@ func start_game():
 	start_button.visible = false
 	start_menu.visible = false
 	camera_toggle.visible = true
+	settings.visible = false
 	camera_2d.zoom = Vector2(0.5, 0.5)
 	
 	_scenes_dict = dir_contents('res://Levels/')
@@ -107,6 +113,11 @@ func _unhandled_key_input(event):
 	if event.is_action_pressed("Toggle Camera"):
 		_on_camera_toggle_pressed()
 
+func toggle_settings_menu():
+	settings.visible = !settings.visible
+	paused = settings.visible
+	get_tree().paused = paused
+
 func toggle_pause():
 	paused = !paused
 	settings.visible = paused
@@ -151,6 +162,7 @@ func _on_button_pressed():
 	camera_2d.zoom = Vector2(0.5, 0.5)
 	camera_2d.position = Vector2(0, 0)
 	victory_ui.visible = false
+	settings.visible = false
 	
 
 func _on_music_audio_stream_player_finished():

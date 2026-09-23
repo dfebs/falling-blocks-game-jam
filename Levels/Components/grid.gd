@@ -50,6 +50,7 @@ var nourished_cells: Array[Vector2i] = []
 @export var blocks_ui: Control
 @export var block_type_ui: PackedScene
 @export var actions: Array[String] = ["Block 1", "Block 2", "Block 3", "Block 4", "Block 5", "Block 6"]
+var left_mouse_held = false
 
 func _ready() -> void:
 	if len(actions) > 0:
@@ -79,10 +80,17 @@ func _process(_delta: float) -> void:
 			selected_block = inventory[action]
 			update_block_preview_sprite()
 	update_block_preview_position()
+	place_block_if_mouse_held()
 
 func _unhandled_input(event):
 	# Moved this here so it doesn't trigger when clicking on UI buttons
-	if event.is_action_pressed("MouseLeft") and $AddBlockCooldown.is_stopped():
+	if event.is_action_pressed("MouseLeft"):
+		left_mouse_held = true
+	if event.is_action_released("MouseLeft"):
+		left_mouse_held = false
+
+func place_block_if_mouse_held():
+	if left_mouse_held and $AddBlockCooldown.is_stopped():
 		_place_selected_block(get_global_mouse_position())
 		$AddBlockCooldown.start()
 

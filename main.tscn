@@ -29,12 +29,12 @@ z_index = 2
 anchors_preset = -1
 anchor_left = 0.325
 anchor_top = -0.85
-anchor_right = 0.325
-anchor_bottom = -0.85
-offset_left = 46.0
-offset_top = 230.0
-offset_right = 86.0
-offset_bottom = 270.0
+anchor_right = 0.971875
+anchor_bottom = -0.55
+offset_left = -68.0
+offset_top = 229.0
+offset_right = -28.0
+offset_bottom = 269.0
 metadata/_edit_use_anchors_ = true
 
 [node name="Victory UI" type="Control" parent="CanvasLayer" unique_id=1774138752]
