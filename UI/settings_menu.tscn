@@ -1,10 +1,12 @@
 [gd_scene format=3 uid="uid://bkbuo1va3qn36"]
 
 [ext_resource type="Script" uid="uid://dl25a00u3g7eo" path="res://audio_slider.gd" id="1_77no7"]
+[ext_resource type="Script" uid="uid://dgsor7am2blci" path="res://UI/settings_menu.gd" id="1_jkv84"]
+[ext_resource type="Theme" uid="uid://b1kiyvvc6l6jp" path="res://UI/ui_theme.tres" id="3_0adsa"]
 
 [sub_resource type="Gradient" id="Gradient_77no7"]
 offsets = PackedFloat32Array(1)
-colors = PackedColorArray(0.19215687, 0.24313726, 0.59607846, 1)
+colors = PackedColorArray(0.13333334, 0.1254902, 0.20392157, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_qkkea"]
 gradient = SubResource("Gradient_77no7")
@@ -13,20 +15,29 @@ gradient = SubResource("Gradient_77no7")
 process_mode = 3
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -114.0
+offset_top = -27.0
+offset_right = 154.0
+offset_bottom = 67.0
+script = ExtResource("1_jkv84")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2137280889]
-position = Vector2(10.378916, 35.388157)
+[node name="Sprite2D" type="TextureRect" parent="." unique_id=1349807800]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_left = 1.9999995
+offset_top = 2.0000024
+offset_right = 66.0
+offset_bottom = 66.0
 scale = Vector2(3.8319092, 1.42537)
+mouse_filter = 0
 texture = SubResource("GradientTexture2D_qkkea")
 
 [node name="FX Bus" type="HSlider" parent="." unique_id=508149046]
 layout_mode = 0
-offset_left = 21.0
-offset_top = 20.0
-offset_right = 117.0
-offset_bottom = 36.0
+offset_left = 133.0
+offset_top = 35.0
+offset_right = 229.0
+offset_bottom = 51.0
 max_value = 1.0
 step = 0.1
 value = 0.5
@@ -36,17 +47,19 @@ bus_name = "FX Bus"
 [node name="Label" type="Label" parent="FX Bus" unique_id=411974404]
 layout_mode = 0
 offset_left = -118.0
-offset_top = -6.0
+offset_top = -4.0
 offset_right = -36.0
-offset_bottom = 17.0
+offset_bottom = 19.0
+mouse_filter = 0
+theme = ExtResource("3_0adsa")
 text = "FX Volume"
 
 [node name="Music Bus" type="HSlider" parent="." unique_id=1931392802]
 layout_mode = 0
-offset_left = 21.0
-offset_top = 44.0
-offset_right = 117.0
-offset_bottom = 60.0
+offset_left = 133.0
+offset_top = 59.0
+offset_right = 229.0
+offset_bottom = 75.0
 max_value = 1.0
 step = 0.1
 value = 0.5
@@ -56,10 +69,26 @@ bus_name = "Music Bus"
 [node name="Label" type="Label" parent="Music Bus" unique_id=1090778594]
 layout_mode = 0
 offset_left = -118.0
-offset_top = -6.0
+offset_top = -3.0
 offset_right = -9.0
-offset_bottom = 17.0
+offset_bottom = 20.0
+mouse_filter = 0
+theme = ExtResource("3_0adsa")
 text = "Music Volume"
+
+[node name="CloseButton" type="Button" parent="." unique_id=1831910408]
+layout_mode = 0
+offset_left = 225.0
+offset_top = -4.0
+offset_right = 247.0
+offset_bottom = 33.0
+theme = ExtResource("3_0adsa")
+theme_type_variation = &"FlatButton"
+theme_override_font_sizes/font_size = 23
+text = "X"
+text_overrun_behavior = 1
+clip_text = true
 
 [connection signal="value_changed" from="FX Bus" to="FX Bus" method="_on_value_changed"]
 [connection signal="value_changed" from="Music Bus" to="Music Bus" method="_on_value_changed"]
+[connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

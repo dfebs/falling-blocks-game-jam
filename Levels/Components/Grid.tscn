@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://buarhqjmwxqa" path="res://Assets/blocks/boost_blocks.png" id="6_pmvm1"]
 [ext_resource type="Texture2D" uid="uid://dqt6lx0fp3p2w" path="res://Assets/blocks/water.png" id="7_yc7iv"]
 [ext_resource type="PackedScene" uid="uid://dirgyrb5f7n7d" path="res://UI/block_type_ui.tscn" id="8_pmvm1"]
+[ext_resource type="Theme" uid="uid://b1kiyvvc6l6jp" path="res://UI/ui_theme.tres" id="9_yc7iv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m322r"]
 resource_name = "Sand"
@@ -150,11 +151,10 @@ texture = SubResource("AtlasTexture_djvyk")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1154164501]
 
-[node name="BlocksUI" type="Control" parent="CanvasLayer" unique_id=1941005144]
-layout_mode = 3
-anchors_preset = 0
+[node name="BlocksUI" type="VBoxContainer" parent="CanvasLayer" unique_id=1056338531]
 offset_right = 89.0
 offset_bottom = 180.0
+theme = ExtResource("9_yc7iv")
 
 [node name="BlockTypeUI" parent="CanvasLayer/BlocksUI" unique_id=2092292477 instance=ExtResource("8_pmvm1")]
 position = Vector2(18, 18)

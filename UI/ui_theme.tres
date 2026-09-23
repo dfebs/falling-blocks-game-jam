@@ -1,0 +1,6 @@
+[gd_resource type="Theme" format=3 uid="uid://b1kiyvvc6l6jp"]
+
+[ext_resource type="FontFile" uid="uid://dg8nlrak8afhj" path="res://Assets/Fonts/PixelifySans/static/PixelifySans-Bold.ttf" id="1_it55r"]
+
+[resource]
+default_font = ExtResource("1_it55r")
