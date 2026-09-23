@@ -119,7 +119,7 @@ func _on_tick():
 			"grass":
 				_nourish_neighbors(cell, ["grass"])
 				_assimilate_neighbors(cell, ["water"])
-				_process_pure_solid_cell(cell)
+				_process_cohesive_solid_cell(cell)
 			"boost":
 				_process_pure_solid_cell(cell)
 
@@ -165,7 +165,7 @@ func _nourish_neighbors(cell, types):
 	var cell_type = _get_cell_type(cell)
 
 	for neighbor in neighbors:
-		if get_cell_source_id(neighbor) == -1:
+		if _cell_is_empty(neighbor):
 			continue
 	
 		var neighbor_tile_data = get_cell_tile_data(neighbor)
@@ -179,7 +179,7 @@ func _assimilate_neighbors(cell, types):
 	var cell_type = _get_cell_type(cell)
 
 	for neighbor in neighbors:
-		if get_cell_source_id(neighbor) == -1:
+		if _cell_is_empty(neighbor):
 			continue
 	
 		var neighbor_tile_data = get_cell_tile_data(neighbor)
@@ -207,20 +207,23 @@ func _process_grainy_cell(cell):
 func _process_pure_solid_cell(cell):
 	_attempt_straight_down_movement(cell)
 
+func _process_cohesive_solid_cell(cell):
+	_attempt_straight_down_movement(cell, true, true)
+
 func _process_liquid_cell(cell):
 	if _attempt_downward_movement(cell, false):
 		return
 	_attempt_sideways_movement(cell)
 
-func _attempt_straight_down_movement(cell, sink=true):
+func _attempt_straight_down_movement(cell, sink=true, cohesive=false):
 	var neighbor = _get_neighbor_below(cell)
-	if _attempt_cell_move_to(cell, neighbor, sink):
+	if _attempt_cell_move_to(cell, neighbor, sink, cohesive):
 		return true
 	return false
 
-func _attempt_downward_movement(cell, sink=true):
+func _attempt_downward_movement(cell, sink=true, cohesive=false):
 	for neighbor in _get_neighbors_below(cell):
-		if _attempt_cell_move_to(cell, neighbor, sink):
+		if _attempt_cell_move_to(cell, neighbor, sink, cohesive):
 			return true
 	return false
 
@@ -232,12 +235,20 @@ func _attempt_sideways_movement(cell):
 			return true
 	return false
 
-func _attempt_cell_move_to(cell, location, sink=true):
-	if (sink && !(get_cell_source_id(location) == -1) && _get_cell_type(location) == "water"):
+func _cell_is_empty(cell):
+	return get_cell_source_id(cell) == -1
+
+func _attempt_cell_move_to(cell, location, sink=true, cohesive=false):
+	if (cohesive):
+		var neighbors = _get_all_neighbors(cell)
+		for neighbor in neighbors:
+			if !_cell_is_empty(neighbor) && _get_cell_type(neighbor) == _get_cell_type(cell):
+				return true
+	if (sink && !_cell_is_empty(location) && _get_cell_type(location) == "water"):
 		set_cell(location, get_cell_source_id(cell), get_cell_atlas_coords(cell))
 		set_cell(cell, BLOCKS.water.id, Vector2i(0,0))
 		return true
-	if get_cell_source_id(location) == -1:
+	if _cell_is_empty(location):
 		set_cell(location, get_cell_source_id(cell), get_cell_atlas_coords(cell))
 		erase_cell(cell)
 		return true
@@ -250,7 +261,7 @@ func _place_selected_block(pos):
 	var block_to_set = BLOCKS[selected_block]
 	var atlas_coords = Vector2i(randi() % block_to_set.variations, 0)
 	
-	if get_cell_source_id(map_pos) == -1:
+	if _cell_is_empty(map_pos):
 		set_cell(map_pos, block_to_set.id, atlas_coords)
 
 func _set_block(pos, block_type):
