@@ -8,7 +8,7 @@
 [ext_resource type="FontFile" uid="uid://dg8nlrak8afhj" path="res://Assets/Fonts/PixelifySans/static/PixelifySans-Bold.ttf" id="4_272bh"]
 [ext_resource type="Texture2D" uid="uid://cswe8dynwsqp7" path="res://Assets/UI/CameraIcon.png" id="6_272bh"]
 
-[node name="World" type="Node2D" unique_id=1118787975 node_paths=PackedStringArray("sprite_2d", "start_button", "victory_ui", "start_menu", "settings", "camera_toggle", "audio_player", "camera_2d")]
+[node name="World" type="Node2D" unique_id=1118787975 node_paths=PackedStringArray("sprite_2d", "start_button", "victory_ui", "start_menu", "settings", "camera_toggle", "v_box_container", "audio_player", "camera_2d")]
 process_mode = 3
 script = ExtResource("1_0xm2m")
 sprite_2d = NodePath("CanvasLayer/UI/StartMenu/Sprite2D")
@@ -17,6 +17,7 @@ victory_ui = NodePath("CanvasLayer/Victory UI")
 start_menu = NodePath("CanvasLayer/UI/StartMenu")
 settings = NodePath("CanvasLayer/Settings")
 camera_toggle = NodePath("CanvasLayer/UI/CameraToggle")
+v_box_container = NodePath("CanvasLayer/UI/StartMenu/VBoxContainer")
 audio_player = NodePath("MusicAudioStreamPlayer")
 camera_2d = NodePath("Camera2D")
 
