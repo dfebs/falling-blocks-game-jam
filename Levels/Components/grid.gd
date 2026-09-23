@@ -208,19 +208,19 @@ func _process_pure_solid_cell(cell):
 	_attempt_straight_down_movement(cell)
 
 func _process_liquid_cell(cell):
-	if _attempt_downward_movement(cell):
+	if _attempt_downward_movement(cell, false):
 		return
 	_attempt_sideways_movement(cell)
 
-func _attempt_straight_down_movement(cell):
+func _attempt_straight_down_movement(cell, sink=true):
 	var neighbor = _get_neighbor_below(cell)
-	if _attempt_cell_move_to(cell, neighbor):
+	if _attempt_cell_move_to(cell, neighbor, sink):
 		return true
 	return false
 
-func _attempt_downward_movement(cell):
+func _attempt_downward_movement(cell, sink=true):
 	for neighbor in _get_neighbors_below(cell):
-		if _attempt_cell_move_to(cell, neighbor):
+		if _attempt_cell_move_to(cell, neighbor, sink):
 			return true
 	return false
 
@@ -228,11 +228,15 @@ func _attempt_sideways_movement(cell):
 	var neighbors = _get_neighbors_beside(cell)
 	neighbors.shuffle()
 	for neighbor in neighbors:
-		if _attempt_cell_move_to(cell, neighbor):
+		if _attempt_cell_move_to(cell, neighbor, false):
 			return true
 	return false
 
-func _attempt_cell_move_to(cell, location):
+func _attempt_cell_move_to(cell, location, sink=true):
+	if (sink && !(get_cell_source_id(location) == -1) && _get_cell_type(location) == "water"):
+		set_cell(location, get_cell_source_id(cell), get_cell_atlas_coords(cell))
+		set_cell(cell, BLOCKS.water.id, Vector2i(0,0))
+		return true
 	if get_cell_source_id(location) == -1:
 		set_cell(location, get_cell_source_id(cell), get_cell_atlas_coords(cell))
 		erase_cell(cell)
