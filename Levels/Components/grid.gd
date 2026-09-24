@@ -1,16 +1,15 @@
 extends TileMapLayer
 
 const BLOCKS = {
-	"sand": {
-		"id": 0,
-		"variations": 3
-	},
-
 	"stone": {
 		"id": 1,
 		"variations": 3
 	},
 
+	"sand": {
+		"id": 0,
+		"variations": 3
+	},
 	"dirt": {
 		"id": 2,
 		"variations": 3
@@ -33,8 +32,8 @@ const BLOCKS = {
 }
 
 var inventory = {
-	"Block 1": "sand",
-	"Block 2": "stone",
+	"Block 1": "stone",
+	"Block 2": "sand",
 	"Block 3": "dirt",
 	"Block 4": "grass",
 	"Block 5": "boost",
@@ -77,12 +76,13 @@ func refresh_blocks_ui():
 	var index = 0
 	for action in actions:
 		var block_name = inventory[action]
-		var ui_thing: BlockTypeUI = block_type_ui.instantiate()
+		var ui_thing: BlockTypeUI = block_type_ui.instantiate().duplicate()
 		blocks_ui.add_child(ui_thing)
 		var new_tex = blocks[BLOCKS[block_name]["id"]]
 		ui_thing.texture = ui_thing.texture.duplicate()
 		ui_thing.texture.atlas = new_tex
-		ui_thing.text = "{0} - {1}".format([block_name.capitalize(), str(BLOCKS[block_name]["id"] + 1)])
+		ui_thing.text = "{0}".format([block_name.capitalize()])
+		ui_thing.hotkey.text = str(index + 1)
 		ui_thing.position += Vector2(24, 24 + index * 24)
 		index += 1
 
