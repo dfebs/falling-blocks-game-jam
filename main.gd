@@ -127,7 +127,7 @@ func _unhandled_key_input(event):
 		if event.is_action_pressed("ui_up") and !dragging:
 			camera_2d.position.y -= 16
 		if event.is_action_pressed("ui_down") and !dragging:
-			camera_2d.position.y -= 16
+			camera_2d.position.y += 16
 		
 	if !OS.is_debug_build():
 		return
