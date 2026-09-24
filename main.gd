@@ -130,13 +130,15 @@ func _unhandled_key_input(event):
 			camera_2d.position.y += 16
 		
 	if !OS.is_debug_build():
-		return
+		return # Debug only keybindings below
 	if event.is_action_pressed("Next Level"):
 		next_level()
 	if event.is_action_pressed("Previous Level"):
 		if level_index >= 1:
 			level_index -= 2
 			next_level()
+		if victory_ui.visible:
+			victory_ui.visible = false
 
 func toggle_settings_menu():
 	settings.visible = !settings.visible
