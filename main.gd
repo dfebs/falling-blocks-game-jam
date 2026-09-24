@@ -8,6 +8,7 @@ class_name MainScript
 @export var settings: Control
 @export var camera_toggle: Button
 @export var v_box_container: VBoxContainer
+@export var level_counter_label: Label
 
 @export var audio_player: AudioStreamPlayer2D
 var main_track = preload("res://Assets/Audio/main_track.wav")
@@ -72,6 +73,8 @@ func next_level():
 	if level_index + 1 < len(_scenes_dict):
 		level_index += 1
 		spawn_level()
+		if level_counter_label:
+			level_counter_label.text = "Level - {0}".format([str(level_index)])
 	else:
 		victory_ui.visible = true
 
@@ -115,6 +118,14 @@ func _unhandled_key_input(event):
 		audio_player.stream_paused = !audio_player.stream_paused
 	if event.is_action_pressed("Toggle Camera"):
 		_on_camera_toggle_pressed()
+	if !OS.is_debug_build():
+		return
+	if event.is_action_pressed("Next Level"):
+		next_level()
+	if event.is_action_pressed("Previous Level"):
+		if level_index >= 1:
+			level_index -= 2
+			next_level()
 
 func toggle_settings_menu():
 	settings.visible = !settings.visible

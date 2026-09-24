@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cswe8dynwsqp7" path="res://Assets/UI/CameraIcon.png" id="6_272bh"]
 [ext_resource type="Texture2D" uid="uid://bv8cuqymdbvh1" path="res://Assets/cloud_shadow_1.png" id="8_5vw27"]
 
-[node name="World" type="Node2D" unique_id=1118787975 node_paths=PackedStringArray("sprite_2d", "start_button", "victory_ui", "start_menu", "settings", "camera_toggle", "v_box_container", "audio_player", "camera_2d", "cpu_particles_2d")]
+[node name="World" type="Node2D" unique_id=1118787975 node_paths=PackedStringArray("sprite_2d", "start_button", "victory_ui", "start_menu", "settings", "camera_toggle", "v_box_container", "level_counter_label", "audio_player", "camera_2d", "cpu_particles_2d")]
 process_mode = 3
 script = ExtResource("1_0xm2m")
 sprite_2d = NodePath("CanvasLayer/UI/StartMenu/Sprite2D")
@@ -19,6 +19,7 @@ start_menu = NodePath("CanvasLayer/UI/StartMenu")
 settings = NodePath("CanvasLayer/Settings")
 camera_toggle = NodePath("CanvasLayer/UI/CameraToggle")
 v_box_container = NodePath("CanvasLayer/UI/StartMenu/VBoxContainer")
+level_counter_label = NodePath("CanvasLayer/Level Counter/LevelCounterLabel")
 audio_player = NodePath("MusicAudioStreamPlayer")
 camera_2d = NodePath("Camera2D")
 cpu_particles_2d = NodePath("CPUParticles2D")
@@ -160,6 +161,22 @@ theme = ExtResource("3_7mycd")
 theme_type_variation = &"FlatButton"
 theme_override_icons/icon = ExtResource("6_272bh")
 metadata/_edit_use_anchors_ = true
+
+[node name="Level Counter" type="Control" parent="CanvasLayer" unique_id=2049113397]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LevelCounterLabel" type="Label" parent="CanvasLayer/Level Counter" unique_id=527558902]
+layout_mode = 0
+offset_left = 240.0
+offset_top = 9.0
+offset_right = 295.0
+offset_bottom = 32.0
+theme = ExtResource("3_7mycd")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Level 0"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=319082835]
 texture_filter = 1
