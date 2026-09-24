@@ -118,6 +118,17 @@ func _unhandled_key_input(event):
 		audio_player.stream_paused = !audio_player.stream_paused
 	if event.is_action_pressed("Toggle Camera"):
 		_on_camera_toggle_pressed()
+	
+	if free_cam:
+		if event.is_action_pressed("ui_left") and !dragging:
+			camera_2d.position.x -= 16
+		if event.is_action_pressed("ui_right") and !dragging:
+			camera_2d.position.x += 16
+		if event.is_action_pressed("ui_up") and !dragging:
+			camera_2d.position.y -= 16
+		if event.is_action_pressed("ui_down") and !dragging:
+			camera_2d.position.y -= 16
+		
 	if !OS.is_debug_build():
 		return
 	if event.is_action_pressed("Next Level"):
@@ -160,7 +171,7 @@ func _unhandled_input(event):
 
 func zoom_at(pos, scale):
 	if camera_2d.zoom.x + scale <= 0.01:
-		scale = 0.01
+		scale = 0.1
 	if camera_2d.zoom.x + scale >= 4:
 		scale = 4
 	camera_2d.zoom += Vector2(scale, scale)
