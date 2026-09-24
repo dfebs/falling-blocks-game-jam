@@ -147,6 +147,7 @@ offset_right = 40.0
 offset_bottom = 23.0
 
 [node name="Sprite2D" type="Sprite2D" parent="Control" unique_id=732323430]
+modulate = Color(1, 1, 1, 0.5372549)
 texture = SubResource("AtlasTexture_djvyk")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1154164501]

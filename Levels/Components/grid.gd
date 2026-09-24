@@ -105,7 +105,10 @@ func update_block_preview_sprite():
 func update_block_preview_position():
 	if !block_preview: return
 	var local_pos = get_global_mouse_position()
-	block_preview.global_position = local_pos
+	var local = to_local(local_pos)
+	var map_pos = local_to_map(local_pos)
+	var local_center = map_to_local(map_pos)
+	block_preview.global_position = to_global(local_center)
 
 func _on_tick():
 	for cell in get_used_cells():
