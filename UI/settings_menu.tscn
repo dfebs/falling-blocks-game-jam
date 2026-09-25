@@ -25,9 +25,9 @@ script = ExtResource("1_jkv84")
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 1.9999995
-offset_top = 2.0000024
+offset_top = -81.0
 offset_right = 66.0
-offset_bottom = 66.0
+offset_bottom = 33.356277
 scale = Vector2(3.8319092, 1.42537)
 mouse_filter = 0
 texture = SubResource("GradientTexture2D_qkkea")
@@ -78,16 +78,34 @@ text = "Music Volume"
 
 [node name="CloseButton" type="Button" parent="." unique_id=1831910408]
 layout_mode = 0
-offset_left = 225.0
-offset_top = -4.0
-offset_right = 247.0
-offset_bottom = 33.0
+offset_left = 228.0
+offset_top = -89.0
+offset_right = 250.0
+offset_bottom = -52.0
 theme = ExtResource("3_0adsa")
 theme_type_variation = &"FlatButton"
 theme_override_font_sizes/font_size = 23
 text = "X"
 text_overrun_behavior = 1
 clip_text = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=185216538]
+layout_mode = 0
+offset_left = 15.0
+offset_top = -78.0
+offset_right = 260.0
+offset_bottom = 30.0
+mouse_filter = 2
+theme = ExtResource("3_0adsa")
+theme_override_font_sizes/normal_font_size = 10
+text = "Controls:
+WASD - Camera
+C - Toggle Fixed Camera
+R - Hold to Reload Level
+Esc - Opens this menu
+0-9 - Select Block
+Mouse Left - Place Block
+Mouse Scroll - Zoom Camera"
 
 [connection signal="value_changed" from="FX Bus" to="FX Bus" method="_on_value_changed"]
 [connection signal="value_changed" from="Music Bus" to="Music Bus" method="_on_value_changed"]

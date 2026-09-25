@@ -8,6 +8,7 @@ class_name MainScript
 @export var settings: Control
 @export var camera_toggle: Button
 @export var v_box_container: VBoxContainer
+@export var level_counter_label: Label
 
 @export var audio_player: AudioStreamPlayer2D
 var main_track = preload("res://Assets/Audio/main_track.wav")
@@ -72,6 +73,8 @@ func next_level():
 	if level_index + 1 < len(_scenes_dict):
 		level_index += 1
 		spawn_level()
+		if level_counter_label:
+			level_counter_label.text = "Level - {0}".format([str(level_index)])
 	else:
 		victory_ui.visible = true
 
@@ -115,6 +118,27 @@ func _unhandled_key_input(event):
 		audio_player.stream_paused = !audio_player.stream_paused
 	if event.is_action_pressed("Toggle Camera"):
 		_on_camera_toggle_pressed()
+	
+	if free_cam:
+		if event.is_action_pressed("ui_left") and !dragging:
+			camera_2d.position.x -= 16
+		if event.is_action_pressed("ui_right") and !dragging:
+			camera_2d.position.x += 16
+		if event.is_action_pressed("ui_up") and !dragging:
+			camera_2d.position.y -= 16
+		if event.is_action_pressed("ui_down") and !dragging:
+			camera_2d.position.y += 16
+		
+	if !OS.is_debug_build():
+		return # Debug only keybindings below
+	if event.is_action_pressed("Next Level"):
+		next_level()
+	if event.is_action_pressed("Previous Level"):
+		if level_index >= 1:
+			level_index -= 2
+			next_level()
+		if victory_ui.visible:
+			victory_ui.visible = false
 
 func toggle_settings_menu():
 	settings.visible = !settings.visible
@@ -149,7 +173,7 @@ func _unhandled_input(event):
 
 func zoom_at(pos, scale):
 	if camera_2d.zoom.x + scale <= 0.01:
-		scale = 0.01
+		scale = 0.1
 	if camera_2d.zoom.x + scale >= 4:
 		scale = 4
 	camera_2d.zoom += Vector2(scale, scale)

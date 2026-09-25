@@ -1,16 +1,15 @@
 extends TileMapLayer
 
 const BLOCKS = {
-	"sand": {
-		"id": 0,
-		"variations": 3
-	},
-
 	"stone": {
 		"id": 1,
 		"variations": 3
 	},
 
+	"sand": {
+		"id": 0,
+		"variations": 3
+	},
 	"dirt": {
 		"id": 2,
 		"variations": 3
@@ -33,8 +32,8 @@ const BLOCKS = {
 }
 
 var inventory = {
-	"Block 1": "sand",
-	"Block 2": "stone",
+	"Block 1": "stone",
+	"Block 2": "sand",
 	"Block 3": "dirt",
 	"Block 4": "grass",
 	"Block 5": "boost",
@@ -60,18 +59,7 @@ func _ready() -> void:
 	$Ticker.timeout.connect(_on_tick)
 	$NourishmentTicker.timeout.connect(_on_nourishment_tick)
 	update_block_preview_sprite()
-	for child in blocks_ui.get_children():
-		child.queue_free()
-	for action in actions:
-		var block_name = inventory[action]
-		var ui_thing: BlockTypeUI = block_type_ui.instantiate()
-		blocks_ui.add_child(ui_thing)
-		var new_tex = blocks[BLOCKS[block_name]["id"]]
-		ui_thing.texture = ui_thing.texture.duplicate()
-		ui_thing.texture.atlas = new_tex
-		ui_thing.text = "{0} - {1}".format([block_name.capitalize(), str(BLOCKS[block_name]["id"] + 1)])
-		ui_thing.position += Vector2(24, 24 + BLOCKS[block_name]["id"] * 24)
-	update_block_preview_sprite()
+	refresh_blocks_ui()
 	update_block_preview_position()
 
 func _process(_delta: float) -> void:
@@ -81,6 +69,22 @@ func _process(_delta: float) -> void:
 			update_block_preview_sprite()
 	update_block_preview_position()
 	place_block_if_mouse_held()
+	
+func refresh_blocks_ui():
+	for child in blocks_ui.get_children():
+		child.queue_free()
+	var index = 0
+	for action in actions:
+		var block_name = inventory[action]
+		var ui_thing: BlockTypeUI = block_type_ui.instantiate().duplicate()
+		blocks_ui.add_child(ui_thing)
+		var new_tex = blocks[BLOCKS[block_name]["id"]]
+		ui_thing.texture = ui_thing.texture.duplicate()
+		ui_thing.texture.atlas = new_tex
+		ui_thing.text = "{0}".format([block_name.capitalize()])
+		ui_thing.hotkey.text = str(index + 1)
+		ui_thing.position += Vector2(24, 24 + index * 24)
+		index += 1
 
 func _unhandled_input(event):
 	# Moved this here so it doesn't trigger when clicking on UI buttons
@@ -101,7 +105,10 @@ func update_block_preview_sprite():
 func update_block_preview_position():
 	if !block_preview: return
 	var local_pos = get_global_mouse_position()
-	block_preview.global_position = local_pos
+	var local = to_local(local_pos)
+	var map_pos = local_to_map(local_pos)
+	var local_center = map_to_local(map_pos)
+	block_preview.global_position = to_global(local_center)
 
 func _on_tick():
 	for cell in get_used_cells():
