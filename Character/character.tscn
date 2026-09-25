@@ -50,3 +50,10 @@ bus = &"FX Bus"
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="." unique_id=397123214]
 update_rotation = false
 update_scale = false
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=814554082]
+offset_left = -7.0
+offset_top = -16.0
+offset_right = 9.0
+offset_bottom = 16.0
+mouse_filter = 0
