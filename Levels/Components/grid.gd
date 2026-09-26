@@ -370,12 +370,12 @@ func _place_selected_block(pos):
 	var block_to_set = BLOCKS[selected_block]
 	if check_remaining_block_count(selected_block) <= 0:
 		return
-	decrement_block_count_for_active_block(selected_block)
 
 	var atlas_coords = Vector2i(randi() % block_to_set.variations, 0)
 	
 	if _cell_is_empty(map_pos):
 		set_cell(map_pos, block_to_set.id, atlas_coords)
+		decrement_block_count_for_active_block(selected_block)
 
 func _set_block(pos, block_type):
 	var block_to_set = BLOCKS[block_type]
