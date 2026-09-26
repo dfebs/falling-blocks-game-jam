@@ -5,10 +5,13 @@
 [ext_resource type="Script" uid="uid://bhi5j552asjns" path="res://Levels/Components/grid.gd" id="2_m322r"]
 [ext_resource type="Texture2D" uid="uid://b32fib7dcujyh" path="res://Assets/blocks/dirt_blocks.png" id="4_t0vg6"]
 [ext_resource type="Texture2D" uid="uid://c45pb3iurrww7" path="res://Assets/blocks/grass_plant_blocks.png" id="5_r2gwc"]
-[ext_resource type="Texture2D" uid="uid://buarhqjmwxqa" path="res://Assets/blocks/boost_blocks.png" id="6_pmvm1"]
+[ext_resource type="Texture2D" uid="uid://djj4ih0dx8c4" path="res://Assets/blocks/boost_up.png" id="6_6xejo"]
+[ext_resource type="Texture2D" uid="uid://cepsheu5uxo5r" path="res://Assets/blocks/boost_left.png" id="7_4oplf"]
 [ext_resource type="Texture2D" uid="uid://dqt6lx0fp3p2w" path="res://Assets/blocks/water.png" id="7_yc7iv"]
+[ext_resource type="Texture2D" uid="uid://b8hou4t3nlaw5" path="res://Assets/blocks/boost_right.png" id="8_2csm1"]
 [ext_resource type="PackedScene" uid="uid://dirgyrb5f7n7d" path="res://UI/block_type_ui.tscn" id="8_pmvm1"]
 [ext_resource type="Theme" uid="uid://b1kiyvvc6l6jp" path="res://UI/ui_theme.tres" id="9_yc7iv"]
+[ext_resource type="Texture2D" uid="uid://cbgky7svwch5v" path="res://Assets/blocks/wood.png" id="10_6xejo"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m322r"]
 resource_name = "Sand"
@@ -72,22 +75,39 @@ texture = ExtResource("5_r2gwc")
 2:0/0/custom_data_0 = "grass"
 2:0/0/custom_data_1 = "solid"
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g20dq"]
-texture = ExtResource("6_pmvm1")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6xejo"]
+texture = ExtResource("10_6xejo")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-0:0/0/custom_data_0 = "boost"
+0:0/0/custom_data_0 = "wood"
 0:0/0/custom_data_1 = "solid"
-1:0/0 = 0
-1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-1:0/0/custom_data_0 = "boost"
-1:0/0/custom_data_1 = "solid"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4h0g7"]
 texture = ExtResource("7_yc7iv")
 0:0/0 = 0
 0:0/0/custom_data_0 = "water"
 0:0/0/custom_data_1 = "liquid"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1621x"]
+texture = ExtResource("6_6xejo")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:0/0/custom_data_0 = "boost_up"
+0:0/0/custom_data_1 = "solid"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tyci3"]
+texture = ExtResource("7_4oplf")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:0/0/custom_data_0 = "boost_left"
+0:0/0/custom_data_1 = "solid"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ejiwh"]
+texture = ExtResource("8_2csm1")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:0/0/custom_data_0 = "boost_right"
+0:0/0/custom_data_1 = "solid"
 
 [sub_resource type="TileSet" id="TileSet_crqmy"]
 physics_layer_0/collision_layer = 1
@@ -99,8 +119,11 @@ sources/0 = SubResource("TileSetAtlasSource_m322r")
 sources/1 = SubResource("TileSetAtlasSource_t0vg6")
 sources/2 = SubResource("TileSetAtlasSource_pmvm1")
 sources/3 = SubResource("TileSetAtlasSource_yc7iv")
-sources/4 = SubResource("TileSetAtlasSource_g20dq")
 sources/5 = SubResource("TileSetAtlasSource_4h0g7")
+sources/6 = SubResource("TileSetAtlasSource_1621x")
+sources/7 = SubResource("TileSetAtlasSource_tyci3")
+sources/8 = SubResource("TileSetAtlasSource_ejiwh")
+sources/4 = SubResource("TileSetAtlasSource_6xejo")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_djvyk"]
 atlas = ExtResource("4_t0vg6")
@@ -118,10 +141,10 @@ z_index = -1
 tile_set = SubResource("TileSet_crqmy")
 script = ExtResource("2_m322r")
 sprite_2d = NodePath("Control/Sprite2D")
-blocks = Array[Texture]([ExtResource("1_ci8vy"), ExtResource("2_4gob1"), ExtResource("4_t0vg6"), ExtResource("5_r2gwc"), ExtResource("6_pmvm1"), ExtResource("7_yc7iv")])
+blocks = Array[Texture]([ExtResource("1_ci8vy"), ExtResource("2_4gob1"), ExtResource("4_t0vg6"), ExtResource("5_r2gwc"), ExtResource("10_6xejo"), ExtResource("7_yc7iv"), ExtResource("6_6xejo"), ExtResource("7_4oplf"), ExtResource("8_2csm1")])
 blocks_ui = NodePath("CanvasLayer/BlocksUI")
 block_type_ui = ExtResource("8_pmvm1")
-actions = Array[String](["Block 1", "Block 2", "Block 3", "Block 4"])
+actions = Array[String](["Block 1", "Block 2", "Block 3", "Block 4", "Block 5"])
 
 [node name="Ticker" type="Timer" parent="." unique_id=421647720]
 wait_time = 0.05
