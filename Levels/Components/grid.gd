@@ -92,7 +92,6 @@ func _process(_delta: float) -> void:
 		if Input.is_action_just_pressed(action):
 			var button_pressed = action[-1]
 			var index = int(button_pressed) - 1
-			print(button_pressed)
 			if len(actions) > index:
 				selected_block = inventory[actions[index].block_type]
 				selected_index = index
@@ -174,11 +173,13 @@ func _on_tick():
 				_nourish_neighbors(cell, ["grass"])
 				_assimilate_neighbors(cell, ["water"])
 				_process_cohesive_solid_cell(cell)
-			"wood", "boost_left", "boost_right", "boost_up":
+			"boost_left", "boost_right", "boost_up":
 				_process_pure_solid_cell(cell)
+			"wood":
+				_process_light_solid_cell(cell)
 
 func _on_nourishment_tick():
-	for cell in get_used_cells().filter(func(cell): return !nourished_cells.has(cell) && _get_cell_type(cell) == "grass"):
+	for cell in get_used_cells().filter(func(cell): return !nourished_cells.has(cell) && _get_cell_property(cell, "type") == "grass"):
 		set_cell(cell, -1)
 	nourished_cells = []
 
@@ -210,13 +211,13 @@ func _get_all_neighbors(cell):
 		neighbors.append(cell + direction)
 	return neighbors
 
-func _get_cell_type(cell):
+func _get_cell_property(cell, property):
 	var cell_tile_data = get_cell_tile_data(cell)
-	return cell_tile_data.get_custom_data("type")
+	return cell_tile_data.get_custom_data(property)
 
 func _nourish_neighbors(cell, types):
 	var neighbors = _get_all_neighbors(cell)
-	var cell_type = _get_cell_type(cell)
+	var cell_type = _get_cell_property(cell, "type")
 
 	for neighbor in neighbors:
 		if _cell_is_empty(neighbor):
@@ -230,7 +231,7 @@ func _nourish_neighbors(cell, types):
 
 func _assimilate_neighbors(cell, types):
 	var neighbors = _get_all_neighbors(cell)
-	var cell_type = _get_cell_type(cell)
+	var cell_type = _get_cell_property(cell, "type")
 
 	for neighbor in neighbors:
 		if _cell_is_empty(neighbor):
@@ -244,6 +245,9 @@ func _assimilate_neighbors(cell, types):
 
 func _get_neighbor_below(cell):
 	return cell + Vector2i.DOWN
+
+func _get_neighbor_above(cell):
+	return cell + Vector2i.UP
 
 func _get_neighbors_beside(cell):
 	var directions = [
@@ -261,6 +265,11 @@ func _process_grainy_cell(cell):
 func _process_pure_solid_cell(cell):
 	_attempt_straight_down_movement(cell)
 
+func _process_light_solid_cell(cell):
+	if _attempt_straight_up_movement(cell, true):
+		return
+	_attempt_straight_down_movement(cell, false)
+
 func _process_cohesive_solid_cell(cell):
 	_attempt_straight_down_movement(cell, true, true)
 
@@ -271,9 +280,20 @@ func _process_liquid_cell(cell):
 
 func _attempt_straight_down_movement(cell, sink=true, cohesive=false):
 	var neighbor = _get_neighbor_below(cell)
-	if _attempt_cell_move_to(cell, neighbor, sink, cohesive):
-		return true
-	return false
+	return _attempt_cell_move_to(cell, neighbor, sink, cohesive)
+
+func _attempt_straight_up_movement(cell, floating=false, cohesive=false):
+	var neighbor_above = _get_neighbor_above(cell)
+	if (floating):
+		var neighbors = _get_all_neighbors(cell)
+		neighbors = neighbors.filter(func(neighbor): return neighbor != Vector2i(1, -1) && neighbor != Vector2i(-1, -1))
+
+		for neighbor in neighbors:
+			if _cell_is_empty(neighbor):
+				return false
+
+		return _attempt_cell_move_to(cell, neighbor_above, true, cohesive)
+	return _attempt_cell_move_to(cell, neighbor_above, false, cohesive)
 
 func _attempt_downward_movement(cell, sink=true, cohesive=false):
 	for neighbor in _get_neighbors_below(cell):
@@ -296,9 +316,9 @@ func _attempt_cell_move_to(cell, location, sink=true, cohesive=false):
 	if (cohesive):
 		var neighbors = _get_all_neighbors(cell)
 		for neighbor in neighbors:
-			if !_cell_is_empty(neighbor) && _get_cell_type(neighbor) == _get_cell_type(cell):
+			if !_cell_is_empty(neighbor) && _get_cell_property(neighbor, "type") == _get_cell_property(cell, "type"):
 				return true
-	if (sink && !_cell_is_empty(location) && _get_cell_type(location) == "water"):
+	if (sink && !_cell_is_empty(location) && _get_cell_property(location, "type") == "water"):
 		set_cell(location, get_cell_source_id(cell), get_cell_atlas_coords(cell))
 		set_cell(cell, BLOCKS.water.id, Vector2i(0,0))
 		return true
