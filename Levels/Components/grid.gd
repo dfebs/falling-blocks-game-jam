@@ -71,6 +71,7 @@ var nourished_cells: Array[Vector2i] = []
 @export var block_type_ui: PackedScene
 @export var actions: Array[BlockCount] = []
 var left_mouse_held = false
+var right_mouse_held = false
 
 func _ready() -> void:
 	var dupe: Array[BlockCount] = []
@@ -98,6 +99,7 @@ func _process(_delta: float) -> void:
 				update_block_preview_sprite()
 	update_block_preview_position()
 	place_block_if_mouse_held()
+	remove_block_if_mouse_held()
 
 func change_selected_block(reverse = false):
 	var new_index = (selected_index + 1) % len(actions)
@@ -137,11 +139,21 @@ func _unhandled_input(event):
 		left_mouse_held = true
 	if event.is_action_released("MouseLeft"):
 		left_mouse_held = false
+	if event.is_action_pressed("MouseRight"):
+		right_mouse_held = true
+	if event.is_action_released("MouseRight"):
+		right_mouse_held = false
 
 func place_block_if_mouse_held():
 	if left_mouse_held and $AddBlockCooldown.is_stopped():
 		_place_selected_block(get_global_mouse_position())
 		$AddBlockCooldown.start()
+
+func remove_block_if_mouse_held():
+	if right_mouse_held:
+		var local_pos = to_local(get_global_mouse_position())
+		var map_pos = local_to_map(local_pos)
+		set_cell(map_pos, -1)
 
 func update_block_preview_sprite():
 	if sprite_2d.texture is AtlasTexture:
