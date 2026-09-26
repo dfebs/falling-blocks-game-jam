@@ -1,8 +1,14 @@
 [gd_scene format=4 uid="uid://0mh4a40tlr34"]
 
 [ext_resource type="Script" uid="uid://c0uhkrt1c1g14" path="res://Levels/base_level.gd" id="1_0mpr0"]
+[ext_resource type="Script" uid="uid://fdtxatfqclnh" path="res://Levels/Components/block_count.gd" id="4_46idm"]
 [ext_resource type="PackedScene" uid="uid://dqdnvob5eohes" path="res://Levels/Components/finish.tscn" id="6_ynuoq"]
 [ext_resource type="PackedScene" uid="uid://cv00bfupxjhnk" path="res://Levels/Components/Grid.tscn" id="8_0dif4"]
+
+[sub_resource type="Resource" id="Resource_j3s7h"]
+script = ExtResource("4_46idm")
+block_type = "Block 1"
+metadata/_custom_type_script = "uid://fdtxatfqclnh"
 
 [node name="Level 2" type="Node2D" unique_id=1036830080]
 process_mode = 1
@@ -16,4 +22,4 @@ position = Vector2(104, 32)
 
 [node name="Grid" parent="." unique_id=1100096991 instance=ExtResource("8_0dif4")]
 tile_map_data = PackedByteArray("AAAAAAQAAQABAAAAAAD3/wQAAQABAAAAAAD3/wMAAQABAAAAAAD3/wIAAQABAAAAAAAAAAUAAQABAAAAAAAAAAYAAQABAAAAAAD//wYAAQABAAAAAAD+/wYAAQABAAAAAAD9/wYAAQABAAAAAAD8/wYAAQABAAAAAAD7/wYAAQABAAAAAAD6/wYAAQABAAAAAAD5/wYAAQABAAAAAAD4/wYAAQABAAAAAAD3/wYAAQABAAAAAAD3/wUAAQABAAAAAAA=")
-actions = Array[String](["Block 1"])
+actions = Array[ExtResource("4_46idm")]([SubResource("Resource_j3s7h")])

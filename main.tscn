@@ -27,10 +27,11 @@ cpu_particles_2d = NodePath("CPUParticles2D")
 [node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1930056566]
 z_index = -2
 position = Vector2(-181, 9)
+amount = 12
 texture = ExtResource("8_5vw27")
 lifetime = 5.0
 emission_shape = 3
-emission_rect_extents = Vector2(80, 180)
+emission_rect_extents = Vector2(80, 600)
 spread = 0.0
 gravity = Vector2(0, 0)
 initial_velocity_min = 20.0
