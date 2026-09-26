@@ -2,15 +2,16 @@ extends TileMapLayer
 class_name BlockGrid
 
 const BLOCKS = {
+	"sand": {
+		"id": 0,
+		"variations": 3
+	},
+
 	"stone": {
 		"id": 1,
 		"variations": 3
 	},
 
-	"sand": {
-		"id": 0,
-		"variations": 3
-	},
 	"dirt": {
 		"id": 2,
 		"variations": 3
@@ -21,15 +22,30 @@ const BLOCKS = {
 		"variations": 3
 	},
 
-	"boost": {
+	"wood": {
 		"id": 4,
-		"variations": 2
+		"variations": 1
 	},
 
 	"water": {
 		"id": 5,
 		"variations": 1
-	}
+	},
+
+	"boost up": {
+		"id": 6,
+		"variations": 1
+	},
+
+	"boost left": {
+		"id": 7,
+		"variations": 1
+	},
+
+	"boost right": {
+		"id": 8,
+		"variations": 1
+	},
 }
 
 var inventory = {
@@ -37,8 +53,11 @@ var inventory = {
 	"Block 2": "sand",
 	"Block 3": "dirt",
 	"Block 4": "grass",
-	"Block 5": "boost",
-	"Block 6": "water"
+	"Block 5": "wood",
+	"Block 6": "water",
+	"Block 7": "boost up",
+	"Block 8": "boost left",
+	"Block 9": "boost right",
 }
 
 var selected_block = "sand"
@@ -134,7 +153,6 @@ func update_block_preview_sprite():
 func update_block_preview_position():
 	if !block_preview: return
 	var local_pos = get_global_mouse_position()
-	var local = to_local(local_pos)
 	var map_pos = local_to_map(local_pos)
 	var local_center = map_to_local(map_pos)
 	block_preview.global_position = to_global(local_center)
@@ -156,7 +174,7 @@ func _on_tick():
 				_nourish_neighbors(cell, ["grass"])
 				_assimilate_neighbors(cell, ["water"])
 				_process_cohesive_solid_cell(cell)
-			"boost":
+			"wood", "boost_left", "boost_right", "boost_up":
 				_process_pure_solid_cell(cell)
 
 func _on_nourishment_tick():

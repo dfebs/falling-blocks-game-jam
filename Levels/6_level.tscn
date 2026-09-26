@@ -31,4 +31,4 @@ actions = Array[ExtResource("3_d8711")]([SubResource("Resource_xw31e"), SubResou
 position = Vector2(-35, -21)
 
 [node name="Finish" parent="." unique_id=1237677327 instance=ExtResource("3_2qpgh")]
-position = Vector2(152, -128)
+position = Vector2(152, -120)
