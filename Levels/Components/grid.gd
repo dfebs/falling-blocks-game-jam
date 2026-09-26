@@ -1,4 +1,5 @@
 extends TileMapLayer
+class_name BlockGrid
 
 const BLOCKS = {
 	"stone": {
@@ -41,6 +42,7 @@ var inventory = {
 }
 
 var selected_block = "sand"
+var selected_index = 0
 var nourished_cells: Array[Vector2i] = []
 
 @onready var block_preview = $Control
@@ -74,10 +76,26 @@ func _process(_delta: float) -> void:
 			print(button_pressed)
 			if len(actions) > index:
 				selected_block = inventory[actions[index].block_type]
+				selected_index = index
 				update_block_preview_sprite()
 	update_block_preview_position()
 	place_block_if_mouse_held()
-	
+
+func change_selected_block(reverse = false):
+	var new_index = (selected_index + 1) % len(actions)
+	if reverse:
+		new_index = selected_index - 1
+		if new_index < 0:
+			new_index = len(actions) - 1
+		selected_block = inventory[actions[new_index].block_type]
+		selected_index = new_index
+		
+	else:
+		selected_block = inventory[actions[new_index].block_type]
+		selected_index = new_index
+
+	update_block_preview_sprite()
+
 func refresh_blocks_ui():
 	for child in blocks_ui.get_children():
 		child.queue_free()

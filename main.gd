@@ -116,8 +116,14 @@ func _unhandled_key_input(event):
 		toggle_pause()
 	if event.is_action_pressed("Mute"):
 		audio_player.stream_paused = !audio_player.stream_paused
+	if !started: 
+		return
 	if event.is_action_pressed("Toggle Camera"):
 		_on_camera_toggle_pressed()
+	if event.is_action_pressed("Zoom In"):
+		zoom()
+	if event.is_action_pressed("Zoom Out"):
+		zoom(true)
 	
 	if free_cam:
 		if event.is_action_pressed("ui_left") and !dragging:
@@ -157,21 +163,27 @@ func _unhandled_input(event):
 	if event is InputEventMouseButton:
 		if event.is_pressed():
 			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-				var zoom_pos:Vector2 = get_global_mouse_position()
-				var zoom_scale:float = (event.factor if event.factor else 1.0) / 10
-				zoom_at(zoom_pos, zoom_scale)
+				if Input.is_key_pressed(KEY_SHIFT):
+					zoom()
+				else:
+					curr_level.grid.change_selected_block()
 
 			if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-				var zoom_pos:Vector2 = get_global_mouse_position()
-				var zoom_scale:float = (event.factor if event.factor else 1.0) / 10
-				zoom_at(zoom_pos, -zoom_scale)
+				if Input.is_key_pressed(KEY_SHIFT):
+					zoom(true)
+				else:
+					curr_level.grid.change_selected_block(true)
 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_MIDDLE:
 		dragging = event.pressed
 	elif event is InputEventMouseMotion and dragging:
 		camera_2d.position -= event.relative / camera_2d.zoom
 
-func zoom_at(pos, scale):
+func zoom(reverse = false):
+	var pos: Vector2 = curr_level._character.position
+	var scale: float = 1.0 / 10
+	if reverse:
+		scale *= -1
 	if camera_2d.zoom.x + scale <= 0.01:
 		scale = 0.1
 	if camera_2d.zoom.x + scale >= 4:

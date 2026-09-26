@@ -3,6 +3,7 @@ class_name BaseLevel
 
 var _character_scene = "uid://o7f501dp7rbj"
 var _character: DeliveryMan
+@onready var grid: BlockGrid = $Grid
 
 signal level_complete_signal
 signal level_failed_signal
