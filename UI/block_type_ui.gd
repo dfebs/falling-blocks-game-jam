@@ -3,6 +3,7 @@ class_name BlockTypeUI
 
 @onready var label: Label = $Label
 @onready var hotkey: Label = $Hotkey
+@onready var remaining: Label = $RemainingCount
 
 var text = "":
 	set(new_text):

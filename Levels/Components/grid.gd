@@ -1,4 +1,5 @@
 extends TileMapLayer
+class_name BlockGrid
 
 const BLOCKS = {
 	"stone": {
@@ -41,6 +42,7 @@ var inventory = {
 }
 
 var selected_block = "sand"
+var selected_index = 0
 var nourished_cells: Array[Vector2i] = []
 
 @onready var block_preview = $Control
@@ -48,12 +50,16 @@ var nourished_cells: Array[Vector2i] = []
 @export var blocks: Array[Texture] = []
 @export var blocks_ui: Control
 @export var block_type_ui: PackedScene
-@export var actions: Array[String] = ["Block 1", "Block 2", "Block 3", "Block 4", "Block 5", "Block 6"]
+@export var actions: Array[BlockCount] = []
 var left_mouse_held = false
 
 func _ready() -> void:
+	var dupe: Array[BlockCount] = []
+	for action in actions:
+		dupe.append(action.duplicate())
+	actions = dupe
 	if len(actions) > 0:
-		selected_block = inventory[actions[0]]
+		selected_block = inventory[actions[0].block_type]
 	else:
 		selected_block = ""
 	$Ticker.timeout.connect(_on_tick)
@@ -63,19 +69,39 @@ func _ready() -> void:
 	update_block_preview_position()
 
 func _process(_delta: float) -> void:
-	for action in actions:
-		if Input.is_action_pressed(action):
-			selected_block = inventory[action]
-			update_block_preview_sprite()
+	for action in inventory:
+		if Input.is_action_just_pressed(action):
+			var button_pressed = action[-1]
+			var index = int(button_pressed) - 1
+			print(button_pressed)
+			if len(actions) > index:
+				selected_block = inventory[actions[index].block_type]
+				selected_index = index
+				update_block_preview_sprite()
 	update_block_preview_position()
 	place_block_if_mouse_held()
-	
+
+func change_selected_block(reverse = false):
+	var new_index = (selected_index + 1) % len(actions)
+	if reverse:
+		new_index = selected_index - 1
+		if new_index < 0:
+			new_index = len(actions) - 1
+		selected_block = inventory[actions[new_index].block_type]
+		selected_index = new_index
+		
+	else:
+		selected_block = inventory[actions[new_index].block_type]
+		selected_index = new_index
+
+	update_block_preview_sprite()
+
 func refresh_blocks_ui():
 	for child in blocks_ui.get_children():
 		child.queue_free()
 	var index = 0
 	for action in actions:
-		var block_name = inventory[action]
+		var block_name = inventory[action.block_type]
 		var ui_thing: BlockTypeUI = block_type_ui.instantiate().duplicate()
 		blocks_ui.add_child(ui_thing)
 		var new_tex = blocks[BLOCKS[block_name]["id"]]
@@ -83,6 +109,7 @@ func refresh_blocks_ui():
 		ui_thing.texture.atlas = new_tex
 		ui_thing.text = "{0}".format([block_name.capitalize()])
 		ui_thing.hotkey.text = str(index + 1)
+		ui_thing.remaining.text = "({0})".format([str(check_remaining_block_count(block_name))])
 		ui_thing.position += Vector2(24, 24 + index * 24)
 		index += 1
 
@@ -100,6 +127,8 @@ func place_block_if_mouse_held():
 
 func update_block_preview_sprite():
 	if sprite_2d.texture is AtlasTexture:
+		if !selected_block:
+			return
 		sprite_2d.texture.atlas = blocks[BLOCKS[selected_block]["id"]]
 
 func update_block_preview_position():
@@ -261,11 +290,38 @@ func _attempt_cell_move_to(cell, location, sink=true, cohesive=false):
 		return true
 	return false
 
+func check_remaining_block_count(block_override: String):
+	var block_num = ""
+	for thing in inventory:
+		if inventory[thing] == block_override:
+			block_num = thing
+	var index = actions.find_custom(func(item:BlockCount): return item.block_type == block_num)
+	if index != -1:
+		var found_item = actions[index]
+		return found_item.count
+	else:
+		return -1
+		
+func decrement_block_count_for_active_block(block_override: String):
+	var block_num = ""
+	for thing in inventory:
+		if inventory[thing] == selected_block:
+			block_num = thing
+	var index = actions.find_custom(func(item:BlockCount): return item.block_type == block_num)
+	if index != -1:
+		var found_item = actions[index]
+		found_item.count -= 1
+	refresh_blocks_ui()
+
 func _place_selected_block(pos):
 	var local_pos = to_local(pos)
 	var map_pos = local_to_map(local_pos)
 
 	var block_to_set = BLOCKS[selected_block]
+	if check_remaining_block_count(selected_block) <= 0:
+		return
+	decrement_block_count_for_active_block(selected_block)
+
 	var atlas_coords = Vector2i(randi() % block_to_set.variations, 0)
 	
 	if _cell_is_empty(map_pos):

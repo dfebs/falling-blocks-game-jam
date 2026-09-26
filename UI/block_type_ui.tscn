@@ -22,7 +22,7 @@ offset_bottom = 5.0
 theme = ExtResource("2_vpfqq")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 8
-text = "Sand"
+text = "Sand -"
 
 [node name="Hotkey" type="Label" parent="." unique_id=1085084114]
 offset_left = 5.0
@@ -32,3 +32,13 @@ offset_bottom = 9.0
 theme = ExtResource("2_vpfqq")
 theme_override_font_sizes/font_size = 4
 text = "1"
+
+[node name="RemainingCount" type="Label" parent="." unique_id=2112268149]
+offset_left = 37.0
+offset_top = -6.0
+offset_right = 43.0
+offset_bottom = 5.0
+theme = ExtResource("2_vpfqq")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "0"
