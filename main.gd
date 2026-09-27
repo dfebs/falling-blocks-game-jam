@@ -9,6 +9,7 @@ class_name MainScript
 @export var camera_toggle: Button
 @export var v_box_container: VBoxContainer
 @export var level_counter_label: Label
+@export var restart_level: Button
 
 @export var audio_player: AudioStreamPlayer2D
 var main_track = preload("res://Assets/Audio/main_track.wav")
@@ -59,6 +60,7 @@ func start_game():
 	start_button.visible = false
 	start_menu.visible = false
 	camera_toggle.visible = true
+	restart_level.visible = true
 	settings.visible = false
 	camera_2d.zoom = Vector2(0.5, 0.5)
 	
@@ -117,8 +119,10 @@ func spawn_level():
 		curr_level.call_deferred("connect_camera", camera_2d)
 
 func reset_thingy(selected_name, selected_index):
-	curr_level.grid.selected_block = selected_name
-	curr_level.grid.selected_index = selected_index
+	if len(selected_name) > 0:
+		curr_level.grid.selected_block = selected_name
+	if selected_index >= 0:
+		curr_level.grid.selected_index = selected_index
 	curr_level.grid.update_block_preview_sprite()
 
 func _unhandled_key_input(event):
@@ -211,6 +215,7 @@ func _on_button_pressed():
 	start_button.visible = true
 	start_menu.visible = true
 	camera_toggle.visible = false
+	restart_level.visible = false
 	camera_2d.zoom = Vector2(0.5, 0.5)
 	camera_2d.position = Vector2(0, 0)
 	victory_ui.visible = false
@@ -236,3 +241,7 @@ func _on_settings_button_pressed():
 	if !settings.visible:
 		settings.visible = true
 		v_box_container.visible = false
+
+
+func _on_restart_level_pressed():
+	reload_current_level()
