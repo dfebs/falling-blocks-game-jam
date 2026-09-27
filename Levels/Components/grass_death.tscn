@@ -2,7 +2,6 @@
 
 [ext_resource type="Shader" uid="uid://dotryoqeuss4x" path="res://Assets/FX/burn.gdshader" id="1_blqy4"]
 [ext_resource type="Script" uid="uid://c17fjq63l3wtv" path="res://Levels/Components/grass_death.gd" id="1_qvm7b"]
-[ext_resource type="Texture2D" uid="uid://c45pb3iurrww7" path="res://Assets/blocks/grass_plant_blocks.png" id="2_vxwt8"]
 [ext_resource type="Script" uid="uid://ciqsfgxeu02en" path="res://Assets/FX/burnable_sprite.gd" id="3_vxwt8"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_qkkea"]
@@ -17,8 +16,11 @@ shader_parameter/progress = 0.0
 shader_parameter/burn_size = 0.05
 shader_parameter/burn_color = Color(0.26209316, 0.13679555, 0.03890221, 1)
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vxwt8"]
+load_path = "res://.godot/imported/grass_plant_blocks.png-319d7c72a02dbad50dd84c3697defd2e.ctex"
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_djvyk"]
-atlas = ExtResource("2_vxwt8")
+atlas = SubResource("CompressedTexture2D_vxwt8")
 region = Rect2(0, 0, 16, 16)
 
 [node name="Control" type="Control" unique_id=174716345]

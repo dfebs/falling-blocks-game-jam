@@ -193,13 +193,16 @@ func _on_tick():
 
 func _on_nourishment_tick():
 	for cell in get_used_cells().filter(func(cell): return !nourished_cells.has(cell) && _get_cell_property(cell, "type") == "grass"):
-		var death_node = grass_death.instantiate().duplicate()
-		var x = get_cell_atlas_coords(cell)
-		death_node.global_position = map_to_local(cell)
-		self.add_child(death_node)
-		death_node.set_variation(x)
+		spawn_death_effect(cell)
 		set_cell(cell, -1)
 	nourished_cells = []
+
+func spawn_death_effect(cell):
+	var death_node = grass_death.instantiate().duplicate()
+	var x = get_cell_atlas_coords(cell)
+	death_node.global_position = map_to_local(cell)
+	self.add_child(death_node)
+	death_node.set_variation(x)
 
 func _get_neighbors_below(cell):
 	# All downward directions in relation to the current cell

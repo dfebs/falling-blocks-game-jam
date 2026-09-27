@@ -25,6 +25,7 @@ camera_2d = NodePath("Camera2D")
 cpu_particles_2d = NodePath("CPUParticles2D")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1930056566]
+visible = false
 z_index = -2
 position = Vector2(-181, 9)
 amount = 12
