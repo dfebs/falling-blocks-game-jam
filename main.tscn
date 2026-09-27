@@ -38,10 +38,10 @@ gravity = Vector2(0, 0)
 initial_velocity_min = 20.0
 initial_velocity_max = 150.0
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=1646075828]
+[node name="Background" type="CanvasLayer" parent="." unique_id=1646075828]
 layer = -1
 
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer2" unique_id=1294033030]
+[node name="Sprite2D" type="Sprite2D" parent="Background" unique_id=1294033030]
 z_index = -4096
 position = Vector2(160, 90)
 scale = Vector2(2, 1.9999999)
