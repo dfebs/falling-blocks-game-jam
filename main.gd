@@ -206,9 +206,9 @@ func zoom(reverse = false):
 	if reverse:
 		scale *= -1
 	if camera_2d.zoom.x + scale <= 0.01:
-		scale = 0.1
+		scale = 0
 	if camera_2d.zoom.x + scale >= 4:
-		scale = 4
+		scale = 0
 	camera_2d.zoom += Vector2(scale, scale)
 
 func _on_button_pressed():
