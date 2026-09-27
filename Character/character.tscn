@@ -4,7 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://bcu4uandyyxh5" path="res://Assets/Audio/thud.wav" id="3_jkkns"]
 
 [sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_nwtvh"]
-_data = PackedByteArray("AAADAAUAAAABAAAAIAAAAEAAAAAiAQAAUklGRhoBAABXRUJQVlA4TA4BAAAvH8APEEegkI0kaAmWYCGe4zl/gAM4DTIBiwXyOqURXgwEGhafLAIoJL4cBARF/o8WgP8HaOavsikr5CEA5EaSHEeFsWBrAP5ni9KE9YDvUwbIBZ+n5096rrpuhQER/Wfktm0kdjm1I0yfIZGUNKcAgDiQ8FFdoH7YQLWBfRzQuWIC+tyaQGarXRggm+PJBJ677hAF7pj7fhMH2q+qOMDPbRjgglQYyHdPMgFyYCDhJtAMhRtCuQYMVVBCCRqqKN3WbrZ09T2Suh3zACCW8FGd+mH5bW+O2E363BqZrXbmHZrjyXjuukPkjrnvN7H2qypGc5kL97D57sn+NwdKaAbCP2CogmJOaqiiZLeEgAA=")
+_data = PackedByteArray("AAADAAUAAAABAAAAIAAAAEAAAABIAQAAUklGRkABAABXRUJQVlA4TDMBAAAvH8APEE9gJAASGo3GD9Q9/h/gAG8YiCTjavy/CCpII7wYDEJQ85dDBgEklPOMJiAo8n+0APz/AM3lW9mZdLmMOgKAXFt7nOY/qsCfSLKWv0ymBHfANlMBzNAAbG1WWkPHHv4v6iCi/wzctm2k9vYg+g0SAEkXWCtg/XIRAI6fAohXBZiZDwTrchJA7qiA3Chg9eYCHBT6APtGABE1ly4AVPeHANZte/aAL8TD4cMH6lumD6BvXADPAF0gfv1RAEAhEGwGVKXZLFqaZlZacv43NVhaYphr0914RRIA/YG1av1yUbvjpyheVWY2b8p2OYlyR1VuVKs38UrOFKNv1LpRc+kGVPeHaN22Z68vxMPhw6++ZfpBfIxnQPzo60+uG4UFqwqzf2SlJUviTZaWGOQumBMBAA==")
 size_override = Vector2(32, 64)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_djvyk"]
@@ -43,6 +43,7 @@ wall_detector = NodePath("WallDetector")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=837473621]
 texture_filter = 1
+position = Vector2(1, 0)
 texture = SubResource("PortableCompressedTexture2D_nwtvh")
 hframes = 2
 vframes = 2
@@ -67,7 +68,7 @@ metadata/_aseprite_wizard_config_ = {
 "source": "res://Character/character.aseprite",
 "source_uid": 310120207608876148
 }
-metadata/_aseprite_wizard_source_file_hash_ = "ec7d2b4f4b55c729119ed7e1d6ad09d2"
+metadata/_aseprite_wizard_source_file_hash_ = "52a69d72dda13b0f44ae7b83a3df12f4"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1161947520]
 visible = false
