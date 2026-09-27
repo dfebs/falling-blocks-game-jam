@@ -46,6 +46,11 @@ const BLOCKS = {
 		"id": 8,
 		"variations": 1
 	},
+
+	"delete": {
+		"id": 9,
+		"variations": 1
+	},
 }
 
 var inventory = {
@@ -58,6 +63,7 @@ var inventory = {
 	"Block 7": "boost up",
 	"Block 8": "boost left",
 	"Block 9": "boost right",
+	"Block 10": "delete",
 }
 
 var selected_block = "sand"
@@ -72,6 +78,7 @@ var nourished_cells: Array[Vector2i] = []
 @export var actions: Array[BlockCount] = []
 var left_mouse_held = false
 var right_mouse_held = false
+var grass_death = preload("res://Levels/Components/grass_death.tscn")
 
 func _ready() -> void:
 	var dupe: Array[BlockCount] = []
@@ -192,8 +199,16 @@ func _on_tick():
 
 func _on_nourishment_tick():
 	for cell in get_used_cells().filter(func(cell): return !nourished_cells.has(cell) && _get_cell_property(cell, "type") == "grass"):
+		spawn_death_effect(cell)
 		set_cell(cell, -1)
 	nourished_cells = []
+
+func spawn_death_effect(cell):
+	var death_node = grass_death.instantiate().duplicate()
+	var x = get_cell_atlas_coords(cell)
+	death_node.global_position = map_to_local(cell)
+	self.add_child(death_node)
+	death_node.set_variation(x)
 
 func _get_neighbors_below(cell):
 	# All downward directions in relation to the current cell
@@ -351,7 +366,7 @@ func check_remaining_block_count(block_override: String):
 		return found_item.count
 	else:
 		return -1
-		
+
 func decrement_block_count_for_active_block(block_override: String):
 	var block_num = ""
 	for thing in inventory:
@@ -373,7 +388,10 @@ func _place_selected_block(pos):
 
 	var atlas_coords = Vector2i(randi() % block_to_set.variations, 0)
 	
-	if _cell_is_empty(map_pos):
+	if block_to_set["id"] == 9:
+		if !_cell_is_empty(map_pos):
+			erase_cell(map_pos)
+	elif _cell_is_empty(map_pos):
 		set_cell(map_pos, block_to_set.id, atlas_coords)
 		decrement_block_count_for_active_block(selected_block)
 

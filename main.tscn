@@ -9,8 +9,9 @@
 [ext_resource type="FontFile" uid="uid://dg8nlrak8afhj" path="res://Assets/Fonts/PixelifySans/static/PixelifySans-Bold.ttf" id="4_272bh"]
 [ext_resource type="Texture2D" uid="uid://cswe8dynwsqp7" path="res://Assets/UI/CameraIcon.png" id="6_272bh"]
 [ext_resource type="Texture2D" uid="uid://bv8cuqymdbvh1" path="res://Assets/cloud_shadow_1.png" id="8_5vw27"]
+[ext_resource type="Texture2D" uid="uid://cgyqpf2hp4g8w" path="res://Assets/UI/Restart.png" id="8_kek77"]
 
-[node name="World" type="Node2D" unique_id=1118787975 node_paths=PackedStringArray("sprite_2d", "start_button", "victory_ui", "start_menu", "settings", "camera_toggle", "v_box_container", "level_counter_label", "audio_player", "camera_2d", "cpu_particles_2d")]
+[node name="World" type="Node2D" unique_id=1118787975 node_paths=PackedStringArray("sprite_2d", "start_button", "victory_ui", "start_menu", "settings", "camera_toggle", "v_box_container", "level_counter_label", "restart_level", "audio_player", "camera_2d", "cpu_particles_2d")]
 process_mode = 3
 script = ExtResource("1_0xm2m")
 sprite_2d = NodePath("CanvasLayer/UI/StartMenu/Sprite2D")
@@ -21,6 +22,7 @@ settings = NodePath("CanvasLayer/Settings")
 camera_toggle = NodePath("CanvasLayer/UI/CameraToggle")
 v_box_container = NodePath("CanvasLayer/UI/StartMenu/VBoxContainer")
 level_counter_label = NodePath("CanvasLayer/Level Counter/LevelCounterLabel")
+restart_level = NodePath("CanvasLayer/UI/Restart Level")
 audio_player = NodePath("MusicAudioStreamPlayer")
 camera_2d = NodePath("Camera2D")
 cpu_particles_2d = NodePath("CPUParticles2D")
@@ -174,6 +176,37 @@ theme_type_variation = &"FlatButton"
 theme_override_icons/icon = ExtResource("6_272bh")
 metadata/_edit_use_anchors_ = true
 
+[node name="Label" type="Label" parent="CanvasLayer/UI/CameraToggle" unique_id=2008603316]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 16.0
+offset_right = 22.0
+offset_bottom = 24.0
+theme = ExtResource("3_7mycd")
+theme_override_font_sizes/font_size = 6
+text = "C"
+
+[node name="Restart Level" type="Button" parent="CanvasLayer/UI" unique_id=97356511]
+visible = false
+layout_mode = 0
+offset_left = -153.0
+offset_top = 64.0
+offset_right = -129.0
+offset_bottom = 88.0
+theme = ExtResource("3_7mycd")
+theme_type_variation = &"FlatButton"
+icon = ExtResource("8_kek77")
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/Restart Level" unique_id=1500817838]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 15.0
+offset_right = 23.0
+offset_bottom = 23.0
+theme = ExtResource("3_7mycd")
+theme_override_font_sizes/font_size = 6
+text = "R"
+
 [node name="Level Counter" type="Control" parent="CanvasLayer" unique_id=2049113397]
 layout_mode = 3
 anchors_preset = 0
@@ -202,4 +235,5 @@ bus = &"Music Bus"
 [connection signal="pressed" from="CanvasLayer/Victory UI/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/StartMenu/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/CameraToggle" to="." method="_on_camera_toggle_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/Restart Level" to="." method="_on_restart_level_pressed"]
 [connection signal="finished" from="MusicAudioStreamPlayer" to="." method="_on_music_audio_stream_player_finished"]

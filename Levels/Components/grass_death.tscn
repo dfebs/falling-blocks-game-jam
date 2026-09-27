@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://cxwme557vperr"]
+
+[ext_resource type="Shader" uid="uid://dotryoqeuss4x" path="res://Assets/FX/burn.gdshader" id="1_blqy4"]
+[ext_resource type="Script" uid="uid://c17fjq63l3wtv" path="res://Levels/Components/grass_death.gd" id="1_qvm7b"]
+[ext_resource type="Script" uid="uid://ciqsfgxeu02en" path="res://Assets/FX/burnable_sprite.gd" id="3_vxwt8"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qkkea"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fkfhe"]
+noise = SubResource("FastNoiseLite_qkkea")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_euswq"]
+shader = ExtResource("1_blqy4")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_fkfhe")
+shader_parameter/progress = 0.0
+shader_parameter/burn_size = 0.05
+shader_parameter/burn_color = Color(0.26209316, 0.13679555, 0.03890221, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vxwt8"]
+load_path = "res://.godot/imported/grass_plant_blocks.png-319d7c72a02dbad50dd84c3697defd2e.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_djvyk"]
+atlas = SubResource("CompressedTexture2D_vxwt8")
+region = Rect2(0, 0, 16, 16)
+
+[node name="Control" type="Control" unique_id=174716345]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qvm7b")
+
+[node name="Label" type="Label" parent="." unique_id=956940402]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2064944010]
+modulate = Color(1, 1, 1, 0.5372549)
+material = SubResource("ShaderMaterial_euswq")
+texture = SubResource("AtlasTexture_djvyk")
+script = ExtResource("3_vxwt8")
