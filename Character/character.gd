@@ -81,7 +81,7 @@ func _physics_process(delta: float) -> void:
 		jump()
 
 func check_for_reset():
-	if global_position.x > 10000 or global_position.y > 10000:
+	if global_position.x > 5000 or global_position.y > 5000:
 		die()
 
 func detect_tile_player_head(tilemap) -> String:
@@ -137,7 +137,8 @@ func is_on_flat_ground() -> bool:
 
 func die():
 	curr_anim = "Die"
-	animation_player.animation_finished.connect(finish_dying)
+	if !animation_player.animation_finished.is_connected(finish_dying):
+		animation_player.animation_finished.connect(finish_dying)
 	animation_player.play(curr_anim)
 	audio_player.stream = sound_one
 	audio_player.play()
