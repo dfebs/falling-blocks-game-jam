@@ -35,7 +35,8 @@ func _ready():
 		push_error("Start button missing")
 	start_button.pressed.connect(_start_pressed)
 	settings.close_button_pressed.connect(toggle_settings_menu)
-	
+	if !OS.is_debug_build():
+		level_index += 1
 
 func _process(delta):
 	if Input.is_action_pressed("Reload"):
