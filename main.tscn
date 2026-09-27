@@ -8,6 +8,7 @@
 [ext_resource type="FontFile" uid="uid://dg8nlrak8afhj" path="res://Assets/Fonts/PixelifySans/static/PixelifySans-Bold.ttf" id="4_272bh"]
 [ext_resource type="Texture2D" uid="uid://cswe8dynwsqp7" path="res://Assets/UI/CameraIcon.png" id="6_272bh"]
 [ext_resource type="Texture2D" uid="uid://bv8cuqymdbvh1" path="res://Assets/cloud_shadow_1.png" id="8_5vw27"]
+[ext_resource type="Texture2D" uid="uid://du7ixtkihtbsl" path="res://Assets/background.png" id="8_kek77"]
 
 [node name="World" type="Node2D" unique_id=1118787975 node_paths=PackedStringArray("sprite_2d", "start_button", "victory_ui", "start_menu", "settings", "camera_toggle", "v_box_container", "level_counter_label", "audio_player", "camera_2d", "cpu_particles_2d")]
 process_mode = 3
@@ -36,6 +37,15 @@ spread = 0.0
 gravity = Vector2(0, 0)
 initial_velocity_min = 20.0
 initial_velocity_max = 150.0
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=1646075828]
+layer = -1
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer2" unique_id=1294033030]
+z_index = -4096
+position = Vector2(160, 90)
+scale = Vector2(2, 1.9999999)
+texture = ExtResource("8_kek77")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=458952364]
 layer = 2
