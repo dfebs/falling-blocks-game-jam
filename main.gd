@@ -117,6 +117,8 @@ func spawn_level():
 	call_deferred("reset_thingy", selected_name, selected_index)
 	if !free_cam:
 		curr_level.call_deferred("connect_camera", camera_2d)
+	else:
+		camera_2d.position = Vector2.ZERO
 
 func reset_thingy(selected_name, selected_index):
 	if len(selected_name) > 0:

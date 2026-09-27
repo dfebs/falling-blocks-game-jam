@@ -25,6 +25,7 @@ var freeze = false
 signal died
 
 func _physics_process(delta: float) -> void:
+	check_for_reset()
 	if freeze: return
 	var queue_jump = false
 	var new_fx = false
@@ -72,6 +73,9 @@ func _physics_process(delta: float) -> void:
 	if queue_jump and not new_fx:
 		jump()
 
+func check_for_reset():
+	if global_position.x > 10000 or global_position.y > 10000:
+		die()
 
 func detect_tile_player_head(tilemap) -> String:
 	var local = tilemap.to_local(global_position - Vector2(0, 12))
