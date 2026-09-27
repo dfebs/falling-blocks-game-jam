@@ -26,6 +26,22 @@ tracks/0/keys = {
 "values": [5, 6, 7, 8, 9, 10]
 }
 
+[sub_resource type="Animation" id="Animation_a23tb"]
+length = 0.15
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+
 [sub_resource type="Animation" id="Animation_jkkns"]
 length = 1.6
 loop_mode = 1
@@ -45,6 +61,7 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_twwou"]
 _data = {
 &"Die": SubResource("Animation_twwou"),
+&"Kick": SubResource("Animation_a23tb"),
 &"Walk": SubResource("Animation_jkkns")
 }
 
@@ -64,7 +81,7 @@ position = Vector2(1, 0)
 texture = SubResource("PortableCompressedTexture2D_nwtvh")
 hframes = 4
 vframes = 3
-frame = 6
+frame = 5
 metadata/_aseprite_wizard_interface_config_ = {
 "pending_changes": {}
 }
@@ -86,7 +103,7 @@ metadata/_aseprite_wizard_config_ = {
 "source": "res://Character/character.aseprite",
 "source_uid": 310120207608876148
 }
-metadata/_aseprite_wizard_source_file_hash_ = "1134d56cb2ddf538f5ecfed62800cb2a"
+metadata/_aseprite_wizard_source_file_hash_ = "8a6f6fecb5391755fb26b6b4bd31341f"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1161947520]
 visible = false

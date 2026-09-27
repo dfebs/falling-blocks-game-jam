@@ -35,6 +35,7 @@ func _ready():
 		push_error("Start button missing")
 	start_button.pressed.connect(_start_pressed)
 	settings.close_button_pressed.connect(toggle_settings_menu)
+	
 
 func _process(delta):
 	if Input.is_action_pressed("Reload"):
@@ -184,13 +185,15 @@ func _unhandled_input(event):
 				if Input.is_key_pressed(KEY_SHIFT):
 					zoom()
 				else:
-					curr_level.grid.change_selected_block()
+					if curr_level and curr_level.grid:
+						curr_level.grid.change_selected_block()
 
 			if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 				if Input.is_key_pressed(KEY_SHIFT):
 					zoom(true)
 				else:
-					curr_level.grid.change_selected_block(true)
+					if curr_level and curr_level.grid:
+						curr_level.grid.change_selected_block(true)
 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_MIDDLE:
 		dragging = event.pressed

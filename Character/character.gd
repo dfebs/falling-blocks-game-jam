@@ -25,6 +25,12 @@ var most_recent_tile: String = ""
 var freeze = false
 signal died
 
+
+func _ready():
+	var anim = animation_player.get_animation("Die")
+	if anim:
+		anim.loop_mode = Animation.LOOP_NONE
+
 func _physics_process(delta: float) -> void:
 	check_for_reset()
 	if freeze: return
