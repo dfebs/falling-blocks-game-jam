@@ -70,6 +70,7 @@ func start_game():
 func reload_current_level():
 	if !curr_level: return
 	spawn_level()
+	victory_ui.visible = false
 
 func next_level():
 	if level_index + 1 < len(_scenes_dict):

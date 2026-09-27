@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://dotdjaklasifx"]
+
+[ext_resource type="Theme" uid="uid://b1kiyvvc6l6jp" path="res://UI/ui_theme.tres" id="1_7qh3f"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_3i1fd"]
+
+[node name="Victory UI" type="Control" unique_id=1457675517]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 160.0
+offset_top = 90.0
+offset_right = 160.0
+offset_bottom = 90.0
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=201458478]
+modulate = Color(0.13333334, 0.1254902, 0.20392157, 1)
+layout_mode = 0
+offset_left = -62.0
+offset_top = -21.0
+offset_right = 82.0
+offset_bottom = 50.0
+texture = SubResource("CanvasTexture_3i1fd")
+
+[node name="Label" type="Label" parent="." unique_id=715026163]
+layout_mode = 0
+offset_left = -54.0
+offset_top = -19.0
+offset_right = 75.0
+offset_bottom = 20.0
+theme = ExtResource("1_7qh3f")
+theme_override_font_sizes/font_size = 32
+text = "YOU WIN!"
+
+[node name="Button" type="Button" parent="." unique_id=360252503]
+layout_mode = 0
+offset_left = -33.0
+offset_top = 19.0
+offset_right = 47.0
+offset_bottom = 50.0
+theme = ExtResource("1_7qh3f")
+theme_type_variation = &"FlatButton"
+text = "Restart
+"
