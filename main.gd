@@ -35,6 +35,7 @@ func _ready():
 		push_error("Start button missing")
 	start_button.pressed.connect(_start_pressed)
 	settings.close_button_pressed.connect(toggle_settings_menu)
+	
 
 func _process(delta):
 	if Input.is_action_pressed("Reload"):
@@ -70,6 +71,7 @@ func start_game():
 func reload_current_level():
 	if !curr_level: return
 	spawn_level()
+	victory_ui.visible = false
 
 func next_level():
 	if level_index + 1 < len(_scenes_dict):
@@ -107,8 +109,9 @@ func spawn_level():
 	var selected_name = ""
 	var selected_index = -1
 	if curr_level:
-		selected_name = curr_level.grid.selected_block
-		selected_index = curr_level.grid.selected_index
+		if curr_level.grid:
+			selected_name = curr_level.grid.selected_block
+			selected_index = curr_level.grid.selected_index
 		curr_level.queue_free()
 	curr_level = _scenes_dict[level_index].instantiate()
 	curr_level.level_complete_signal.connect(next_level)
@@ -117,6 +120,8 @@ func spawn_level():
 	call_deferred("reset_thingy", selected_name, selected_index)
 	if !free_cam:
 		curr_level.call_deferred("connect_camera", camera_2d)
+	else:
+		camera_2d.position = Vector2.ZERO
 
 func reset_thingy(selected_name, selected_index):
 	if len(selected_name) > 0:
@@ -180,13 +185,15 @@ func _unhandled_input(event):
 				if Input.is_key_pressed(KEY_SHIFT):
 					zoom()
 				else:
-					curr_level.grid.change_selected_block()
+					if curr_level and curr_level.grid:
+						curr_level.grid.change_selected_block()
 
 			if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 				if Input.is_key_pressed(KEY_SHIFT):
 					zoom(true)
 				else:
-					curr_level.grid.change_selected_block(true)
+					if curr_level and curr_level.grid:
+						curr_level.grid.change_selected_block(true)
 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_MIDDLE:
 		dragging = event.pressed
@@ -199,9 +206,9 @@ func zoom(reverse = false):
 	if reverse:
 		scale *= -1
 	if camera_2d.zoom.x + scale <= 0.01:
-		scale = 0.1
+		scale = 0
 	if camera_2d.zoom.x + scale >= 4:
-		scale = 4
+		scale = 0
 	camera_2d.zoom += Vector2(scale, scale)
 
 func _on_button_pressed():

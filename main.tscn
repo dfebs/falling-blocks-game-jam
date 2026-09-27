@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://c4erlvl2qbt7i" path="res://Assets/Audio/menu_music.wav" id="4_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://dkjc85biap40r" path="res://Assets/UI/title_screen.png" id="4_5vw27"]
 [ext_resource type="FontFile" uid="uid://dg8nlrak8afhj" path="res://Assets/Fonts/PixelifySans/static/PixelifySans-Bold.ttf" id="4_272bh"]
+[ext_resource type="PackedScene" uid="uid://dotdjaklasifx" path="res://UI/victory_ui.tscn" id="5_efxa6"]
 [ext_resource type="Texture2D" uid="uid://cswe8dynwsqp7" path="res://Assets/UI/CameraIcon.png" id="6_272bh"]
 [ext_resource type="Texture2D" uid="uid://bv8cuqymdbvh1" path="res://Assets/cloud_shadow_1.png" id="8_5vw27"]
 [ext_resource type="Texture2D" uid="uid://cgyqpf2hp4g8w" path="res://Assets/UI/Restart.png" id="8_kek77"]
@@ -67,35 +68,8 @@ offset_right = -28.0
 offset_bottom = 276.0
 metadata/_edit_use_anchors_ = true
 
-[node name="Victory UI" type="Control" parent="CanvasLayer" unique_id=1774138752]
+[node name="Victory UI" parent="CanvasLayer" unique_id=1457675517 instance=ExtResource("5_efxa6")]
 visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_left = 160.0
-offset_top = 90.0
-offset_right = 160.0
-offset_bottom = 90.0
-
-[node name="Label" type="Label" parent="CanvasLayer/Victory UI" unique_id=456663510]
-layout_mode = 0
-offset_left = -58.0
-offset_top = -27.0
-offset_right = 71.0
-offset_bottom = 12.0
-theme = ExtResource("3_7mycd")
-theme_override_font_sizes/font_size = 32
-text = "YOU WIN!"
-
-[node name="Button" type="Button" parent="CanvasLayer/Victory UI" unique_id=1945126094]
-layout_mode = 0
-offset_left = -33.0
-offset_top = 23.0
-offset_right = 32.0
-offset_bottom = 54.0
-theme = ExtResource("3_7mycd")
-theme_type_variation = &"FlatButton"
-text = "Restart
-"
 
 [node name="UI" type="Control" parent="CanvasLayer" unique_id=1043251833]
 process_mode = 3
@@ -232,7 +206,6 @@ stream = ExtResource("4_1bvp3")
 autoplay = true
 bus = &"Music Bus"
 
-[connection signal="pressed" from="CanvasLayer/Victory UI/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/StartMenu/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/CameraToggle" to="." method="_on_camera_toggle_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/Restart Level" to="." method="_on_restart_level_pressed"]
