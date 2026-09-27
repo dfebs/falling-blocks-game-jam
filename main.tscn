@@ -26,21 +26,7 @@ level_counter_label = NodePath("CanvasLayer/Level Counter/LevelCounterLabel")
 restart_level = NodePath("CanvasLayer/UI/Restart Level")
 audio_player = NodePath("MusicAudioStreamPlayer")
 camera_2d = NodePath("Camera2D")
-cpu_particles_2d = NodePath("CPUParticles2D")
-
-[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1930056566]
-visible = false
-z_index = -2
-position = Vector2(-181, 9)
-amount = 12
-texture = ExtResource("8_5vw27")
-lifetime = 5.0
-emission_shape = 3
-emission_rect_extents = Vector2(80, 600)
-spread = 0.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 20.0
-initial_velocity_max = 150.0
+cpu_particles_2d = NodePath("MiddleGround/CPUParticles2D")
 
 [node name="Background" type="CanvasLayer" parent="." unique_id=1646075828]
 layer = -1
@@ -50,6 +36,26 @@ z_index = -4096
 position = Vector2(160, 90)
 scale = Vector2(2, 1.9999999)
 texture = ExtResource("3_kek77")
+
+[node name="MiddleGround" type="CanvasLayer" parent="." unique_id=2032125173]
+layer = -1
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="MiddleGround" unique_id=1930056566]
+z_index = -3
+z_as_relative = false
+position = Vector2(-2, 40)
+scale = Vector2(2, 2)
+amount = 3
+texture = ExtResource("8_5vw27")
+lifetime = 18.0
+emission_shape = 3
+emission_rect_extents = Vector2(8, 40)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 40.0
+scale_amount_min = 2.0
+scale_amount_max = 2.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=458952364]
 layer = 2
@@ -81,7 +87,6 @@ offset_top = 90.0
 offset_right = 200.0
 offset_bottom = 130.0
 mouse_filter = 2
-metadata/_edit_use_anchors_ = true
 
 [node name="StartMenu" type="Control" parent="CanvasLayer/UI" unique_id=1401015781]
 layout_mode = 1

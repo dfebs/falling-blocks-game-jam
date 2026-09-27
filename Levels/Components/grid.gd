@@ -392,6 +392,7 @@ func _place_selected_block(pos):
 	if block_to_set["id"] == 9:
 		if !_cell_is_empty(map_pos):
 			erase_cell(map_pos)
+			decrement_block_count_for_active_block(selected_block)
 	elif _cell_is_empty(map_pos):
 		set_cell(map_pos, block_to_set.id, atlas_coords)
 		decrement_block_count_for_active_block(selected_block)
