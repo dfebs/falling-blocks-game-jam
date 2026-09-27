@@ -102,14 +102,24 @@ static func dir_contents(path):
 	return scene_loads
 
 func spawn_level():
+	var selected_name = ""
+	var selected_index = -1
 	if curr_level:
+		selected_name = curr_level.grid.selected_block
+		selected_index = curr_level.grid.selected_index
 		curr_level.queue_free()
 	curr_level = _scenes_dict[level_index].instantiate()
 	curr_level.level_complete_signal.connect(next_level)
 	curr_level.level_failed_signal.connect(reload_current_level)
 	call_deferred("add_child", curr_level)
+	call_deferred("reset_thingy", selected_name, selected_index)
 	if !free_cam:
 		curr_level.call_deferred("connect_camera", camera_2d)
+
+func reset_thingy(selected_name, selected_index):
+	curr_level.grid.selected_block = selected_name
+	curr_level.grid.selected_index = selected_index
+	curr_level.grid.update_block_preview_sprite()
 
 func _unhandled_key_input(event):
 	if event.is_action_pressed("Escape"):
