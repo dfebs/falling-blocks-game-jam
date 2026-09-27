@@ -107,8 +107,9 @@ func spawn_level():
 	var selected_name = ""
 	var selected_index = -1
 	if curr_level:
-		selected_name = curr_level.grid.selected_block
-		selected_index = curr_level.grid.selected_index
+		if curr_level.grid:
+			selected_name = curr_level.grid.selected_block
+			selected_index = curr_level.grid.selected_index
 		curr_level.queue_free()
 	curr_level = _scenes_dict[level_index].instantiate()
 	curr_level.level_complete_signal.connect(next_level)
