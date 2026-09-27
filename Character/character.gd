@@ -18,6 +18,7 @@ var sound_three = preload("res://Assets/Audio/thud.wav")
 @export var jump_detector: RayCast2D
 @export var wall_detector: RayCast2D
 @onready var animation_player = $AnimationPlayer
+var curr_anim = "Walk"
 
 var most_recent_tile: String = ""
 
@@ -30,7 +31,7 @@ func _physics_process(delta: float) -> void:
 	var queue_jump = false
 	var new_fx = false
 	if is_on_floor():
-		animation_player.play("Walk")
+		animation_player.play(curr_anim)
 		if velocity.y >= 0:
 			velocity.y = 0
 	else:
@@ -129,6 +130,12 @@ func is_on_flat_ground() -> bool:
 	return abs(normal.x) < 0.05
 
 func die():
+	curr_anim = "Die"
+	animation_player.animation_finished.connect(finish_dying)
+	animation_player.play(curr_anim)
 	audio_player.stream = sound_one
 	audio_player.play()
+	freeze = true
+
+func finish_dying(anim_name):
 	died.emit()
