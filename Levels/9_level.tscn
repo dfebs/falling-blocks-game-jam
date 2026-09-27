@@ -17,7 +17,7 @@ block_type = "Block 1"
 count = 1
 metadata/_custom_type_script = "uid://fdtxatfqclnh"
 
-[node name="Level 1" type="Node2D" unique_id=1036830080]
+[node name="Level 9" type="Node2D" unique_id=1036830080]
 process_mode = 1
 script = ExtResource("1_15s55")
 
