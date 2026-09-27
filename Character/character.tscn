@@ -76,6 +76,7 @@ jump_detector = NodePath("JumpDetector")
 wall_detector = NodePath("WallDetector")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=837473621]
+z_index = -1
 texture_filter = 1
 position = Vector2(1, 0)
 texture = SubResource("PortableCompressedTexture2D_nwtvh")
