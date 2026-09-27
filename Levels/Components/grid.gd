@@ -46,6 +46,11 @@ const BLOCKS = {
 		"id": 8,
 		"variations": 1
 	},
+
+	"delete": {
+		"id": 9,
+		"variations": 1
+	},
 }
 
 var inventory = {
@@ -58,6 +63,7 @@ var inventory = {
 	"Block 7": "boost up",
 	"Block 8": "boost left",
 	"Block 9": "boost right",
+	"Block 10": "delete",
 }
 
 var selected_block = "sand"
@@ -382,7 +388,10 @@ func _place_selected_block(pos):
 
 	var atlas_coords = Vector2i(randi() % block_to_set.variations, 0)
 	
-	if _cell_is_empty(map_pos):
+	if block_to_set["id"] == 9:
+		if !_cell_is_empty(map_pos):
+			erase_cell(map_pos)
+	elif _cell_is_empty(map_pos):
 		set_cell(map_pos, block_to_set.id, atlas_coords)
 		decrement_block_count_for_active_block(selected_block)
 
