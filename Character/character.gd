@@ -17,6 +17,7 @@ var sound_three = preload("res://Assets/Audio/thud.wav")
 @export var remote_transform_2d: RemoteTransform2D
 @export var jump_detector: RayCast2D
 @export var wall_detector: RayCast2D
+@onready var animation_player = $AnimationPlayer
 
 var most_recent_tile: String = ""
 
@@ -28,6 +29,7 @@ func _physics_process(delta: float) -> void:
 	var queue_jump = false
 	var new_fx = false
 	if is_on_floor():
+		animation_player.play("Walk")
 		if velocity.y >= 0:
 			velocity.y = 0
 	else:

@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://dxlmckv38xex3"
+path="res://.godot/imported/CameraIcon.aseprite-ed001d87d018d27b0069de388aede0a1.res"
+
+[deps]
+
+source_file="res://Assets/UI/CameraIcon.aseprite"
+dest_files=["res://.godot/imported/CameraIcon.aseprite-ed001d87d018d27b0069de388aede0a1.res"]
+
+[params]
+
