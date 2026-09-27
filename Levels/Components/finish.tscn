@@ -1,20 +1,19 @@
 [gd_scene format=3 uid="uid://dqdnvob5eohes"]
 
-[ext_resource type="Texture2D" uid="uid://xsgtxl8hsnrg" path="res://Assets/Wall.png" id="1_jly3v"]
 [ext_resource type="Script" uid="uid://dfh2768khxray" path="res://Levels/Components/finish.gd" id="1_mxo5m"]
+[ext_resource type="Texture2D" uid="uid://0ibi4gqxw2hu" path="res://Assets/flag.png" id="2_mxo5m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fkfhe"]
-size = Vector2(16, 64)
+size = Vector2(16, 48)
 
 [node name="Finish" type="Node2D" unique_id=1237677327 node_paths=PackedStringArray("area_2d")]
 script = ExtResource("1_mxo5m")
 area_2d = NodePath("Area2D")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1622558996]
-modulate = Color(0, 0, 0, 1)
-texture = ExtResource("1_jly3v")
-
 [node name="Area2D" type="Area2D" parent="." unique_id=1016743292]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=798378565]
 shape = SubResource("RectangleShape2D_fkfhe")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1881587117]
+texture = ExtResource("2_mxo5m")
