@@ -18,18 +18,26 @@ var sound_three = preload("res://Assets/Audio/thud.wav")
 @export var jump_detector: RayCast2D
 @export var wall_detector: RayCast2D
 @onready var animation_player = $AnimationPlayer
+var curr_anim = "Walk"
 
 var most_recent_tile: String = ""
 
 var freeze = false
 signal died
 
+
+func _ready():
+	var anim = animation_player.get_animation("Die")
+	if anim:
+		anim.loop_mode = Animation.LOOP_NONE
+
 func _physics_process(delta: float) -> void:
+	check_for_reset()
 	if freeze: return
 	var queue_jump = false
 	var new_fx = false
 	if is_on_floor():
-		animation_player.play("Walk")
+		animation_player.play(curr_anim)
 		if velocity.y >= 0:
 			velocity.y = 0
 	else:
@@ -72,6 +80,9 @@ func _physics_process(delta: float) -> void:
 	if queue_jump and not new_fx:
 		jump()
 
+func check_for_reset():
+	if global_position.x > 5000 or global_position.y > 5000:
+		die()
 
 func detect_tile_player_head(tilemap) -> String:
 	var local = tilemap.to_local(global_position - Vector2(0, 12))
@@ -125,6 +136,13 @@ func is_on_flat_ground() -> bool:
 	return abs(normal.x) < 0.05
 
 func die():
+	curr_anim = "Die"
+	if !animation_player.animation_finished.is_connected(finish_dying):
+		animation_player.animation_finished.connect(finish_dying)
+	animation_player.play(curr_anim)
 	audio_player.stream = sound_one
 	audio_player.play()
+	freeze = true
+
+func finish_dying(anim_name):
 	died.emit()

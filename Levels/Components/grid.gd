@@ -164,8 +164,9 @@ func remove_block_if_mouse_held():
 
 func update_block_preview_sprite():
 	if sprite_2d.texture is AtlasTexture:
-		if !selected_block:
+		if selected_index < 0:
 			return
+		selected_block = inventory[actions[selected_index].block_type]
 		sprite_2d.texture.atlas = blocks[BLOCKS[selected_block]["id"]]
 
 func update_block_preview_position():
