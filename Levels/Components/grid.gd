@@ -157,14 +157,14 @@ func place_block_if_mouse_held():
 		$AddBlockCooldown.start()
 
 func remove_block_if_mouse_held():
-	if right_mouse_held:
+	if right_mouse_held and OS.is_debug_build():
 		var local_pos = to_local(get_global_mouse_position())
 		var map_pos = local_to_map(local_pos)
 		set_cell(map_pos, -1)
 
 func update_block_preview_sprite():
 	if sprite_2d.texture is AtlasTexture:
-		if selected_index < 0:
+		if selected_index < 0 or len(actions) <= selected_index:
 			return
 		selected_block = inventory[actions[selected_index].block_type]
 		sprite_2d.texture.atlas = blocks[BLOCKS[selected_block]["id"]]
