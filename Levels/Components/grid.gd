@@ -72,6 +72,7 @@ var nourished_cells: Array[Vector2i] = []
 @export var actions: Array[BlockCount] = []
 var left_mouse_held = false
 var right_mouse_held = false
+var grass_death = preload("res://Levels/Components/grass_death.tscn")
 
 func _ready() -> void:
 	var dupe: Array[BlockCount] = []
@@ -192,6 +193,11 @@ func _on_tick():
 
 func _on_nourishment_tick():
 	for cell in get_used_cells().filter(func(cell): return !nourished_cells.has(cell) && _get_cell_property(cell, "type") == "grass"):
+		var death_node = grass_death.instantiate().duplicate()
+		var x = get_cell_atlas_coords(cell)
+		death_node.global_position = map_to_local(cell)
+		self.add_child(death_node)
+		death_node.set_variation(x)
 		set_cell(cell, -1)
 	nourished_cells = []
 
@@ -351,7 +357,7 @@ func check_remaining_block_count(block_override: String):
 		return found_item.count
 	else:
 		return -1
-		
+
 func decrement_block_count_for_active_block(block_override: String):
 	var block_num = ""
 	for thing in inventory:
