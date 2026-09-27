@@ -166,6 +166,16 @@ theme_type_variation = &"FlatButton"
 theme_override_icons/icon = ExtResource("6_272bh")
 metadata/_edit_use_anchors_ = true
 
+[node name="Label" type="Label" parent="CanvasLayer/UI/CameraToggle" unique_id=2008603316]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 16.0
+offset_right = 22.0
+offset_bottom = 24.0
+theme = ExtResource("3_7mycd")
+theme_override_font_sizes/font_size = 6
+text = "C"
+
 [node name="Restart Level" type="Button" parent="CanvasLayer/UI" unique_id=97356511]
 visible = false
 layout_mode = 0
@@ -176,6 +186,16 @@ offset_bottom = 88.0
 theme = ExtResource("3_7mycd")
 theme_type_variation = &"FlatButton"
 icon = ExtResource("8_kek77")
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/Restart Level" unique_id=1500817838]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 15.0
+offset_right = 23.0
+offset_bottom = 23.0
+theme = ExtResource("3_7mycd")
+theme_override_font_sizes/font_size = 6
+text = "R"
 
 [node name="Level Counter" type="Control" parent="CanvasLayer" unique_id=2049113397]
 layout_mode = 3
