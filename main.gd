@@ -80,7 +80,7 @@ func next_level():
 		level_index += 1
 		spawn_level()
 		if level_counter_label:
-			level_counter_label.text = "Level - {0}".format([str(level_index + 1)])
+			level_counter_label.text = "Level - {0}".format([str(level_index)])
 	else:
 		victory_ui.visible = true
 
