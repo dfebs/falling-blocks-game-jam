@@ -47,12 +47,6 @@ block_type = "Block 7"
 count = 1000
 metadata/_custom_type_script = "uid://fdtxatfqclnh"
 
-[sub_resource type="Resource" id="Resource_yvdf4"]
-script = ExtResource("4_e7dsd")
-block_type = "Block 8"
-count = 1000
-metadata/_custom_type_script = "uid://fdtxatfqclnh"
-
 [sub_resource type="Resource" id="Resource_h10vw"]
 script = ExtResource("4_e7dsd")
 block_type = "Block 9"
@@ -62,6 +56,7 @@ metadata/_custom_type_script = "uid://fdtxatfqclnh"
 [sub_resource type="Resource" id="Resource_0ghy5"]
 script = ExtResource("4_e7dsd")
 block_type = "Block 10"
+count = 1000
 metadata/_custom_type_script = "uid://fdtxatfqclnh"
 
 [node name="Level 11" type="Node2D" unique_id=1036830080]
@@ -76,4 +71,4 @@ position = Vector2(120, -24)
 
 [node name="Grid" parent="." unique_id=1100096991 instance=ExtResource("3_v1cl4")]
 tile_map_data = PackedByteArray("AAADAAAAAQABAAAAAAAEAAAAAQABAAAAAAAFAAAAAQABAAAAAAAGAAAAAQABAAAAAAAHAAAAAQABAAAAAAAAAAAAAQABAAAAAAABAAAAAQABAAAAAAAAAP//AQABAAAAAAAAAP7/AQABAAAAAAAAAP3/AQABAAAAAAAAAPz/AQABAAAAAAAAAPv/AQABAAAAAAABAP7/BQAAAAAAAAABAP3/BQAAAAAAAAABAPz/BQAAAAAAAAABAPv/BQAAAAAAAAACAPv/AQAAAAAAAAACAPz/AQAAAAAAAAACAP3/AQAAAAAAAAACAP7/AQAAAAAAAAACAP//AQAAAAAAAAACAAAAAQAAAAAAAAABAP//BAAAAAAAAAD//wAAAQAAAAAAAAD+/wAAAQAAAAAAAAD9/wAAAQAAAAAAAAD8/wAAAQAAAAAAAAD8////AQAAAAAAAAD8//7/AQAAAAAAAAD8//3/AQAAAAAAAAD8//z/AQAAAAAAAAD8//v/AQAAAAAAAAA=")
-actions = Array[ExtResource("4_e7dsd")]([SubResource("Resource_yc7iv"), SubResource("Resource_g20dq"), SubResource("Resource_4h0g7"), SubResource("Resource_6xejo"), SubResource("Resource_4oplf"), SubResource("Resource_2csm1"), SubResource("Resource_25qen"), SubResource("Resource_yvdf4"), SubResource("Resource_h10vw"), SubResource("Resource_0ghy5")])
+actions = Array[ExtResource("4_e7dsd")]([SubResource("Resource_yc7iv"), SubResource("Resource_g20dq"), SubResource("Resource_4h0g7"), SubResource("Resource_6xejo"), SubResource("Resource_4oplf"), SubResource("Resource_2csm1"), SubResource("Resource_25qen"), SubResource("Resource_h10vw"), SubResource("Resource_0ghy5")])

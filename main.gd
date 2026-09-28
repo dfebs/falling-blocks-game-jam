@@ -183,14 +183,14 @@ func _unhandled_input(event):
 	if event is InputEventMouseButton:
 		if event.is_pressed():
 			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-				if Input.is_key_pressed(KEY_SHIFT):
+				if event.keycode == KEY_SHIFT:
 					zoom()
 				else:
 					if curr_level and curr_level.grid:
 						curr_level.grid.change_selected_block()
 
 			if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-				if Input.is_key_pressed(KEY_SHIFT):
+				if event.keycode == KEY_SHIFT:
 					zoom(true)
 				else:
 					if curr_level and curr_level.grid:

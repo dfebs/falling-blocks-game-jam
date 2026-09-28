@@ -28,11 +28,11 @@ process_mode = 1
 script = ExtResource("1_advq7")
 
 [node name="Start" type="Marker2D" parent="." unique_id=620127984]
-position = Vector2(-90, -59)
+position = Vector2(-81, -16)
 
 [node name="Finish" parent="." unique_id=1237677327 instance=ExtResource("2_ntbb8")]
-position = Vector2(152, -200)
+position = Vector2(152, -104)
 
 [node name="Grid" parent="." unique_id=1100096991 instance=ExtResource("3_pm5x1")]
-tile_map_data = PackedByteArray("AAD7/wAAAQAAAAAAAAD6/wAAAQAAAAAAAAD5/wAAAQAAAAAAAAD4/wAAAQAAAAAAAAD3/wAAAQAAAAAAAAD3////AQAAAAAAAAD3//7/AQAAAAAAAAD3//3/AQAAAAAAAAD3//z/AQAAAAAAAAD3//v/AQAAAAAAAAD3//r/AQAAAAAAAAD8////AQAAAAAAAAD8//7/AQAAAAAAAAD8/wAAAQAAAAAAAAAIAPX/AQAAAAAAAAAJAPX/AQAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAD3/wAAAQAAAAAAAAD3/wEAAQAAAAAAAAD3/wIAAQAAAAAAAAD3/wMAAQAAAAAAAAD3/wQAAQAAAAAAAAD3/wUAAQAAAAAAAAD3/wYAAQAAAAAAAAD4/wYAAQAAAAAAAAD5/wYAAQAAAAAAAAD6/wYAAQAAAAAAAAD7/wYAAQAAAAAAAAD8/wQAAQAAAAAAAAD8/wUAAQAAAAAAAAD8/wYAAQAAAAAAAAAIAPv/AQAAAAAAAAAJAPv/AQAAAAAAAAA=")
 actions = Array[ExtResource("4_xjyhv")]([SubResource("Resource_25qen"), SubResource("Resource_yvdf4"), SubResource("Resource_advq7")])
