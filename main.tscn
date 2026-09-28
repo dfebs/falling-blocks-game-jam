@@ -211,7 +211,10 @@ stream = ExtResource("4_1bvp3")
 autoplay = true
 bus = &"Music Bus"
 
+[connection signal="pressed" from="CanvasLayer/Victory UI/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/StartMenu/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/CameraToggle" to="." method="_on_camera_toggle_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/Restart Level" to="." method="_on_restart_level_pressed"]
 [connection signal="finished" from="MusicAudioStreamPlayer" to="." method="_on_music_audio_stream_player_finished"]
+
+[editable path="CanvasLayer/Victory UI"]

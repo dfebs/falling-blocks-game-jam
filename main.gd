@@ -20,6 +20,7 @@ var menu_track = preload("res://Assets/Audio/menu_music.wav")
 var paused = false
 var started = false
 var dragging = false
+var shift_pressed = false
 @export var free_cam = true
 
 static var _scenes_dict
@@ -35,7 +36,8 @@ func _ready():
 		push_error("Start button missing")
 	start_button.pressed.connect(_start_pressed)
 	settings.close_button_pressed.connect(toggle_settings_menu)
-	
+	if !OS.is_debug_build():
+		level_index += 1
 
 func _process(delta):
 	if Input.is_action_pressed("Reload"):
@@ -131,6 +133,10 @@ func reset_thingy(selected_name, selected_index):
 	curr_level.grid.update_block_preview_sprite()
 
 func _unhandled_key_input(event):
+	if  event.pressed and event.keycode == KEY_SHIFT:
+		shift_pressed = true
+	elif not event.pressed and event.keycode == KEY_SHIFT:
+		shift_pressed = false
 	if event.is_action_pressed("Escape"):
 		toggle_pause()
 	if event.is_action_pressed("Mute"):
@@ -182,14 +188,14 @@ func _unhandled_input(event):
 	if event is InputEventMouseButton:
 		if event.is_pressed():
 			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-				if Input.is_key_pressed(KEY_SHIFT):
+				if shift_pressed:
 					zoom()
 				else:
 					if curr_level and curr_level.grid:
 						curr_level.grid.change_selected_block()
 
 			if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-				if Input.is_key_pressed(KEY_SHIFT):
+				if shift_pressed:
 					zoom(true)
 				else:
 					if curr_level and curr_level.grid:

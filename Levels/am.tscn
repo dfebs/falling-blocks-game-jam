@@ -1,0 +1,38 @@
+[gd_scene format=4 uid="uid://b7w53mukawc83"]
+
+[ext_resource type="Script" uid="uid://c0uhkrt1c1g14" path="res://Levels/base_level.gd" id="1_advq7"]
+[ext_resource type="PackedScene" uid="uid://dqdnvob5eohes" path="res://Levels/Components/finish.tscn" id="2_ntbb8"]
+[ext_resource type="PackedScene" uid="uid://cv00bfupxjhnk" path="res://Levels/Components/Grid.tscn" id="3_pm5x1"]
+[ext_resource type="Script" uid="uid://fdtxatfqclnh" path="res://Levels/Components/block_count.gd" id="4_xjyhv"]
+
+[sub_resource type="Resource" id="Resource_25qen"]
+script = ExtResource("4_xjyhv")
+block_type = "Block 1"
+count = 6
+metadata/_custom_type_script = "uid://fdtxatfqclnh"
+
+[sub_resource type="Resource" id="Resource_yvdf4"]
+script = ExtResource("4_xjyhv")
+block_type = "Block 9"
+count = 1
+metadata/_custom_type_script = "uid://fdtxatfqclnh"
+
+[sub_resource type="Resource" id="Resource_advq7"]
+script = ExtResource("4_xjyhv")
+block_type = "Block 7"
+count = 1
+metadata/_custom_type_script = "uid://fdtxatfqclnh"
+
+[node name="Level 11" type="Node2D" unique_id=1036830080]
+process_mode = 1
+script = ExtResource("1_advq7")
+
+[node name="Start" type="Marker2D" parent="." unique_id=620127984]
+position = Vector2(-81, -16)
+
+[node name="Finish" parent="." unique_id=1237677327 instance=ExtResource("2_ntbb8")]
+position = Vector2(152, -104)
+
+[node name="Grid" parent="." unique_id=1100096991 instance=ExtResource("3_pm5x1")]
+tile_map_data = PackedByteArray("AAD3/wAAAQAAAAAAAAD3/wEAAQAAAAAAAAD3/wIAAQAAAAAAAAD3/wMAAQAAAAAAAAD3/wQAAQAAAAAAAAD3/wUAAQAAAAAAAAD3/wYAAQAAAAAAAAD4/wYAAQAAAAAAAAD5/wYAAQAAAAAAAAD6/wYAAQAAAAAAAAD7/wYAAQAAAAAAAAD8/wQAAQAAAAAAAAD8/wUAAQAAAAAAAAD8/wYAAQAAAAAAAAAIAPv/AQAAAAAAAAAJAPv/AQAAAAAAAAA=")
+actions = Array[ExtResource("4_xjyhv")]([SubResource("Resource_25qen"), SubResource("Resource_yvdf4"), SubResource("Resource_advq7")])
