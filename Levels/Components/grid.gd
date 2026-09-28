@@ -42,7 +42,7 @@ const BLOCKS = {
 		"variations": 1
 	},
 
-	"boost right": {
+	"speed boost": {
 		"id": 8,
 		"variations": 1
 	},
@@ -62,7 +62,7 @@ var inventory = {
 	"Block 6": "water",
 	"Block 7": "boost up",
 	"Block 8": "boost left",
-	"Block 9": "boost right",
+	"Block 9": "speed boost",
 	"Block 10": "delete",
 }
 

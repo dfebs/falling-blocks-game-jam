@@ -258,3 +258,9 @@ func _on_settings_button_pressed():
 
 func _on_restart_level_pressed():
 	reload_current_level()
+
+
+func _on_sandbox_pressed():
+	victory_ui.visible = false
+	level_index = -1
+	next_level()
