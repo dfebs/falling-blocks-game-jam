@@ -13,7 +13,7 @@ metadata/_custom_type_script = "uid://fdtxatfqclnh"
 
 [sub_resource type="Resource" id="Resource_yvdf4"]
 script = ExtResource("4_hytme")
-block_type = "Block 8"
+block_type = "Block 9"
 count = 1
 metadata/_custom_type_script = "uid://fdtxatfqclnh"
 
