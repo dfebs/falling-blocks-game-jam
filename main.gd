@@ -130,6 +130,9 @@ func reset_thingy(selected_name, selected_index):
 		curr_level.grid.selected_block = selected_name
 	if selected_index >= 0:
 		curr_level.grid.selected_index = selected_index
+	else:
+		selected_index = 0
+		curr_level.grid.selected_index = selected_index
 	curr_level.grid.update_block_preview_sprite()
 
 func _unhandled_key_input(event):
