@@ -130,6 +130,9 @@ func reset_thingy(selected_name, selected_index):
 		curr_level.grid.selected_block = selected_name
 	if selected_index >= 0:
 		curr_level.grid.selected_index = selected_index
+	else:
+		selected_index = 0
+		curr_level.grid.selected_index = selected_index
 	curr_level.grid.update_block_preview_sprite()
 
 func _unhandled_key_input(event):
@@ -258,3 +261,9 @@ func _on_settings_button_pressed():
 
 func _on_restart_level_pressed():
 	reload_current_level()
+
+
+func _on_sandbox_pressed():
+	victory_ui.visible = false
+	level_index = -1
+	next_level()

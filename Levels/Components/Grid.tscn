@@ -130,31 +130,37 @@ sources/4 = SubResource("TileSetAtlasSource_6xejo")
 [sub_resource type="Resource" id="Resource_yc7iv"]
 script = ExtResource("9_g20dq")
 block_type = "Block 1"
+count = 1000
 metadata/_custom_type_script = "uid://fdtxatfqclnh"
 
 [sub_resource type="Resource" id="Resource_g20dq"]
 script = ExtResource("9_g20dq")
 block_type = "Block 2"
+count = 1000
 metadata/_custom_type_script = "uid://fdtxatfqclnh"
 
 [sub_resource type="Resource" id="Resource_4h0g7"]
 script = ExtResource("9_g20dq")
 block_type = "Block 3"
+count = 1000
 metadata/_custom_type_script = "uid://fdtxatfqclnh"
 
 [sub_resource type="Resource" id="Resource_6xejo"]
 script = ExtResource("9_g20dq")
 block_type = "Block 4"
+count = 1000
 metadata/_custom_type_script = "uid://fdtxatfqclnh"
 
 [sub_resource type="Resource" id="Resource_4oplf"]
 script = ExtResource("9_g20dq")
 block_type = "Block 5"
+count = 1000
 metadata/_custom_type_script = "uid://fdtxatfqclnh"
 
 [sub_resource type="Resource" id="Resource_2csm1"]
 script = ExtResource("9_g20dq")
 block_type = "Block 6"
+count = 1000
 metadata/_custom_type_script = "uid://fdtxatfqclnh"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_djvyk"]

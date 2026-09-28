@@ -212,6 +212,7 @@ autoplay = true
 bus = &"Music Bus"
 
 [connection signal="pressed" from="CanvasLayer/Victory UI/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Victory UI/Sandbox" to="." method="_on_sandbox_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/StartMenu/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/CameraToggle" to="." method="_on_camera_toggle_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/Restart Level" to="." method="_on_restart_level_pressed"]
